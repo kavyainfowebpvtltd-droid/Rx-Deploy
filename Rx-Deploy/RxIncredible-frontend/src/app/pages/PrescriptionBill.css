@@ -1,0 +1,247 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
+.prescription-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background:
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.16), transparent 28%),
+    linear-gradient(160deg, #edf5ff 0%, #f8fbff 48%, #eef6ff 100%);
+  font-family: "Poppins", sans-serif;
+}
+
+.prescription-shell {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.prescription-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.hero-kicker {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2563eb;
+}
+
+.hero-title {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.1;
+  color: #123b88;
+}
+
+.hero-copy {
+  max-width: 620px;
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5f738a;
+}
+
+.download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 16px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #60a5fa 100%);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 18px 35px rgba(37, 99, 235, 0.24);
+  cursor: pointer;
+}
+
+.download-button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.button-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.spin {
+  animation: rotate 1s linear infinite;
+}
+
+.preview-card {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 28px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.preview-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
+  color: #1d4ed8;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.preview-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: #5f738a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.preview-panel {
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid #dbeafe;
+}
+
+.panel-label {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #7a8da6;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.panel-value {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #183b67;
+}
+
+.preview-table {
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+}
+
+.preview-row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1.8fr) 120px 140px 140px;
+  gap: 12px;
+  align-items: center;
+  padding: 16px 18px;
+  color: #2a3e55;
+  font-size: 14px;
+}
+
+.preview-row:nth-child(odd) {
+  background: #f8fbff;
+}
+
+.preview-row:nth-child(even) {
+  background: #ffffff;
+}
+
+.preview-row span:nth-child(1),
+.preview-row span:nth-child(3) {
+  text-align: center;
+}
+
+.preview-row span:nth-child(4),
+.preview-row span:nth-child(5) {
+  text-align: right;
+}
+
+.preview-summary {
+  width: min(100%, 360px);
+  margin: 22px 0 0 auto;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f6faff 100%);
+  border: 1px solid #dbeafe;
+}
+
+.preview-summary div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  color: #5f738a;
+  font-size: 14px;
+}
+
+.preview-summary strong {
+  color: #173b68;
+}
+
+.preview-total {
+  margin-top: 8px;
+  border-top: 1px solid #dbeafe;
+  color: #123b88;
+  font-weight: 700;
+}
+
+.preview-total strong {
+  font-size: 18px;
+  color: #1d4ed8;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .prescription-hero,
+  .preview-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-row {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  .preview-row span:nth-child(3),
+  .preview-row span:nth-child(4),
+  .preview-row span:nth-child(5) {
+    text-align: left;
+  }
+}
