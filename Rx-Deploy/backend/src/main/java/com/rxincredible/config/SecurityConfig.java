@@ -33,7 +33,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class SecurityConfig {
 
-   @Value("${cors.allowed-origins:http://97.74.87.179:3000}")
+   @Value("${cors.allowed-origins:https://rxincredible.com,https://www.rxincredible.com,http://localhost:3000}")
     private String allowedOrigins;
 
     private final CustomUserDetailsService customUserDetailsService;

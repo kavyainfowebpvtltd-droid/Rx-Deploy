@@ -14,7 +14,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://97.74.87.179:3000")
+                        .allowedOrigins("https://rxincredible.com",
+					"https://www.rxincredible.com",
+					"http://localhost:3000"
+					)
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowCredentials(true);
