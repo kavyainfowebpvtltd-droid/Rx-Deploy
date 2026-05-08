@@ -15,6 +15,15 @@ pipeline {
             }
         }
 
+        stage('Backup Stable Images') {
+            steps {
+                sh '''
+                docker tag rx-deploy-backend:latest rx-deploy-backend:stable || true
+                docker tag rx-deploy-frontend:latest rx-deploy-frontend:stable || true
+                '''
+            }
+        }
+
         stage('Stop Containers') {
             steps {
                 dir("${PROJECT_DIR}") {
@@ -39,6 +48,24 @@ pipeline {
             }
         }
 
+        stage('Health Check') {
+            steps {
+                script {
+
+                    sleep 30
+
+                    def backendStatus = sh(
+                        script: "curl -f http://127.0.0.1:8081 || exit 1",
+                        returnStatus: true
+                    )
+
+                    if (backendStatus != 0) {
+                        error("Deployment failed! Health check failed.")
+                    }
+                }
+            }
+        }
+
         stage('Check Containers') {
             steps {
                 sh 'docker ps'
@@ -53,12 +80,26 @@ pipeline {
     }
 
     post {
+
         success {
-            echo 'Deployment Successful 🚀'
+            echo 'Deployment Successful'
         }
 
         failure {
-            echo 'Deployment Failed ❌'
+
+            echo 'Deployment Failed'
+            echo 'Rollback Started'
+
+            sh '''
+            docker tag rx-deploy-backend:stable rx-deploy-backend:latest || true
+            docker tag rx-deploy-frontend:stable rx-deploy-frontend:latest || true
+            '''
+
+            dir("${PROJECT_DIR}") {
+                sh 'docker compose up -d'
+            }
+
+            echo 'Rollback Completed'
         }
     }
 }
