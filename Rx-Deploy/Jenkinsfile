@@ -1,105 +1,113 @@
 pipeline {
-    agent any
+agent any
 
-    environment {
-        PROJECT_DIR = "/root/Rx-Deploy/Rx-Deploy"
-    }
+```
+environment {
+    PROJECT_DIR = "/root/Rx-Deploy/Rx-Deploy"
+}
 
-    stages {
+stages {
 
-        stage('Pull Latest Code') {
-            steps {
-                dir("${PROJECT_DIR}") {
-                    sh 'git pull origin main'
-                }
-            }
-        }
-
-        stage('Backup Stable Images') {
-            steps {
-                sh '''
-                docker tag rx-deploy-backend:latest rx-deploy-backend:stable || true
-                docker tag rx-deploy-frontend:latest rx-deploy-frontend:stable || true
-                '''
-            }
-        }
-
-        stage('Stop Containers') {
-            steps {
-                dir("${PROJECT_DIR}") {
-                    sh 'docker compose down'
-                }
-            }
-        }
-
-        stage('Build Fresh Images') {
-            steps {
-                dir("${PROJECT_DIR}") {
-                    sh 'docker compose build --no-cache'
-                }
-            }
-        }
-
-        stage('Start Containers') {
-            steps {
-                dir("${PROJECT_DIR}") {
-                    sh 'docker compose up -d'
-                }
-            }
-        }
-
-        stage('Health Check') {
-            steps {
-                script {
-
-                    sleep 30
-
-                    def backendStatus = sh(
-                        script: "curl -f http://127.0.0.1:8081/health || exit 1",
-                        returnStatus: true
-                    )
-
-                    if (backendStatus != 0) {
-                        error("Deployment failed! Health check failed.")
-                    }
-                }
-            }
-        }
-
-        stage('Check Containers') {
-            steps {
-                sh 'docker ps'
-            }
-        }
-
-        stage('Backend Logs') {
-            steps {
-                sh 'docker logs --tail 50 rx_backend || true'
+    stage('Pull Latest Code') {
+        steps {
+            dir("${PROJECT_DIR}") {
+                sh 'git pull origin main'
             }
         }
     }
 
-    post {
-
-        success {
-            echo 'Deployment Successful'
-        }
-
-        failure {
-
-            echo 'Deployment Failed'
-            echo 'Rollback Started'
-
+    stage('Backup Stable Images') {
+        steps {
             sh '''
-            docker tag rx-deploy-backend:stable rx-deploy-backend:latest || true
-            docker tag rx-deploy-frontend:stable rx-deploy-frontend:latest || true
+            docker tag rx-deploy-backend:latest rx-deploy-backend:stable || true
+            docker tag rx-deploy-frontend:latest rx-deploy-frontend:stable || true
             '''
+        }
+    }
 
+    stage('Stop Containers') {
+        steps {
+            dir("${PROJECT_DIR}") {
+                sh 'docker compose down'
+            }
+        }
+    }
+
+    stage('Build Fresh Images') {
+        steps {
+            dir("${PROJECT_DIR}") {
+                sh 'docker compose build --no-cache'
+            }
+        }
+    }
+
+    stage('Start Containers') {
+        steps {
             dir("${PROJECT_DIR}") {
                 sh 'docker compose up -d'
             }
+        }
+    }
 
-            echo 'Rollback Completed'
+    stage('Health Check') {
+        steps {
+            script {
+
+                echo 'Waiting for backend startup...'
+
+                sleep 20
+
+                def backendStatus = sh(
+                    script: '''
+                    curl -I http://127.0.0.1:8081 > /dev/null 2>&1
+                    ''',
+                    returnStatus: true
+                )
+
+                if (backendStatus != 0) {
+                    error("Deployment failed! Health check failed.")
+                }
+            }
+        }
+    }
+
+    stage('Check Containers') {
+        steps {
+            sh 'docker ps'
+        }
+    }
+
+    stage('Backend Logs') {
+        steps {
+            sh 'docker logs --tail 50 rx_backend || true'
         }
     }
 }
+
+post {
+
+    success {
+        echo 'Deployment Successful '
+    }
+
+    failure {
+
+        echo 'Deployment Failed '
+        echo 'Rollback Started '
+
+        sh '''
+        docker tag rx-deploy-backend:stable rx-deploy-backend:latest || true
+        docker tag rx-deploy-frontend:stable rx-deploy-frontend:latest || true
+        '''
+
+        dir("${PROJECT_DIR}") {
+            sh 'docker compose up -d'
+        }
+
+        echo 'Rollback Completed '
+    }
+}
+```
+
+}
+
