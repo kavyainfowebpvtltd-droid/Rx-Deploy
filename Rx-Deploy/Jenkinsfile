@@ -1,0 +1,64 @@
+pipeline {
+    agent any
+
+    environment {
+        PROJECT_DIR = "/root/Rx-Deploy/Rx-Deploy"
+    }
+
+    stages {
+
+        stage('Pull Latest Code') {
+            steps {
+                dir("${PROJECT_DIR}") {
+                    sh 'git pull origin main'
+                }
+            }
+        }
+
+        stage('Stop Containers') {
+            steps {
+                dir("${PROJECT_DIR}") {
+                    sh 'docker compose down'
+                }
+            }
+        }
+
+        stage('Build Fresh Images') {
+            steps {
+                dir("${PROJECT_DIR}") {
+                    sh 'docker compose build --no-cache'
+                }
+            }
+        }
+
+        stage('Start Containers') {
+            steps {
+                dir("${PROJECT_DIR}") {
+                    sh 'docker compose up -d'
+                }
+            }
+        }
+
+        stage('Check Containers') {
+            steps {
+                sh 'docker ps'
+            }
+        }
+
+        stage('Backend Logs') {
+            steps {
+                sh 'docker logs --tail 50 rx_backend || true'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment Successful 🚀'
+        }
+
+        failure {
+            echo 'Deployment Failed ❌'
+        }
+    }
+}
