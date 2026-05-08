@@ -680,7 +680,7 @@ export default function UserProfile() {
               </div>
 
               {/* Quick Actions */}
-              <div className="pb-6">
+              {/* <div className="pb-6">
                 <h3 className="text-lg font-semibold text-[#1E3A8A] mb-4 flex items-center gap-2">
                   <MapPin className="w-5 h-5" />
                   Quick Actions
@@ -705,7 +705,7 @@ export default function UserProfile() {
                     View My Orders
                   </button>
                 </div>
-              </div>
+              </div> */}
 
               {/* Submit Button */}
               <div className="flex gap-4 pt-4">
