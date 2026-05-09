@@ -146,10 +146,10 @@ public class DataInitializer {
             List<MedicalService> services = List.of(
                     createService("Prescription Analysis",
                             "Upload your prescription and get detailed analysis from expert doctors",
-                            new BigDecimal("500.00"), "prescription"),
+                            new BigDecimal("1.00"), "prescription"),
                     createService("Second Opinion",
                             "Get a second medical opinion from certified healthcare professionals",
-                            new BigDecimal("5000.00"), "consultation"),
+                            new BigDecimal("1.00"), "consultation"),
                     createService("Online Pharmacy", "Order medicines online with instant quotations",
                             new BigDecimal("0.00"), "pharmacy"));
             serviceRepository.saveAll(services);
@@ -191,7 +191,7 @@ public class DataInitializer {
                     // Fix Prescription Analysis orders (was 25, should be 500)
                     if (currentAmount.compareTo(new BigDecimal("25.00")) == 0 ||
                             currentAmount.compareTo(new BigDecimal("25")) == 0) {
-                        order.setTotalAmount(new BigDecimal("500.00"));
+                        order.setTotalAmount(new BigDecimal("1.00"));
                         System.out.println("=== Fixed order " + order.getOrderNumber() + ": amount " + currentAmount
                                 + " -> 500.00 ===");
                         orderFixed = true;
