@@ -19,12 +19,12 @@ export const getServicePricing = (country) => {
   return {
     "prescription-analysis": {
       name: "Prescription Analysis",
-      price: isIndia ? 500 : 10,
+      price: isIndia ? 1 : 10,
       description: "Detailed analysis of your prescription by expert pharmacists",
     },
     "second-opinion": {
       name: "Second Opinion",
-      price: isIndia ? 5000 : 100,
+      price: isIndia ? 1 : 100,
       description:
         "Get a second medical opinion from certified healthcare professionals",
     },
