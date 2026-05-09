@@ -146,10 +146,10 @@ public class DataInitializer {
             List<MedicalService> services = List.of(
                     createService("Prescription Analysis",
                             "Upload your prescription and get detailed analysis from expert doctors",
-                            new BigDecimal("500.00"), "prescription"),
+                            new BigDecimal("1.00"), "prescription"),
                     createService("Second Opinion",
                             "Get a second medical opinion from certified healthcare professionals",
-                            new BigDecimal("5000.00"), "consultation"),
+                            new BigDecimal("1.00"), "consultation"),
                     createService("Online Pharmacy", "Order medicines online with instant quotations",
                             new BigDecimal("0.00"), "pharmacy"));
             serviceRepository.saveAll(services);
