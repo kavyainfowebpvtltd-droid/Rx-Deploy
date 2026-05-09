@@ -206,10 +206,10 @@ public class OrderService {
         boolean isIndia = CurrencyUtil.isIndia(country);
         return switch (serviceType) {
             case "PRESCRIPTION_ANALYSIS" -> isIndia
-                    ? applyIndiaGst(findActiveServicePrice("prescription", new BigDecimal("1.00")))
+                    ? applyIndiaGst(findActiveServicePrice("prescription", new BigDecimal("500.00")))
                     : new BigDecimal("10.00");
             case "SECOND_OPINION" -> isIndia
-                    ? applyIndiaGst(findActiveServicePrice("consultation", new BigDecimal("1.00")))
+                    ? applyIndiaGst(findActiveServicePrice("consultation", new BigDecimal("5000.00")))
                     : new BigDecimal("100.00");
             default -> null;
         };
