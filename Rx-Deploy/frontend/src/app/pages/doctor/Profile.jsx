@@ -20,7 +20,6 @@ import {
 import Swal from "sweetalert2";
 import { Navbar } from "../../components/Navbar.jsx";
 import { Footer } from "../../components/Footer.jsx";
-import { CustomSelect } from "../../components/CustomSelect.jsx";
 import { authAPI, userAPI } from "@/services/api.js";
 import { buildApiUrl, buildBackendFileUrl } from "@/config/api.js";
 import {
@@ -33,65 +32,6 @@ const NAME_PATTERN = /^[a-zA-Z]+(?:[a-zA-Z\s.'-]*[a-zA-Z])?$/;
 const ADDRESS_PATTERN = /^[a-zA-Z0-9\s,./#-]+$/;
 const QUALIFICATION_PATTERN = /^[a-zA-Z0-9\s,./()&-]+$/;
 const LICENSE_PATTERN = /^[a-zA-Z0-9/-]+$/;
-const GENDER_OPTIONS = [
-  { value: "", label: "Select Gender" },
-  { value: "MALE", label: "Male" },
-  { value: "FEMALE", label: "Female" },
-  { value: "OTHER", label: "Other" },
-];
-const DOCTOR_SPECIALIZATION_OPTIONS = [
-  { value: "", label: "Select Specialization" },
-  { value: "General Medicine", label: "General Medicine" },
-  { value: "General Physician", label: "General Physician" },
-  { value: "Cardiology", label: "Cardiology" },
-  { value: "Neurology", label: "Neurology" },
-  { value: "Orthopedics", label: "Orthopedics" },
-  { value: "Pediatrics", label: "Pediatrics" },
-  { value: "Dermatology", label: "Dermatology" },
-  { value: "Ophthalmology", label: "Ophthalmology" },
-  { value: "ENT", label: "ENT (Ear, Nose, Throat)" },
-  { value: "Gastroenterology", label: "Gastroenterology" },
-  { value: "Pulmonology", label: "Pulmonology" },
-  { value: "Endocrinology", label: "Endocrinology" },
-  { value: "Nephrology", label: "Nephrology" },
-  { value: "Urology", label: "Urology" },
-  { value: "Gynecology", label: "Gynecology" },
-  { value: "Psychiatry", label: "Psychiatry" },
-  { value: "Oncology", label: "Oncology" },
-  { value: "Radiology", label: "Radiology" },
-  { value: "Anesthesiology", label: "Anesthesiology" },
-  { value: "Pathology", label: "Pathology" },
-  { value: "Emergency Medicine", label: "Emergency Medicine" },
-  { value: "Sports Medicine", label: "Sports Medicine" },
-  { value: "Rheumatology", label: "Rheumatology" },
-  { value: "Geriatrics", label: "Geriatrics" },
-  { value: "Family Medicine", label: "Family Medicine" },
-  { value: "Cosmetic Surgery", label: "Cosmetic Surgery" },
-  { value: "Plastic Surgery", label: "Plastic Surgery" },
-  { value: "Vascular Surgery", label: "Vascular Surgery" },
-  { value: "Cardiac Surgery", label: "Cardiac Surgery" },
-  { value: "Neuro Surgery", label: "Neuro Surgery" },
-  { value: "Pediatric Surgery", label: "Pediatric Surgery" },
-  { value: "Gastrointestinal Surgery", label: "Gastrointestinal Surgery" },
-  { value: "Obstetrics", label: "Obstetrics" },
-  { value: "Neonatology", label: "Neonatology" },
-  { value: "Immunology", label: "Immunology" },
-  { value: "Infectious Disease", label: "Infectious Disease" },
-  { value: "Internal Medicine", label: "Internal Medicine" },
-  { value: "Ayurveda", label: "Ayurveda" },
-  { value: "Homeopathy", label: "Homeopathy" },
-  { value: "Unani", label: "Unani" },
-  { value: "Yoga", label: "Yoga" },
-  { value: "Physiotherapy", label: "Physiotherapy" },
-  { value: "Dentistry", label: "Dentistry" },
-  { value: "Dental Surgery", label: "Dental Surgery" },
-  { value: "Orthodontics", label: "Orthodontics" },
-  { value: "Oral Surgery", label: "Oral Surgery" },
-  { value: "Periodontics", label: "Periodontics" },
-  { value: "Endodontics", label: "Endodontics" },
-  { value: "Prosthodontics", label: "Prosthodontics" },
-  { value: "Other", label: "Other" },
-];
 
 const sanitizeByPattern = (value, pattern) =>
   [...(value || "")]
@@ -935,16 +875,20 @@ export default function DoctorProfile() {
                   {/* Gender */}
                   <div>
                     <label className="block text-gray-700 mb-2">Gender</label>
-                    <CustomSelect
+                    <select
+                      name="gender"
                       value={formData.gender}
-                      onChange={(value) =>
-                        handleChange({ target: { name: "gender", value } })
-                      }
-                      buttonClassName={`py-3 ${
-                        errors.gender ? "!border-red-500" : ""
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all duration-200 ${
+                        errors.gender ? "border-red-500" : "border-gray-300"
                       }`}
-                      options={GENDER_OPTIONS}
-                    />
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="MALE">Male</option>
+                      <option value="FEMALE">Female</option>
+                      <option value="OTHER">Other</option>
+                    </select>
                     {errors.gender && (
                       <p className="mt-1 text-sm text-red-600">{errors.gender}</p>
                     )}
@@ -965,19 +909,79 @@ export default function DoctorProfile() {
                     <label className="block text-gray-700 mb-2">
                       Specialization
                     </label>
-                    <CustomSelect
+                    <select
+                      name="specialization"
                       value={formData.specialization}
-                      onChange={(value) =>
-                        handleChange({
-                          target: { name: "specialization", value },
-                        })
-                      }
-                      buttonClassName={`py-3 ${
-                        errors.specialization ? "!border-red-500" : ""
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all duration-200 ${
+                        errors.specialization ? "border-red-500" : "border-gray-300"
                       }`}
-                      menuClassName="max-h-72"
-                      options={DOCTOR_SPECIALIZATION_OPTIONS}
-                    />
+                    >
+                      <option value="">Select Specialization</option>
+                      <option value="General Medicine">General Medicine</option>
+                      <option value="General Physician">
+                        General Physician
+                      </option>
+                      <option value="Cardiology">Cardiology</option>
+                      <option value="Neurology">Neurology</option>
+                      <option value="Orthopedics">Orthopedics</option>
+                      <option value="Pediatrics">Pediatrics</option>
+                      <option value="Dermatology">Dermatology</option>
+                      <option value="Ophthalmology">Ophthalmology</option>
+                      <option value="ENT">ENT (Ear, Nose, Throat)</option>
+                      <option value="Gastroenterology">Gastroenterology</option>
+                      <option value="Pulmonology">Pulmonology</option>
+                      <option value="Endocrinology">Endocrinology</option>
+                      <option value="Nephrology">Nephrology</option>
+                      <option value="Urology">Urology</option>
+                      <option value="Gynecology">Gynecology</option>
+                      <option value="Psychiatry">Psychiatry</option>
+                      <option value="Oncology">Oncology</option>
+                      <option value="Radiology">Radiology</option>
+                      <option value="Anesthesiology">Anesthesiology</option>
+                      <option value="Pathology">Pathology</option>
+                      <option value="Emergency Medicine">
+                        Emergency Medicine
+                      </option>
+                      <option value="Sports Medicine">Sports Medicine</option>
+                      <option value="Rheumatology">Rheumatology</option>
+                      <option value="Geriatrics">Geriatrics</option>
+                      <option value="Family Medicine">Family Medicine</option>
+                      <option value="Cosmetic Surgery">Cosmetic Surgery</option>
+                      <option value="Plastic Surgery">Plastic Surgery</option>
+                      <option value="Vascular Surgery">Vascular Surgery</option>
+                      <option value="Cardiac Surgery">Cardiac Surgery</option>
+                      <option value="Neuro Surgery">Neuro Surgery</option>
+                      <option value="Pediatric Surgery">
+                        Pediatric Surgery
+                      </option>
+                      <option value="Gastrointestinal Surgery">
+                        Gastrointestinal Surgery
+                      </option>
+                      <option value="Obstetrics">Obstetrics</option>
+                      <option value="Neonatology">Neonatology</option>
+                      <option value="Immunology">Immunology</option>
+                      <option value="Infectious Disease">
+                        Infectious Disease
+                      </option>
+                      <option value="Internal Medicine">
+                        Internal Medicine
+                      </option>
+                      <option value="Ayurveda">Ayurveda</option>
+                      <option value="Homeopathy">Homeopathy</option>
+                      <option value="Unani">Unani</option>
+                      <option value="Yoga">Yoga</option>
+                      <option value="Physiotherapy">Physiotherapy</option>
+                      <option value="Dentistry">Dentistry</option>
+                      <option value="Dental Surgery">Dental Surgery</option>
+                      <option value="Orthodontics">Orthodontics</option>
+                      <option value="Oral Surgery">Oral Surgery</option>
+                      <option value="Periodontics">Periodontics</option>
+                      <option value="Endodontics">Endodontics</option>
+                      <option value="Prosthodontics">Prosthodontics</option>
+                      <option value="Other">Other</option>
+                    </select>
                     {errors.specialization && (
                       <p className="mt-1 text-sm text-red-600">{errors.specialization}</p>
                     )}
@@ -1334,3 +1338,4 @@ export default function DoctorProfile() {
     </>
   );
 }
+

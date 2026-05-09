@@ -1,10 +1,10 @@
+
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { Plus, Trash2, Send, Download, IndianRupee, FileText, Calendar, User, Eye, FolderOpen, Receipt } from "lucide-react";
 import { Navbar } from "../../components/Navbar.jsx";
 import { Footer } from "../../components/Footer.jsx";
-import { CustomSelect } from "../../components/CustomSelect.jsx";
 import Swal from "sweetalert2";
 import { orderAPI, quotationAPI, documentAPI, getStoredUser } from "@/services/api.js";
 import { DocumentsModal, Header } from "./QuotationComponents.jsx";
@@ -20,17 +20,6 @@ import { formatReportId } from "@/app/utils/reportId.js";
 
 const MEDICINE_TEXT_PATTERN = /^[a-zA-Z0-9][a-zA-Z0-9\s()+,./%-]*$/;
 const DOSAGE_PATTERN = /^[a-zA-Z0-9][a-zA-Z0-9\s()+,./%-]*$/;
-const ACCOUNTANT_SERVICE_OPTIONS = [
-  { value: "ONLINE_PHARMACY", label: "Online Pharmacy" },
-  { value: "PRESCRIPTION_ANALYSIS", label: "Prescription Analysis" },
-  { value: "SECOND_OPINION", label: "Second Opinion" },
-];
-const GENERAL_SERVICE_OPTIONS = [
-  { value: "General", label: "General" },
-  { value: "PRESCRIPTION_ANALYSIS", label: "Prescription Analysis" },
-  { value: "ONLINE_PHARMACY", label: "Online Pharmacy" },
-  { value: "SECOND_OPINION", label: "Second Opinion" },
-];
 
 const createEmptyMedicine = () => ({
   name: "",
@@ -204,8 +193,6 @@ export default function AccountantQuotation() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedUserDocuments, setSelectedUserDocuments] = useState([]);
   const [showDocumentsModal, setShowDocumentsModal] = useState(false);
-  const [newQuotationServiceType, setNewQuotationServiceType] =
-    useState("ONLINE_PHARMACY");
 
   const showError = (text, title = "Error") =>
     Swal.fire({ icon: "error", title, text, confirmButtonColor: "#2563EB" });
@@ -607,8 +594,6 @@ export default function AccountantQuotation() {
   };
 
   const userRole = useMemo(() => getUserRole(), []);
-  const newQuotationServiceOptions =
-    userRole === "ACCOUNTANT" ? ACCOUNTANT_SERVICE_OPTIONS : GENERAL_SERVICE_OPTIONS;
   const orderData = useMemo(() => buildOrderData(order, documents), [documents, order]);
   const summary = useMemo(() => {
     const country = orderData?.deliveryCountry || "India";
@@ -1164,14 +1149,22 @@ export default function AccountantQuotation() {
                       <div className="flex items-start gap-2"><Calendar className="w-4 h-4 mt-1 text-gray-400" /><div><p className="text-sm text-gray-500">Phone</p><input type="tel" placeholder="Enter phone" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB]" /></div></div>
                       <div className="pt-3 border-t border-gray-200">
                         <p className="text-sm text-gray-500 mb-1">Service Type</p>
-                        <CustomSelect
-                          value={newQuotationServiceType}
-                          onChange={setNewQuotationServiceType}
-                          buttonClassName="rounded-lg px-3 py-2"
-                          menuClassName="rounded-xl"
-                          optionClassName="rounded-lg px-3 py-2.5"
-                          options={newQuotationServiceOptions}
-                        />
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB]">
+                          {userRole === 'ACCOUNTANT' ? (
+                            <>
+                              <option value="ONLINE_PHARMACY">Online Pharmacy</option>
+                              <option value="PRESCRIPTION_ANALYSIS">Prescription Analysis</option>
+                              <option value="SECOND_OPINION">Second Opinion</option>
+                            </>
+                          ) : (
+                            <>
+                              <option value="General">General</option>
+                              <option value="PRESCRIPTION_ANALYSIS">Prescription Analysis</option>
+                              <option value="ONLINE_PHARMACY">Online Pharmacy</option>
+                              <option value="SECOND_OPINION">Second Opinion</option>
+                            </>
+                          )}
+                        </select>
                       </div>
                     </>
                   ) : (
@@ -1388,3 +1381,4 @@ export default function AccountantQuotation() {
     </>
   );
 }
+
