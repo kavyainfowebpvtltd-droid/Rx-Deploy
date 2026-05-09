@@ -219,6 +219,21 @@
     line-height: 1.5;
   }
 
+  select {
+    background-color: #ffffff;
+    color: #1E3A8A;
+  }
+
+  select option {
+    background-color: #ffffff;
+    color: #1E3A8A;
+  }
+
+  select option:checked {
+    background-color: #F8FAFC;
+    color: #1E3A8A;
+  }
+
   table {
     border-collapse: collapse;
   }

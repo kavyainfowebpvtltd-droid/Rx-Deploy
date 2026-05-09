@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { Navbar } from "../components/Navbar.jsx";
 import { Footer } from "../components/Footer.jsx";
 import { CountryPicker } from "../components/CountryPicker.jsx";
+import { CustomSelect } from "../components/CustomSelect.jsx";
 import logo from "@/assets/logo.jpeg";
 import { userAPI } from "@/services/api.js";
 import {
@@ -19,6 +20,13 @@ import {
   validatePassword,
 } from "@/app/utils/authValidation.js";
 import { PHONE_COUNTRIES } from "@/app/utils/phoneValidation.js";
+
+const GENDER_OPTIONS = [
+  { value: "", label: "Select gender" },
+  { value: "MALE", label: "Male" },
+  { value: "FEMALE", label: "Female" },
+  { value: "OTHER", label: "Other" },
+];
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -342,18 +350,16 @@ export default function Register() {
               {/* Gender */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">Gender</label>
-                <select
-                  name="gender"
+                <CustomSelect
                   value={formData.gender}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-2.5 border rounded-xl bg-slate-50/70 text-gray-900 shadow-sm outline-none hover:border-[#93C5FD] focus:bg-white focus:ring-2 focus:ring-[#2563EB]/25 focus:border-[#2563EB] transition-all duration-200 ${errors.gender ? "border-red-500" : "border-gray-300"}`}
-                  required
-                >
-                  <option value="">Select gender</option>
-                  <option value="MALE">Male</option>
-                  <option value="FEMALE">Female</option>
-                  <option value="OTHER">Other</option>
-                </select>
+                  onChange={(value) =>
+                    handleChange({ target: { name: "gender", value } })
+                  }
+                  buttonClassName={`py-2.5 ${
+                    errors.gender ? "!border-red-500" : ""
+                  }`}
+                  options={GENDER_OPTIONS}
+                />
                 {errors.gender && (
                   <p className="mt-1 text-sm text-red-500">{errors.gender}</p>
                 )}

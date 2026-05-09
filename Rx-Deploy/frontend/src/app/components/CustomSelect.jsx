@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
 
+const DEFAULT_SELECTED_OPTION_CLASS =
+  "bg-gray-100 text-gray-900 ring-1 ring-inset ring-gray-200";
+
 export function CustomSelect({
   value,
   onChange,
@@ -9,6 +12,7 @@ export function CustomSelect({
   buttonClassName = "",
   menuClassName = "",
   optionClassName = "",
+  selectedOptionClassName = "",
   disabled = false,
 }) {
   const [open, setOpen] = useState(false);
@@ -25,6 +29,7 @@ export function CustomSelect({
   );
 
   const selectedOption = normalizedOptions.find((option) => option.value === value);
+  const hasValue = value !== "" && value !== null && value !== undefined;
 
   useEffect(() => {
     if (!open) {
@@ -60,15 +65,23 @@ export function CustomSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         disabled={disabled}
-        className={`w-full flex items-center justify-between gap-3 rounded-xl border border-gray-300 bg-white px-4 py-3 text-left text-[#1E3A8A] shadow-sm transition-all duration-200 hover:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB] ${
+        className={`w-full flex items-center justify-between gap-3 rounded-xl border bg-white px-4 py-3 text-left shadow-sm transition-all duration-200 hover:border-gray-400 focus:outline-none ${
+          open
+            ? "border-gray-400 ring-2 ring-gray-200"
+            : "border-gray-300"
+        } ${
           disabled ? "cursor-not-allowed opacity-60" : ""
         } ${buttonClassName}`}
       >
-        <span className="truncate font-medium">
+        <span
+          className={`truncate font-normal ${
+            hasValue ? "text-gray-900" : "text-gray-400"
+          }`}
+        >
           {selectedOption?.label || placeholder}
         </span>
         <ChevronDown
-          className={`h-5 w-5 shrink-0 transition-transform duration-200 ${
+          className={`h-5 w-5 shrink-0 text-gray-500 transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
         />
@@ -76,11 +89,11 @@ export function CustomSelect({
 
       {open && (
         <div
-          className={`absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-blue-100 bg-white py-2 shadow-[0_18px_45px_rgba(30,58,138,0.18)] ${menuClassName}`}
+          className={`absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-[1.35rem] border border-gray-200 bg-white p-2 shadow-[0_18px_45px_rgba(15,23,42,0.12)] ${menuClassName}`}
         >
-          <div className="max-h-64 overflow-y-auto p-1">
+          <div className="max-h-64 overflow-y-auto">
             {normalizedOptions.map((option) => {
-              const selected = option.value === value;
+              const selected = hasValue && option.value === value;
 
               return (
                 <button
@@ -90,10 +103,10 @@ export function CustomSelect({
                     onChange(option.value);
                     setOpen(false);
                   }}
-                  className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-left transition-colors duration-150 ${
+                  className={`flex w-full items-center justify-between rounded-[1.1rem] px-6 py-4 text-left text-base transition-colors duration-150 ${
                     selected
-                      ? "bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] text-white"
-                      : "text-[#1E3A8A] hover:bg-[#EEF4FF]"
+                      ? selectedOptionClassName || DEFAULT_SELECTED_OPTION_CLASS
+                      : "text-gray-900 hover:bg-gray-100"
                   } ${optionClassName}`}
                 >
                   <span className="truncate">{option.label}</span>

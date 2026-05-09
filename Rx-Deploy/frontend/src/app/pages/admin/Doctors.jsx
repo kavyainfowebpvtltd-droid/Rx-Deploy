@@ -23,6 +23,7 @@ import {
 import Swal from "sweetalert2";
 import { Navbar } from "../../components/Navbar.jsx";
 import { Footer } from "../../components/Footer.jsx";
+import { CustomSelect } from "../../components/CustomSelect.jsx";
 import { userService } from "@/services/api.js";
 import { buildApiUrl, buildBackendFileUrl } from "@/config/api.js";
 import {
@@ -65,6 +66,69 @@ const INITIAL_NEW_DOCTOR_ERRORS = {
 };
 
 const DOCTOR_GENDERS = ["Male", "Female", "Other"];
+const DOCTOR_SPECIALIZATIONS = [
+  "General Medicine",
+  "General Physician",
+  "Cardiology",
+  "Neurology",
+  "Orthopedics",
+  "Pediatrics",
+  "Dermatology",
+  "Ophthalmology",
+  "ENT",
+  "Gastroenterology",
+  "Pulmonology",
+  "Endocrinology",
+  "Nephrology",
+  "Urology",
+  "Gynecology",
+  "Psychiatry",
+  "Oncology",
+  "Radiology",
+  "Anesthesiology",
+  "Pathology",
+  "Emergency Medicine",
+  "Sports Medicine",
+  "Rheumatology",
+  "Geriatrics",
+  "Family Medicine",
+  "Cosmetic Surgery",
+  "Plastic Surgery",
+  "Vascular Surgery",
+  "Cardiac Surgery",
+  "Neuro Surgery",
+  "Pediatric Surgery",
+  "Gastrointestinal Surgery",
+  "Obstetrics",
+  "Neonatology",
+  "Immunology",
+  "Infectious Disease",
+  "Internal Medicine",
+  "Ayurveda",
+  "Homeopathy",
+  "Unani",
+  "Yoga",
+  "Physiotherapy",
+  "Dentistry",
+  "Dental Surgery",
+  "Orthodontics",
+  "Oral Surgery",
+  "Periodontics",
+  "Endodontics",
+  "Prosthodontics",
+  "Other",
+];
+const DOCTOR_SPECIALIZATION_OPTIONS = [
+  { value: "", label: "Select specialization (Optional)" },
+  ...DOCTOR_SPECIALIZATIONS.map((specialization) => ({
+    value: specialization,
+    label: specialization === "ENT" ? "ENT (Ear, Nose, Throat)" : specialization,
+  })),
+];
+const DOCTOR_GENDER_OPTIONS = [
+  { value: "", label: "Select gender" },
+  ...DOCTOR_GENDERS.map((gender) => ({ value: gender, label: gender })),
+];
 const DOCTOR_DOCUMENT_TYPES = {
   aadharCard: "aadhar",
   panCard: "pan",
@@ -1542,74 +1606,17 @@ export default function AdminDoctors() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Specialization
                   </label>
-                  <select
+                  <CustomSelect
                     value={newDoctor.specialization}
-                    onChange={(e) =>
-                      updateNewDoctorField("specialization", e.target.value)
+                    onChange={(value) =>
+                      updateNewDoctorField("specialization", value)
                     }
-                    onBlur={() => handleDoctorFieldBlur("specialization")}
-                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent ${
-                      newDoctorErrors.specialization ? "border-red-500" : "border-gray-300"
+                    buttonClassName={`py-3 ${
+                      newDoctorErrors.specialization ? "!border-red-500" : ""
                     }`}
-                  >
-                    <option value="">Select specialization (Optional)</option>
-                    <option value="General Medicine">General Medicine</option>
-                    <option value="General Physician">General Physician</option>
-                    <option value="Cardiology">Cardiology</option>
-                    <option value="Neurology">Neurology</option>
-                    <option value="Orthopedics">Orthopedics</option>
-                    <option value="Pediatrics">Pediatrics</option>
-                    <option value="Dermatology">Dermatology</option>
-                    <option value="Ophthalmology">Ophthalmology</option>
-                    <option value="ENT">ENT (Ear, Nose, Throat)</option>
-                    <option value="Gastroenterology">Gastroenterology</option>
-                    <option value="Pulmonology">Pulmonology</option>
-                    <option value="Endocrinology">Endocrinology</option>
-                    <option value="Nephrology">Nephrology</option>
-                    <option value="Urology">Urology</option>
-                    <option value="Gynecology">Gynecology</option>
-                    <option value="Psychiatry">Psychiatry</option>
-                    <option value="Oncology">Oncology</option>
-                    <option value="Radiology">Radiology</option>
-                    <option value="Anesthesiology">Anesthesiology</option>
-                    <option value="Pathology">Pathology</option>
-                    <option value="Emergency Medicine">
-                      Emergency Medicine
-                    </option>
-                    <option value="Sports Medicine">Sports Medicine</option>
-                    <option value="Rheumatology">Rheumatology</option>
-                    <option value="Geriatrics">Geriatrics</option>
-                    <option value="Family Medicine">Family Medicine</option>
-                    <option value="Cosmetic Surgery">Cosmetic Surgery</option>
-                    <option value="Plastic Surgery">Plastic Surgery</option>
-                    <option value="Vascular Surgery">Vascular Surgery</option>
-                    <option value="Cardiac Surgery">Cardiac Surgery</option>
-                    <option value="Neuro Surgery">Neuro Surgery</option>
-                    <option value="Pediatric Surgery">Pediatric Surgery</option>
-                    <option value="Gastrointestinal Surgery">
-                      Gastrointestinal Surgery
-                    </option>
-                    <option value="Obstetrics">Obstetrics</option>
-                    <option value="Neonatology">Neonatology</option>
-                    <option value="Immunology">Immunology</option>
-                    <option value="Infectious Disease">
-                      Infectious Disease
-                    </option>
-                    <option value="Internal Medicine">Internal Medicine</option>
-                    <option value="Ayurveda">Ayurveda</option>
-                    <option value="Homeopathy">Homeopathy</option>
-                    <option value="Unani">Unani</option>
-                    <option value="Yoga">Yoga</option>
-                    <option value="Physiotherapy">Physiotherapy</option>
-                    <option value="Dentistry">Dentistry</option>
-                    <option value="Dental Surgery">Dental Surgery</option>
-                    <option value="Orthodontics">Orthodontics</option>
-                    <option value="Oral Surgery">Oral Surgery</option>
-                    <option value="Periodontics">Periodontics</option>
-                    <option value="Endodontics">Endodontics</option>
-                    <option value="Prosthodontics">Prosthodontics</option>
-                    <option value="Other">Other</option>
-                  </select>
+                    menuClassName="max-h-72"
+                    options={DOCTOR_SPECIALIZATION_OPTIONS}
+                  />
                   {newDoctorErrors.specialization && (
                     <p className="mt-1 text-sm text-red-500">{newDoctorErrors.specialization}</p>
                   )}
@@ -1716,21 +1723,14 @@ export default function AdminDoctors() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Gender
                   </label>
-                  <select
+                  <CustomSelect
                     value={newDoctor.gender}
-                    onChange={(e) =>
-                      updateNewDoctorField("gender", e.target.value)
-                    }
-                    onBlur={() => handleDoctorFieldBlur("gender")}
-                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent ${
-                      newDoctorErrors.gender ? "border-red-500" : "border-gray-300"
+                    onChange={(value) => updateNewDoctorField("gender", value)}
+                    buttonClassName={`py-3 ${
+                      newDoctorErrors.gender ? "!border-red-500" : ""
                     }`}
-                  >
-                    <option value="">Select gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
+                    options={DOCTOR_GENDER_OPTIONS}
+                  />
                   {newDoctorErrors.gender && (
                     <p className="mt-1 text-sm text-red-500">{newDoctorErrors.gender}</p>
                   )}
@@ -1890,74 +1890,21 @@ export default function AdminDoctors() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Specialization
                   </label>
-                  <select
+                  <CustomSelect
                     value={editingDoctor.specialization || ""}
-                    onChange={(e) =>
+                    onChange={(value) =>
                       setEditingDoctor({
                         ...editingDoctor,
-                        specialization: e.target.value,
+                        specialization: value,
                       })
                     }
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent"
-                  >
-                    <option value="">Select specialization</option>
-                    <option value="General Medicine">General Medicine</option>
-                    <option value="General Physician">General Physician</option>
-                    <option value="Cardiology">Cardiology</option>
-                    <option value="Neurology">Neurology</option>
-                    <option value="Orthopedics">Orthopedics</option>
-                    <option value="Pediatrics">Pediatrics</option>
-                    <option value="Dermatology">Dermatology</option>
-                    <option value="Ophthalmology">Ophthalmology</option>
-                    <option value="ENT">ENT (Ear, Nose, Throat)</option>
-                    <option value="Gastroenterology">Gastroenterology</option>
-                    <option value="Pulmonology">Pulmonology</option>
-                    <option value="Endocrinology">Endocrinology</option>
-                    <option value="Nephrology">Nephrology</option>
-                    <option value="Urology">Urology</option>
-                    <option value="Gynecology">Gynecology</option>
-                    <option value="Psychiatry">Psychiatry</option>
-                    <option value="Oncology">Oncology</option>
-                    <option value="Radiology">Radiology</option>
-                    <option value="Anesthesiology">Anesthesiology</option>
-                    <option value="Pathology">Pathology</option>
-                    <option value="Emergency Medicine">
-                      Emergency Medicine
-                    </option>
-                    <option value="Sports Medicine">Sports Medicine</option>
-                    <option value="Rheumatology">Rheumatology</option>
-                    <option value="Geriatrics">Geriatrics</option>
-                    <option value="Family Medicine">Family Medicine</option>
-                    <option value="Cosmetic Surgery">Cosmetic Surgery</option>
-                    <option value="Plastic Surgery">Plastic Surgery</option>
-                    <option value="Vascular Surgery">Vascular Surgery</option>
-                    <option value="Cardiac Surgery">Cardiac Surgery</option>
-                    <option value="Neuro Surgery">Neuro Surgery</option>
-                    <option value="Pediatric Surgery">Pediatric Surgery</option>
-                    <option value="Gastrointestinal Surgery">
-                      Gastrointestinal Surgery
-                    </option>
-                    <option value="Obstetrics">Obstetrics</option>
-                    <option value="Neonatology">Neonatology</option>
-                    <option value="Immunology">Immunology</option>
-                    <option value="Infectious Disease">
-                      Infectious Disease
-                    </option>
-                    <option value="Internal Medicine">Internal Medicine</option>
-                    <option value="Ayurveda">Ayurveda</option>
-                    <option value="Homeopathy">Homeopathy</option>
-                    <option value="Unani">Unani</option>
-                    <option value="Yoga">Yoga</option>
-                    <option value="Physiotherapy">Physiotherapy</option>
-                    <option value="Dentistry">Dentistry</option>
-                    <option value="Dental Surgery">Dental Surgery</option>
-                    <option value="Orthodontics">Orthodontics</option>
-                    <option value="Oral Surgery">Oral Surgery</option>
-                    <option value="Periodontics">Periodontics</option>
-                    <option value="Endodontics">Endodontics</option>
-                    <option value="Prosthodontics">Prosthodontics</option>
-                    <option value="Other">Other</option>
-                  </select>
+                    buttonClassName="py-3"
+                    menuClassName="max-h-72"
+                    options={[
+                      { value: "", label: "Select specialization" },
+                      ...DOCTOR_SPECIALIZATION_OPTIONS.slice(1),
+                    ]}
+                  />
                 </div>
 
                 <div>
@@ -2030,21 +1977,17 @@ export default function AdminDoctors() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Gender
                   </label>
-                  <select
+                  <CustomSelect
                     value={editingDoctor.gender || ""}
-                    onChange={(e) =>
+                    onChange={(value) =>
                       setEditingDoctor({
                         ...editingDoctor,
-                        gender: e.target.value,
+                        gender: value,
                       })
                     }
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent"
-                  >
-                    <option value="">Select gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
+                    buttonClassName="py-3"
+                    options={DOCTOR_GENDER_OPTIONS}
+                  />
                 </div>
 
                 <div>
