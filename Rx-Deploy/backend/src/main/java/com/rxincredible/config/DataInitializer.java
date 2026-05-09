@@ -191,7 +191,7 @@ public class DataInitializer {
                     // Fix Prescription Analysis orders (was 25, should be 500)
                     if (currentAmount.compareTo(new BigDecimal("25.00")) == 0 ||
                             currentAmount.compareTo(new BigDecimal("25")) == 0) {
-                        order.setTotalAmount(new BigDecimal("500.00"));
+                        order.setTotalAmount(new BigDecimal("1.00"));
                         System.out.println("=== Fixed order " + order.getOrderNumber() + ": amount " + currentAmount
                                 + " -> 500.00 ===");
                         orderFixed = true;
