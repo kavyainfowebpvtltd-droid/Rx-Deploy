@@ -214,10 +214,20 @@ const openDocumentInNewTab = (documentUrl) => {
   document.body.removeChild(link);
 };
 
+// const openAuthenticatedDocument = async (documentId, fallbackUrl = "") => {
+//   if (fallbackUrl && fallbackUrl !== "#") {
+//     openDocumentInNewTab(fallbackUrl);
+//     return;
+//   }
+
 const openAuthenticatedDocument = async (documentId, fallbackUrl = "") => {
-  if (fallbackUrl && fallbackUrl !== "#") {
+  if (!documentId && fallbackUrl && fallbackUrl !== "#") {
     openDocumentInNewTab(fallbackUrl);
     return;
+  }
+
+  if (!documentId) {
+    throw new Error("Document ID is missing.");
   }
 
   const previewTab = window.open("about:blank", "_blank");
@@ -1487,11 +1497,19 @@ export default function AnalystGenerate() {
                         className="flex items-center justify-between gap-3 p-3 bg-[#F1F5F9] rounded-xl cursor-pointer hover:bg-blue-50"
                         onClick={async () => {
                           try {
-                            if (doc.url && doc.url !== '#') {
+                            // if (doc.url && doc.url !== '#') {
+                            //   openDocumentInNewTab(doc.url);
+                            // } else if (doc.id) {
+                            //   await openAuthenticatedDocument(doc.id, doc.url);
+                            // }
+
+                            if(doc.id){
+                              await openAuthenticatedDocument(doc.id,doc.url);
+                            }else if(doc.url && doc.url !== '#'){
                               openDocumentInNewTab(doc.url);
-                            } else if (doc.id) {
-                              await openAuthenticatedDocument(doc.id, doc.url);
                             }
+
+
                           } catch (error) {
                             Swal.fire({
                               icon: "error",

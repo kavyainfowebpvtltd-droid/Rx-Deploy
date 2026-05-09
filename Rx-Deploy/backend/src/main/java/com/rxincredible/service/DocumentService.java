@@ -242,6 +242,7 @@ public class DocumentService {
             document.setFileSize(fileSize != null ? fileSize : (long) decodedBytes.length);
             // Store the file path (relative path for portability)
             document.setFilePath(filePathStr);
+            document.setFileData(base64Data);
             document.setCategory(category);
             document.setUser(user);
             // Always link to order if orderId is provided
