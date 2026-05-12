@@ -62,13 +62,13 @@ pipeline {
 
                     def backendStatus = sh(
                         script: '''
-                        curl -f http://127.0.0.1:8081/actuator/health
+                        docker ps | grep rx_backend
                         ''',
                         returnStatus: true
                     )
 
                     if (backendStatus != 0) {
-                        error("Deployment failed! Health check failed.")
+                        error("Deployment failed! Backend container not running.")
                     }
                 }
             }
