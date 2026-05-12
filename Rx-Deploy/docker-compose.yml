@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
 
   mysql:
@@ -10,9 +8,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: rxincredible
-
-    ports:
-      - "3307:3306"
 
     volumes:
       - mysql_data:/var/lib/mysql
