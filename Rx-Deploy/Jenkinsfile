@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_DIR = "/opt/Rx-Deploy"
+        PROJECT_DIR = "/opt/Rx-Deploy/Rx-Deploy"
     }
 
     stages {
