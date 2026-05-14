@@ -5,6 +5,8 @@ import { motion } from "motion/react";
 import { Plus, Trash2, Send, Download, IndianRupee, FileText, Calendar, User, Eye, FolderOpen, Receipt } from "lucide-react";
 import { Navbar } from "../../components/Navbar.jsx";
 import { Footer } from "../../components/Footer.jsx";
+import { CustomSelect } from "../../components/CustomSelect.jsx";
+import { TablePagination } from "../../components/TablePagination.jsx";
 import Swal from "sweetalert2";
 import { orderAPI, quotationAPI, documentAPI, getStoredUser } from "@/services/api.js";
 import { DocumentsModal, Header } from "./QuotationComponents.jsx";
@@ -82,6 +84,7 @@ const EMAIL_REQUEST_TIMEOUT_MS = 20000;
 const SUBMISSION_REQUEST_TIMEOUT_MS = 20000;
 const DELIVERY_GST_RATE = 0.18;
 const LOCKED_QUOTATION_STATUSES = new Set(["SENT", "COMPLETED"]);
+const TABLE_PAGE_SIZE = 10;
 
 const withTimeout = (promise, timeoutMs, message) =>
   Promise.race([
@@ -180,6 +183,8 @@ export default function AccountantQuotation() {
   const [showAllUsers, setShowAllUsers] = useState(true);
   const [allDocuments, setAllDocuments] = useState([]);
   const [allOrders, setAllOrders] = useState([]);
+  const [ordersPage, setOrdersPage] = useState(1);
+  const [documentsPage, setDocumentsPage] = useState(1);
 
   const [order, setOrder] = useState(null);
   const [documents, setDocuments] = useState([]);
@@ -193,6 +198,38 @@ export default function AccountantQuotation() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedUserDocuments, setSelectedUserDocuments] = useState([]);
   const [showDocumentsModal, setShowDocumentsModal] = useState(false);
+
+  useEffect(() => {
+    setOrdersPage(1);
+  }, [allOrders.length]);
+
+  useEffect(() => {
+    setDocumentsPage(1);
+  }, [allDocuments.length]);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(allOrders.length / TABLE_PAGE_SIZE));
+    if (ordersPage > totalPages) {
+      setOrdersPage(totalPages);
+    }
+  }, [allOrders.length, ordersPage]);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(allDocuments.length / TABLE_PAGE_SIZE));
+    if (documentsPage > totalPages) {
+      setDocumentsPage(totalPages);
+    }
+  }, [allDocuments.length, documentsPage]);
+
+  const paginatedOrders = allOrders.slice(
+    (ordersPage - 1) * TABLE_PAGE_SIZE,
+    ordersPage * TABLE_PAGE_SIZE,
+  );
+
+  const paginatedDocuments = allDocuments.slice(
+    (documentsPage - 1) * TABLE_PAGE_SIZE,
+    documentsPage * TABLE_PAGE_SIZE,
+  );
 
   const showError = (text, title = "Error") =>
     Swal.fire({ icon: "error", title, text, confirmButtonColor: "#2563EB" });
@@ -594,6 +631,29 @@ export default function AccountantQuotation() {
   };
 
   const userRole = useMemo(() => getUserRole(), []);
+  const serviceTypeOptions = useMemo(
+    () =>
+      userRole === "ACCOUNTANT"
+        ? [
+            { value: "ONLINE_PHARMACY", label: "Online Pharmacy" },
+            { value: "PRESCRIPTION_ANALYSIS", label: "Prescription Analysis" },
+            { value: "SECOND_OPINION", label: "Second Opinion" },
+          ]
+        : [
+            { value: "General", label: "General" },
+            { value: "PRESCRIPTION_ANALYSIS", label: "Prescription Analysis" },
+            { value: "ONLINE_PHARMACY", label: "Online Pharmacy" },
+            { value: "SECOND_OPINION", label: "Second Opinion" },
+          ],
+    [userRole],
+  );
+  const [draftServiceType, setDraftServiceType] = useState("");
+
+  useEffect(() => {
+    if (serviceTypeOptions.length > 0 && !draftServiceType) {
+      setDraftServiceType(serviceTypeOptions[0].value);
+    }
+  }, [draftServiceType, serviceTypeOptions]);
   const orderData = useMemo(() => buildOrderData(order, documents), [documents, order]);
   const summary = useMemo(() => {
     const country = orderData?.deliveryCountry || "India";
@@ -1015,7 +1075,7 @@ export default function AccountantQuotation() {
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
-                          {allOrders.map((order, index) => {
+                          {paginatedOrders.map((order, index) => {
                             let displayServiceType = order.serviceType || 'General';
                             try {
                               if (order.orderDetails) {
@@ -1059,6 +1119,13 @@ export default function AccountantQuotation() {
                         </tbody>
                       </table>
                     </div>
+                    <TablePagination
+                      currentPage={ordersPage}
+                      onPageChange={setOrdersPage}
+                      totalItems={allOrders.length}
+                      itemLabel="orders"
+                      pageSize={TABLE_PAGE_SIZE}
+                    />
                   </motion.div>
                 )}
 
@@ -1079,7 +1146,7 @@ export default function AccountantQuotation() {
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
-                          {allDocuments.map((doc, index) => (
+                          {paginatedDocuments.map((doc, index) => (
                             <tr key={doc.id || index} className="hover:bg-gray-50 transition-colors">
                               <td className="px-6 py-4">
                                 <div className="flex items-center gap-3">
@@ -1107,6 +1174,13 @@ export default function AccountantQuotation() {
                         </tbody>
                       </table>
                     </div>
+                    <TablePagination
+                      currentPage={documentsPage}
+                      onPageChange={setDocumentsPage}
+                      totalItems={allDocuments.length}
+                      itemLabel="documents"
+                      pageSize={TABLE_PAGE_SIZE}
+                    />
                   </motion.div>
                 )}
               </>
@@ -1129,7 +1203,6 @@ export default function AccountantQuotation() {
         <div className="max-w-7xl mx-auto">
           <Header
             showAllUsers={false}
-            onBack={() => { setShowAllUsers(true); navigate("/accountant/quotation"); }}
             orderData={orderData}
             isNewQuotation={isNewQuotation}
             isViewOnly={isViewOnly}
@@ -1149,22 +1222,12 @@ export default function AccountantQuotation() {
                       <div className="flex items-start gap-2"><Calendar className="w-4 h-4 mt-1 text-gray-400" /><div><p className="text-sm text-gray-500">Phone</p><input type="tel" placeholder="Enter phone" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB]" /></div></div>
                       <div className="pt-3 border-t border-gray-200">
                         <p className="text-sm text-gray-500 mb-1">Service Type</p>
-                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB]">
-                          {userRole === 'ACCOUNTANT' ? (
-                            <>
-                              <option value="ONLINE_PHARMACY">Online Pharmacy</option>
-                              <option value="PRESCRIPTION_ANALYSIS">Prescription Analysis</option>
-                              <option value="SECOND_OPINION">Second Opinion</option>
-                            </>
-                          ) : (
-                            <>
-                              <option value="General">General</option>
-                              <option value="PRESCRIPTION_ANALYSIS">Prescription Analysis</option>
-                              <option value="ONLINE_PHARMACY">Online Pharmacy</option>
-                              <option value="SECOND_OPINION">Second Opinion</option>
-                            </>
-                          )}
-                        </select>
+                        <CustomSelect
+                          value={draftServiceType}
+                          onChange={setDraftServiceType}
+                          options={serviceTypeOptions}
+                          buttonClassName="px-4 py-3"
+                        />
                       </div>
                     </>
                   ) : (
@@ -1217,11 +1280,8 @@ export default function AccountantQuotation() {
                       )}
                       {documents.length > 0 && (
                         <div className="pt-3 border-t border-gray-200">
-                          <div className="flex justify-between items-center mb-2">
+                          <div className="mb-2">
                             <p className="text-sm text-gray-500">Uploaded Documents ({documents.length})</p>
-                            <button onClick={() => { setSelectedUser({ user: order?.user, documents: documents }); setSelectedUserDocuments(documents); setShowDocumentsModal(true); }} className="px-3 py-1 text-sm bg-[#2563EB] text-white rounded-lg hover:bg-[#1E40AF] flex items-center gap-1">
-                              <Eye className="w-3 h-3" /> View All
-                            </button>
                           </div>
                           <div className="space-y-2">
                             {documents.slice(0, 3).map((doc, index) => (

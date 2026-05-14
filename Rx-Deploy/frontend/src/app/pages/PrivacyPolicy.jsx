@@ -1,29 +1,15 @@
-import { Link, useSearchParams } from "react-router";
-import { ArrowLeft, Database, Lock, Shield, UserCheck } from "lucide-react";
+import { Database, Lock, Shield, UserCheck } from "lucide-react";
 import { Navbar } from "../components/Navbar.jsx";
 import { Footer } from "../components/Footer.jsx";
 
 export default function PrivacyPolicy() {
-  const [searchParams] = useSearchParams();
-  const returnPath = searchParams.get("from") || "/";
-  const backLabel =
-    returnPath === "/register" ? "Back to Sign Up" : "Back to Home";
-
   return (
     <>
-      <Navbar hideAuth={true} />
+      <Navbar hideAuth={true} hideMobileMenuButton={true} />
 
       <main className="flex-1 bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
         <section className="bg-gradient-to-r from-[#0F172A] via-[#1E3A8A] to-[#2563EB] text-white py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Link
-              to={returnPath}
-              className="inline-flex items-center gap-2 text-blue-100 hover:text-white mb-8 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              {backLabel}
-            </Link>
-
             <div className="flex items-start gap-4 mb-6">
               <Shield className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 mt-1" />
               <h1 className="min-w-0 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">Privacy Policy</h1>

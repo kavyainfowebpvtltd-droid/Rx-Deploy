@@ -12,6 +12,8 @@ import java.util.List;
 public interface PrescriptionRepository extends JpaRepository<Prescription, Long> {
     
     List<Prescription> findByUserId(Long userId);
+
+    List<Prescription> findByAnalystId(Long analystId);
     
     @Query("SELECT p FROM Prescription p LEFT JOIN FETCH p.user LEFT JOIN FETCH p.doctor WHERE p.doctor.id = :doctorId")
     List<Prescription> findByDoctorId(Long doctorId);

@@ -6,6 +6,7 @@ import com.rxincredible.entity.User;
 import com.rxincredible.entity.MedicalService;
 import com.rxincredible.entity.Document;
 import com.rxincredible.repository.OrderRepository;
+import com.rxincredible.repository.PaymentRepository;
 import com.rxincredible.repository.PrescriptionRepository;
 import com.rxincredible.repository.UserRepository;
 import com.rxincredible.repository.MedicalServiceRepository;
@@ -51,6 +52,7 @@ public class OrderService {
     private static final BigDecimal GST_RATE = new BigDecimal("0.18");
     
     private final OrderRepository orderRepository;
+    private final PaymentRepository paymentRepository;
     private final UserRepository userRepository;
     private final PrescriptionRepository prescriptionRepository;
     private final EmailService emailService;
@@ -61,8 +63,9 @@ public class OrderService {
     @Value("${app.upload.directory}")
     private String uploadDirectory;
     
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, PrescriptionRepository prescriptionRepository, EmailService emailService, BillService billService, MedicalServiceRepository medicalServiceRepository, DocumentRepository documentRepository) {
+    public OrderService(OrderRepository orderRepository, PaymentRepository paymentRepository, UserRepository userRepository, PrescriptionRepository prescriptionRepository, EmailService emailService, BillService billService, MedicalServiceRepository medicalServiceRepository, DocumentRepository documentRepository) {
         this.orderRepository = orderRepository;
+        this.paymentRepository = paymentRepository;
         this.userRepository = userRepository;
         this.prescriptionRepository = prescriptionRepository;
         this.emailService = emailService;
@@ -216,10 +219,20 @@ public class OrderService {
     }
 
     private BigDecimal findActiveServicePrice(String category, BigDecimal fallbackAmount) {
-        return medicalServiceRepository.findByIsActiveTrueAndCategory(category).stream()
+        BigDecimal configuredAmount = medicalServiceRepository.findByIsActiveTrueAndCategory(category).stream()
                 .map(MedicalService::getPrice)
+                .filter(price -> price != null && price.compareTo(BigDecimal.ZERO) > 0)
                 .findFirst()
                 .orElse(fallbackAmount);
+
+        if (configuredAmount.compareTo(fallbackAmount) < 0) {
+            logger.warn(
+                    "Ignoring configured {} service price {} because it is lower than expected minimum {}; using fallback",
+                    category, configuredAmount, fallbackAmount);
+            return fallbackAmount;
+        }
+
+        return configuredAmount;
     }
 
     private BigDecimal applyIndiaGst(BigDecimal baseAmount) {
@@ -584,6 +597,7 @@ public class OrderService {
     
     @Transactional
     public void deleteOrder(Long id) {
+        paymentRepository.deleteByOrderId(id);
         orderRepository.deleteById(id);
     }
     

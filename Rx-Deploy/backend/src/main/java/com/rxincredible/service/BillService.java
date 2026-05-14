@@ -70,23 +70,8 @@ public class BillService {
         PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
         // Header with Logo
-        try {
-            java.io.InputStream logoStream = getClass()
-                    .getResourceAsStream("/com/rxincredible/service/asset/logo1.png");
-            if (logoStream != null) {
-                // Create a temporary file from the input stream
-                java.nio.file.Path tempLogo = java.nio.file.Files.createTempFile("logo1", ".png");
-                java.nio.file.Files.copy(logoStream, tempLogo, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                PDImageXObject logo = PDImageXObject.createFromFile(tempLogo.toString(), document);
-                contentStream.drawImage(logo, 50, 680, 100, 60);
-                // Clean up temp file after use
-                tempLogo.toFile().deleteOnExit();
-            } else {
-                System.out.println("Bill logo not found in classpath");
-            }
-        } catch (Exception e) {
-            System.out.println("Bill logo error: " + e.getMessage());
-        }
+        drawClasspathImage(document, contentStream, "/com/rxincredible/service/asset/logo1.png",
+                50, 680, 100, 60, "Bill logo");
 
         // Header Text (next to logo) - Using both logo colors
         contentStream.setNonStrokingColor(0, 51, 102); // RxIncredible Blue
@@ -226,23 +211,8 @@ public class BillService {
         float margin = 50;
 
         // Header with Logo
-        try {
-            java.io.InputStream logoStream = getClass()
-                    .getResourceAsStream("/com/rxincredible/service/asset/logo1.png");
-            if (logoStream != null) {
-                // Create a temporary file from the input stream
-                java.nio.file.Path tempLogo = java.nio.file.Files.createTempFile("logo1", ".png");
-                java.nio.file.Files.copy(logoStream, tempLogo, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                PDImageXObject logo = PDImageXObject.createFromFile(tempLogo.toString(), document);
-                contentStream.drawImage(logo, margin, yPos - 42, 80, 80);
-                // Clean up temp file after use
-                tempLogo.toFile().deleteOnExit();
-            } else {
-                System.out.println("Header logo not found in classpath");
-            }
-        } catch (Exception e) {
-            System.out.println("Header logo error: " + e.getMessage());
-        }
+        drawClasspathImage(document, contentStream, "/com/rxincredible/service/asset/logo1.png",
+                margin, yPos - 42, 80, 80, "Header logo");
 
         // Header Text (next to logo)
         contentStream.setNonStrokingColor(0, 51, 102); // Blue
@@ -387,24 +357,8 @@ public class BillService {
         float logoHeight = 50;
         float logoX = 50; // margin
 
-        try {
-            java.io.InputStream footerLogoStream = getClass()
-                    .getResourceAsStream("/com/rxincredible/service/asset/logo2.png");
-            if (footerLogoStream != null) {
-                // Create a temporary file from the input stream
-                java.nio.file.Path tempFooterLogo = java.nio.file.Files.createTempFile("logo2", ".png");
-                java.nio.file.Files.copy(footerLogoStream, tempFooterLogo,
-                        java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                PDImageXObject footerLogo = PDImageXObject.createFromFile(tempFooterLogo.toString(), document);
-                contentStream.drawImage(footerLogo, logoX, footerY, logoWidth, logoHeight);
-                // Clean up temp file after use
-                tempFooterLogo.toFile().deleteOnExit();
-            } else {
-                System.out.println("Footer logo not found in classpath");
-            }
-        } catch (Exception e) {
-            System.out.println("Footer logo error: " + e.getMessage());
-        }
+        drawClasspathImage(document, contentStream, "/com/rxincredible/service/asset/logo2.png",
+                logoX, footerY, logoWidth, logoHeight, "Footer logo");
 
         // Footer Text - Right side (on same Y level as logo)
         float textX = 250; // Start text after logo
@@ -448,6 +402,21 @@ public class BillService {
             return order.getUser().getCountry();
         }
         return "India";
+    }
+
+    private void drawClasspathImage(PDDocument document, PDPageContentStream contentStream, String resourcePath,
+            float x, float y, float width, float height, String label) {
+        try (java.io.InputStream logoStream = getClass().getResourceAsStream(resourcePath)) {
+            if (logoStream == null) {
+                System.out.println(label + " not found in classpath: " + resourcePath);
+                return;
+            }
+
+            PDImageXObject logo = PDImageXObject.createFromByteArray(document, logoStream.readAllBytes(), resourcePath);
+            contentStream.drawImage(logo, x, y, width, height);
+        } catch (Exception e) {
+            System.out.println(label + " error: " + e.getMessage());
+        }
     }
 
     private String safePdfText(String value) {

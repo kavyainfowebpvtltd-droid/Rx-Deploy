@@ -1,0 +1,436 @@
+2026-05-14T11:02:56.871+05:30  INFO 18036 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 18036 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-14T11:02:56.935+05:30  INFO 18036 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-14T11:02:59.015+05:30  INFO 7876 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 7876 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-14T11:02:59.116+05:30  INFO 7876 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-14T11:03:01.292+05:30  INFO 18516 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 18516 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-14T11:03:01.356+05:30  INFO 18516 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-14T11:03:06.952+05:30  INFO 18036 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-14T11:03:06.954+05:30  INFO 18036 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-14T11:03:07.131+05:30  INFO 18036 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-14T11:03:08.566+05:30  INFO 18036 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-14T11:03:09.081+05:30  INFO 18036 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@169fe977
+2026-05-14T11:03:09.086+05:30  INFO 18036 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-14T11:03:17.624+05:30  WARN 18036 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-14T11:03:19.978+05:30  INFO 18036 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 25.187 seconds (process running for 27.119)
+2026-05-14T11:03:19.996+05:30  INFO 18036 --- [restartedMain] c.rxincredible.config.DataInitializer    : Starting default user initialization
+2026-05-14T11:03:20.034+05:30  INFO 18036 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-14T11:03:20.332+05:30  INFO 18036 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-14T11:03:20.398+05:30  INFO 18036 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Users Initialization Complete
+2026-05-14T11:03:31.878+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-14T11:03:32.650+05:30  WARN 18036 --- [http-nio-0.0.0.0-8081-exec-4] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/auth/me' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-05-14T11:03:54.966+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.AuthController            : Login attempt for email: mr***@gmail.com
+2026-05-14T11:03:55.333+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.AuthController            : Login successful for email: mr***@gmail.com
+2026-05-14T11:03:55.554+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : Jakarta Mail version 2.1.2
+2026-05-14T11:03:55.598+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : URL jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.providers
+2026-05-14T11:03:55.604+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : successfully loaded resource: jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.providers
+2026-05-14T11:03:55.615+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : successfully loaded resource: /META-INF/javamail.default.providers
+2026-05-14T11:03:55.629+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : Tables of loaded providers
+2026-05-14T11:03:55.641+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : Providers Listed By Class Name: {org.eclipse.angus.mail.imap.IMAPStore=jakarta.mail.Provider[STORE,imap,org.eclipse.angus.mail.imap.IMAPStore,Oracle], org.eclipse.angus.mail.smtp.SMTPTransport=jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle], org.eclipse.angus.mail.pop3.POP3Store=jakarta.mail.Provider[STORE,pop3,org.eclipse.angus.mail.pop3.POP3Store,Oracle], org.eclipse.angus.mail.pop3.POP3SSLStore=jakarta.mail.Provider[STORE,pop3s,org.eclipse.angus.mail.pop3.POP3SSLStore,Oracle], org.eclipse.angus.mail.smtp.SMTPSSLTransport=jakarta.mail.Provider[TRANSPORT,smtps,org.eclipse.angus.mail.smtp.SMTPSSLTransport,Oracle], org.eclipse.angus.mail.imap.IMAPSSLStore=jakarta.mail.Provider[STORE,imaps,org.eclipse.angus.mail.imap.IMAPSSLStore,Oracle]}
+2026-05-14T11:03:55.664+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : Providers Listed By Protocol: {imap=jakarta.mail.Provider[STORE,imap,org.eclipse.angus.mail.imap.IMAPStore,Oracle], smtp=jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle], pop3=jakarta.mail.Provider[STORE,pop3,org.eclipse.angus.mail.pop3.POP3Store,Oracle], imaps=jakarta.mail.Provider[STORE,imaps,org.eclipse.angus.mail.imap.IMAPSSLStore,Oracle], smtps=jakarta.mail.Provider[TRANSPORT,smtps,org.eclipse.angus.mail.smtp.SMTPSSLTransport,Oracle], pop3s=jakarta.mail.Provider[STORE,pop3s,org.eclipse.angus.mail.pop3.POP3SSLStore,Oracle]}
+2026-05-14T11:03:55.698+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : successfully loaded resource: /META-INF/javamail.default.address.map
+2026-05-14T11:03:55.704+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : URL jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.address.map
+2026-05-14T11:03:55.708+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : successfully loaded resource: jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.address.map
+2026-05-14T11:03:55.754+05:30 DEBUG 18036 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-14T11:04:00.844+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] com.rxincredible.service.EmailService    : OTP email sent successfully to: mramteke80@gmail.com
+2026-05-14T11:04:00.845+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] com.rxincredible.service.EmailService    : OTP for testing: 860739
+2026-05-14T11:04:00.850+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.AuthController            : Admin OTP sent for email: mr***@gmail.com
+2026-05-14T11:04:19.943+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-8] c.r.controller.AuthController            : Login attempt for email: sh***@gmail.com
+2026-05-14T11:04:20.116+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-8] c.r.controller.AuthController            : Login successful for email: sh***@gmail.com
+2026-05-14T11:04:28.949+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Admin OTP verification attempt for email: mr***@gmail.com
+2026-05-14T11:05:00.159+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.AuthController            : User logged out successfully
+2026-05-14T11:05:07.493+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-5] c.r.controller.AuthController            : Login attempt for email: sh***@gmail.com
+2026-05-14T11:05:07.749+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-5] c.r.controller.AuthController            : Login successful for email: sh***@gmail.com
+2026-05-14T11:06:07.534+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-2] com.rxincredible.service.OrderService    : Overriding frontend amount 500 with 590.00 for fixed-price service PRESCRIPTION_ANALYSIS
+2026-05-14T11:06:08.131+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-8] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: INR 59000
+2026-05-14T11:06:08.497+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-8] c.rxincredible.service.RazorpayService   : Razorpay order created: order_Sp8B0EPw5UPik1
+2026-05-14T11:06:20.212+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-5] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: INR 59000
+2026-05-14T11:06:20.310+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-5] c.rxincredible.service.RazorpayService   : Razorpay order created: order_Sp8BD9YmMr3J1d
+2026-05-14T11:06:52.965+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-10] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: INR 59000
+2026-05-14T11:06:53.047+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-10] c.rxincredible.service.RazorpayService   : Razorpay order created: order_Sp8BmudgESWFm5
+2026-05-14T11:07:25.261+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-7] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: INR 59000
+2026-05-14T11:07:25.342+05:30  INFO 18036 --- [http-nio-0.0.0.0-8081-exec-7] c.rxincredible.service.RazorpayService   : Razorpay order created: order_Sp8CMADC3R3yGw
+2026-05-14T11:10:50.872+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 6280 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-14T11:10:50.877+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-14T11:10:55.343+05:30  INFO 6280 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-14T11:10:55.344+05:30  INFO 6280 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-14T11:10:55.679+05:30  INFO 6280 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-14T11:10:57.591+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-14T11:10:58.068+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5b5d4ef9
+2026-05-14T11:10:58.071+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-14T11:11:10.515+05:30  WARN 6280 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-14T11:11:12.703+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 23.121 seconds (process running for 24.509)
+2026-05-14T11:11:12.707+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Starting default user initialization
+2026-05-14T11:11:12.733+05:30  INFO 6280 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-14T11:11:12.960+05:30  INFO 6280 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-14T11:11:13.219+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Admin User Created
+2026-05-14T11:11:13.330+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Doctor User Created
+2026-05-14T11:11:13.438+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Accountant User Created
+2026-05-14T11:11:13.609+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Analyst User Created
+2026-05-14T11:11:13.610+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Users Initialization Complete
+2026-05-14T11:12:22.668+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-14T11:12:23.075+05:30 ERROR 6280 --- [http-nio-0.0.0.0-8081-exec-2] c.r.config.JwtAuthenticationFilter       : Unexpected error in JWT authentication
+
+org.springframework.security.core.userdetails.UsernameNotFoundException: User not found with email: shreyas.raut188@gmail.com
+	at com.rxincredible.service.CustomUserDetailsService.lambda$0(CustomUserDetailsService.java:22) ~[classes/:na]
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403) ~[na:na]
+	at com.rxincredible.service.CustomUserDetailsService.loadUserByUsername(CustomUserDetailsService.java:22) ~[classes/:na]
+	at com.rxincredible.config.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:80) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-05-14T11:12:23.171+05:30  WARN 6280 --- [http-nio-0.0.0.0-8081-exec-2] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/auth/login' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-05-14T11:12:23.276+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Login attempt for email: mr***@gmail.com
+2026-05-14T11:12:23.671+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Login successful for email: mr***@gmail.com
+2026-05-14T11:12:23.761+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : Jakarta Mail version 2.1.2
+2026-05-14T11:12:23.792+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : URL jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.providers
+2026-05-14T11:12:23.798+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : successfully loaded resource: jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.providers
+2026-05-14T11:12:23.809+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : successfully loaded resource: /META-INF/javamail.default.providers
+2026-05-14T11:12:23.814+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : Tables of loaded providers
+2026-05-14T11:12:23.819+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : Providers Listed By Class Name: {org.eclipse.angus.mail.imap.IMAPStore=jakarta.mail.Provider[STORE,imap,org.eclipse.angus.mail.imap.IMAPStore,Oracle], org.eclipse.angus.mail.smtp.SMTPTransport=jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle], org.eclipse.angus.mail.pop3.POP3Store=jakarta.mail.Provider[STORE,pop3,org.eclipse.angus.mail.pop3.POP3Store,Oracle], org.eclipse.angus.mail.pop3.POP3SSLStore=jakarta.mail.Provider[STORE,pop3s,org.eclipse.angus.mail.pop3.POP3SSLStore,Oracle], org.eclipse.angus.mail.smtp.SMTPSSLTransport=jakarta.mail.Provider[TRANSPORT,smtps,org.eclipse.angus.mail.smtp.SMTPSSLTransport,Oracle], org.eclipse.angus.mail.imap.IMAPSSLStore=jakarta.mail.Provider[STORE,imaps,org.eclipse.angus.mail.imap.IMAPSSLStore,Oracle]}
+2026-05-14T11:12:23.829+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : Providers Listed By Protocol: {imap=jakarta.mail.Provider[STORE,imap,org.eclipse.angus.mail.imap.IMAPStore,Oracle], smtp=jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle], pop3=jakarta.mail.Provider[STORE,pop3,org.eclipse.angus.mail.pop3.POP3Store,Oracle], imaps=jakarta.mail.Provider[STORE,imaps,org.eclipse.angus.mail.imap.IMAPSSLStore,Oracle], smtps=jakarta.mail.Provider[TRANSPORT,smtps,org.eclipse.angus.mail.smtp.SMTPSSLTransport,Oracle], pop3s=jakarta.mail.Provider[STORE,pop3s,org.eclipse.angus.mail.pop3.POP3SSLStore,Oracle]}
+2026-05-14T11:12:23.836+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : successfully loaded resource: /META-INF/javamail.default.address.map
+2026-05-14T11:12:23.839+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : URL jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.address.map
+2026-05-14T11:12:23.845+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : successfully loaded resource: jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.address.map
+2026-05-14T11:12:23.883+05:30 DEBUG 6280 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-14T11:12:29.572+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] com.rxincredible.service.EmailService    : OTP email sent successfully to: mramteke80@gmail.com
+2026-05-14T11:12:29.575+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] com.rxincredible.service.EmailService    : OTP for testing: 668172
+2026-05-14T11:12:29.580+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Admin OTP sent for email: mr***@gmail.com
+2026-05-14T11:13:27.550+05:30 ERROR 6280 --- [http-nio-0.0.0.0-8081-exec-5] c.r.config.JwtAuthenticationFilter       : Unexpected error in JWT authentication
+
+org.springframework.security.core.userdetails.UsernameNotFoundException: User not found with email: shreyas.raut188@gmail.com
+	at com.rxincredible.service.CustomUserDetailsService.lambda$0(CustomUserDetailsService.java:22) ~[classes/:na]
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403) ~[na:na]
+	at com.rxincredible.service.CustomUserDetailsService.loadUserByUsername(CustomUserDetailsService.java:22) ~[classes/:na]
+	at com.rxincredible.config.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:80) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-05-14T11:13:27.581+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-5] c.r.controller.AuthController            : Admin OTP verification attempt for email: mr***@gmail.com
+2026-05-14T11:13:32.512+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.UserController            : Registration request for email: ak***@gmail.com
+2026-05-14T11:13:32.681+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.UserController            : User saved to pending users table: ak***@gmail.com
+2026-05-14T11:13:32.682+05:30 DEBUG 6280 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-14T11:13:36.951+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] com.rxincredible.service.EmailService    : OTP email sent successfully to: akshayganvir007@gmail.com
+2026-05-14T11:13:36.953+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] com.rxincredible.service.EmailService    : OTP for testing: 806735
+2026-05-14T11:13:36.963+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.UserController            : Verification email sent: ak***@gmail.com
+2026-05-14T11:13:59.105+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-1] c.r.controller.UserController            : OTP verification request for email: ak***@gmail.com
+2026-05-14T11:13:59.107+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-1] c.r.controller.UserController            : OTP received: 806735
+2026-05-14T11:13:59.119+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-1] c.r.controller.UserController            : Pending user found: true
+2026-05-14T11:13:59.122+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-1] c.r.controller.UserController            : Found pending user, stored OTP: 806735
+2026-05-14T11:13:59.199+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-1] c.r.controller.UserController            : Registration verified successfully for: ak***@gmail.com
+2026-05-14T11:13:59.206+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-1] c.r.controller.UserController            : Returning success response with user: akshayganvir007@gmail.com
+2026-05-14T11:14:12.577+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Login attempt for email: ak***@gmail.com
+2026-05-14T11:14:12.816+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Login successful for email: ak***@gmail.com
+2026-05-14T11:17:44.793+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Creating MOCK Razorpay order with amount: USD 1000
+2026-05-14T11:18:02.098+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-8] c.rxincredible.service.RazorpayService   : Mock payment verification for order mock_order_d8a32542b533426a934db628a851d4e9: VALID
+2026-05-14T11:18:31.573+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-1] c.r.controller.AuthController            : User logged out successfully
+2026-05-14T11:19:03.882+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.UserController            : Registration request for email: sh***@gmail.com
+2026-05-14T11:19:04.176+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.UserController            : User saved to pending users table: sh***@gmail.com
+2026-05-14T11:19:04.181+05:30 DEBUG 6280 --- [http-nio-0.0.0.0-8081-exec-6] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-14T11:19:08.406+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-6] com.rxincredible.service.EmailService    : OTP email sent successfully to: shreyas.raut188@gmail.com
+2026-05-14T11:19:08.409+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-6] com.rxincredible.service.EmailService    : OTP for testing: 891376
+2026-05-14T11:19:08.413+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.UserController            : Verification email sent: sh***@gmail.com
+2026-05-14T11:19:19.770+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.UserController            : OTP verification request for email: sh***@gmail.com
+2026-05-14T11:19:19.772+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.UserController            : OTP received: 891376
+2026-05-14T11:19:19.779+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.UserController            : Pending user found: true
+2026-05-14T11:19:19.781+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.UserController            : Found pending user, stored OTP: 891376
+2026-05-14T11:19:19.834+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.UserController            : Registration verified successfully for: sh***@gmail.com
+2026-05-14T11:19:19.836+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.UserController            : Returning success response with user: shreyas.raut188@gmail.com
+2026-05-14T11:19:26.383+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : Login attempt for email: sh***@gmail.com
+2026-05-14T11:19:26.604+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : Login successful for email: sh***@gmail.com
+2026-05-14T11:20:17.185+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] com.rxincredible.service.OrderService    : Overriding frontend amount 500 with 590.00 for fixed-price service PRESCRIPTION_ANALYSIS
+2026-05-14T11:20:17.453+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-7] c.rxincredible.service.RazorpayService   : Creating MOCK Razorpay order with amount: INR 59000
+2026-05-14T11:20:42.410+05:30  INFO 6280 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-14T11:20:42.434+05:30  INFO 6280 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-05-14T11:20:42.722+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 6280 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-14T11:20:42.724+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-14T11:20:43.915+05:30  INFO 6280 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-14T11:20:43.918+05:30  INFO 6280 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-14T11:20:44.031+05:30  INFO 6280 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-14T11:20:44.237+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-05-14T11:20:44.257+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@60dab654
+2026-05-14T11:20:44.260+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-05-14T11:20:46.801+05:30  WARN 6280 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-14T11:20:47.890+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 5.258 seconds (process running for 599.697)
+2026-05-14T11:20:47.897+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Starting default user initialization
+2026-05-14T11:20:47.901+05:30  INFO 6280 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-14T11:20:47.912+05:30  INFO 6280 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-14T11:20:48.035+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Users Initialization Complete
+2026-05-14T11:20:49.906+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-14T11:20:49.971+05:30  WARN 6280 --- [http-nio-0.0.0.0-8081-exec-3] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/auth/me' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-05-14T11:22:15.895+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-8] com.rxincredible.service.OrderService    : Overriding frontend amount 500 with 590.00 for fixed-price service PRESCRIPTION_ANALYSIS
+2026-05-14T11:22:16.341+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-10] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: INR 59000
+2026-05-14T11:22:16.343+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-10] c.rxincredible.service.RazorpayService   : Operating in TEST mode - using Razorpay test credentials
+2026-05-14T11:22:16.739+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-10] c.rxincredible.service.RazorpayService   : Razorpay order created: order_Sp8S37y4TEPXqr
+2026-05-14T11:23:04.201+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Payment signature verification for order order_Sp8S37y4TEPXqr: VALID
+2026-05-14T11:25:52.459+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-9] com.rxincredible.service.OrderService    : Overriding frontend amount 500 with 590.00 for fixed-price service PRESCRIPTION_ANALYSIS
+2026-05-14T11:25:52.587+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-10] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: INR 59000
+2026-05-14T11:25:52.589+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-10] c.rxincredible.service.RazorpayService   : Operating in TEST mode - using Razorpay test credentials
+2026-05-14T11:25:52.679+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-10] c.rxincredible.service.RazorpayService   : Razorpay order created: order_Sp8VqqVzVuy9Nj
+2026-05-14T11:31:53.618+05:30  INFO 6280 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-05-14T11:31:53.657+05:30  INFO 6280 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-05-14T11:31:55.329+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 6280 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-14T11:31:55.330+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-14T11:31:57.209+05:30  INFO 6280 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-14T11:31:57.230+05:30  INFO 6280 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-14T11:31:57.370+05:30  INFO 6280 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-14T11:31:57.642+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-05-14T11:31:57.716+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7e71e48e
+2026-05-14T11:31:57.717+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-05-14T11:31:59.785+05:30  WARN 6280 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-14T11:32:00.229+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 5.231 seconds (process running for 1272.036)
+2026-05-14T11:32:00.234+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Starting default user initialization
+2026-05-14T11:32:00.235+05:30  INFO 6280 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-14T11:32:00.247+05:30  INFO 6280 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-14T11:32:00.322+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Users Initialization Complete
+2026-05-14T11:32:09.857+05:30  INFO 6280 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-05-14T11:32:09.862+05:30  INFO 6280 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-05-14T11:32:10.104+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 6280 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-14T11:32:10.105+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-14T11:32:11.256+05:30  INFO 6280 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-14T11:32:11.327+05:30  INFO 6280 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-14T11:32:11.443+05:30  INFO 6280 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-14T11:32:11.540+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-05-14T11:32:11.548+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@469a9dea
+2026-05-14T11:32:11.554+05:30  INFO 6280 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-05-14T11:32:14.548+05:30  WARN 6280 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-14T11:32:15.045+05:30  INFO 6280 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 4.994 seconds (process running for 1286.852)
+2026-05-14T11:32:15.047+05:30  INFO 6280 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-14T11:32:15.049+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Starting default user initialization
+2026-05-14T11:32:15.055+05:30  INFO 6280 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-14T11:32:15.157+05:30  INFO 6280 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Users Initialization Complete
+2026-05-14T11:37:43.098+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-14T11:37:43.287+05:30  WARN 6280 --- [http-nio-0.0.0.0-8081-exec-3] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/auth/me' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-05-14T11:38:38.208+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-10] com.rxincredible.service.OrderService    : Overriding frontend amount 500 with 590.00 for fixed-price service PRESCRIPTION_ANALYSIS
+2026-05-14T11:38:38.543+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: INR 59000
+2026-05-14T11:38:38.543+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Operating in TEST mode - using Razorpay test credentials
+2026-05-14T11:38:38.763+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Razorpay order created: order_Sp8jN4EI1GOSYe
+2026-05-14T11:39:11.855+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-10] com.rxincredible.service.OrderService    : Overriding frontend amount 500 with 590.00 for fixed-price service PRESCRIPTION_ANALYSIS
+2026-05-14T11:39:11.961+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: INR 59000
+2026-05-14T11:39:11.962+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Operating in TEST mode - using Razorpay test credentials
+2026-05-14T11:39:12.037+05:30  INFO 6280 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Razorpay order created: order_Sp8jxOXu3ysdCQ
+2026-05-14T11:41:02.565+05:30  INFO 18216 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 18216 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-14T11:41:02.568+05:30  INFO 18216 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-14T11:41:06.391+05:30  INFO 18216 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-14T11:41:06.394+05:30  INFO 18216 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-14T11:41:06.684+05:30  INFO 18216 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-14T11:41:07.593+05:30  INFO 18216 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-14T11:41:07.881+05:30  INFO 18216 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6dc19ad8
+2026-05-14T11:41:07.883+05:30  INFO 18216 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-14T11:41:16.190+05:30  WARN 18216 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-14T11:41:17.603+05:30  INFO 18216 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 15.982 seconds (process running for 16.868)
+2026-05-14T11:41:17.608+05:30  INFO 18216 --- [restartedMain] c.rxincredible.config.DataInitializer    : Starting default user initialization
+2026-05-14T11:41:17.629+05:30  INFO 18216 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-14T11:41:17.854+05:30  INFO 18216 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-14T11:41:18.313+05:30  INFO 18216 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Admin User Created
+2026-05-14T11:41:18.412+05:30  INFO 18216 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Doctor User Created
+2026-05-14T11:41:18.494+05:30  INFO 18216 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Accountant User Created
+2026-05-14T11:41:18.581+05:30  INFO 18216 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Analyst User Created
+2026-05-14T11:41:18.582+05:30  INFO 18216 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default Users Initialization Complete
+2026-05-14T11:41:42.110+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-14T11:41:42.319+05:30 ERROR 18216 --- [http-nio-0.0.0.0-8081-exec-1] c.r.config.JwtAuthenticationFilter       : Unexpected error in JWT authentication
+
+org.springframework.security.core.userdetails.UsernameNotFoundException: User not found with email: shreyas.raut188@gmail.com
+	at com.rxincredible.service.CustomUserDetailsService.lambda$0(CustomUserDetailsService.java:22) ~[classes/:na]
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403) ~[na:na]
+	at com.rxincredible.service.CustomUserDetailsService.loadUserByUsername(CustomUserDetailsService.java:22) ~[classes/:na]
+	at com.rxincredible.config.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:80) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-05-14T11:41:42.419+05:30  WARN 18216 --- [http-nio-0.0.0.0-8081-exec-1] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/auth/logout' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-05-14T11:41:42.477+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-1] c.r.controller.AuthController            : User logged out successfully
+2026-05-14T11:41:52.839+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login attempt for email: mr***@gmail.com
+2026-05-14T11:41:53.027+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login successful for email: mr***@gmail.com
+2026-05-14T11:41:53.087+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : Jakarta Mail version 2.1.2
+2026-05-14T11:41:53.117+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : URL jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.providers
+2026-05-14T11:41:53.122+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : successfully loaded resource: jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.providers
+2026-05-14T11:41:53.124+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : successfully loaded resource: /META-INF/javamail.default.providers
+2026-05-14T11:41:53.129+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : Tables of loaded providers
+2026-05-14T11:41:53.133+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : Providers Listed By Class Name: {org.eclipse.angus.mail.imap.IMAPStore=jakarta.mail.Provider[STORE,imap,org.eclipse.angus.mail.imap.IMAPStore,Oracle], org.eclipse.angus.mail.smtp.SMTPTransport=jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle], org.eclipse.angus.mail.pop3.POP3Store=jakarta.mail.Provider[STORE,pop3,org.eclipse.angus.mail.pop3.POP3Store,Oracle], org.eclipse.angus.mail.pop3.POP3SSLStore=jakarta.mail.Provider[STORE,pop3s,org.eclipse.angus.mail.pop3.POP3SSLStore,Oracle], org.eclipse.angus.mail.smtp.SMTPSSLTransport=jakarta.mail.Provider[TRANSPORT,smtps,org.eclipse.angus.mail.smtp.SMTPSSLTransport,Oracle], org.eclipse.angus.mail.imap.IMAPSSLStore=jakarta.mail.Provider[STORE,imaps,org.eclipse.angus.mail.imap.IMAPSSLStore,Oracle]}
+2026-05-14T11:41:53.137+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : Providers Listed By Protocol: {imap=jakarta.mail.Provider[STORE,imap,org.eclipse.angus.mail.imap.IMAPStore,Oracle], smtp=jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle], pop3=jakarta.mail.Provider[STORE,pop3,org.eclipse.angus.mail.pop3.POP3Store,Oracle], imaps=jakarta.mail.Provider[STORE,imaps,org.eclipse.angus.mail.imap.IMAPSSLStore,Oracle], smtps=jakarta.mail.Provider[TRANSPORT,smtps,org.eclipse.angus.mail.smtp.SMTPSSLTransport,Oracle], pop3s=jakarta.mail.Provider[STORE,pop3s,org.eclipse.angus.mail.pop3.POP3SSLStore,Oracle]}
+2026-05-14T11:41:53.139+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : successfully loaded resource: /META-INF/javamail.default.address.map
+2026-05-14T11:41:53.141+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : URL jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.address.map
+2026-05-14T11:41:53.143+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : successfully loaded resource: jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.address.map
+2026-05-14T11:41:53.169+05:30 DEBUG 18216 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-14T11:42:00.315+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] com.rxincredible.service.EmailService    : OTP email sent successfully to: mramteke80@gmail.com
+2026-05-14T11:42:00.316+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] com.rxincredible.service.EmailService    : OTP for testing: 557588
+2026-05-14T11:42:00.319+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Admin OTP sent for email: mr***@gmail.com
+2026-05-14T11:42:11.356+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-5] c.r.controller.AuthController            : Admin OTP verification attempt for email: mr***@gmail.com
+2026-05-14T11:42:22.984+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.AuthController            : User logged out successfully
+2026-05-14T11:51:08.171+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-4] c.r.controller.UserController            : Registration request for email: sh***@gmail.com
+2026-05-14T11:51:08.297+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-4] c.r.controller.UserController            : User saved to pending users table: sh***@gmail.com
+2026-05-14T11:51:08.299+05:30 DEBUG 18216 --- [http-nio-0.0.0.0-8081-exec-4] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-14T11:51:11.682+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-4] com.rxincredible.service.EmailService    : OTP email sent successfully to: shreyas.raut188@gmail.com
+2026-05-14T11:51:11.682+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-4] com.rxincredible.service.EmailService    : OTP for testing: 220057
+2026-05-14T11:51:11.683+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-4] c.r.controller.UserController            : Verification email sent: sh***@gmail.com
+2026-05-14T11:51:23.267+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.UserController            : OTP verification request for email: sh***@gmail.com
+2026-05-14T11:51:23.274+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.UserController            : OTP received: 220057
+2026-05-14T11:51:23.282+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.UserController            : Pending user found: true
+2026-05-14T11:51:23.290+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.UserController            : Found pending user, stored OTP: 220057
+2026-05-14T11:51:23.355+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.UserController            : Registration verified successfully for: sh***@gmail.com
+2026-05-14T11:51:23.357+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.UserController            : Returning success response with user: shreyas.raut188@gmail.com
+2026-05-14T11:51:27.493+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.AuthController            : Login attempt for email: sh***@gmail.com
+2026-05-14T11:51:27.589+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.AuthController            : Login successful for email: sh***@gmail.com
+2026-05-14T11:57:54.502+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: USD 1000
+2026-05-14T11:57:54.503+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Operating in TEST mode - using Razorpay test credentials
+2026-05-14T11:57:54.857+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Razorpay order created: order_Sp93ixlm5bmiNr
+2026-05-14T11:59:48.376+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.AuthController            : User logged out successfully

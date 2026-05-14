@@ -4,17 +4,21 @@ import { FileText, Calendar, User, Eye, Download, CheckCircle, XCircle, Clock, I
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { CustomSelect } from "../../components/CustomSelect";
+import { TablePagination } from "../../components/TablePagination.jsx";
 import { Link } from "react-router";
 import { orderAPI, quotationAPI } from "@/services/api.js";
 import Swal from "sweetalert2";
 import { formatCurrency } from "./quotationHelpers.js";
 import { formatReportId } from "@/app/utils/reportId.js";
 
+const TABLE_PAGE_SIZE = 10;
+
 export default function QuotationsHistory() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     fetchOrders();
@@ -75,6 +79,22 @@ export default function QuotationsHistory() {
     }
     return true;
   });
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, filterStatus]);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(filteredOrders.length / TABLE_PAGE_SIZE));
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, filteredOrders.length]);
+
+  const paginatedOrders = filteredOrders.slice(
+    (currentPage - 1) * TABLE_PAGE_SIZE,
+    currentPage * TABLE_PAGE_SIZE,
+  );
 
   // Calculate stats
   const totalQuotations = orders.length;
@@ -300,7 +320,7 @@ export default function QuotationsHistory() {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredOrders.map((order, index) => {
+                    {paginatedOrders.map((order, index) => {
                       const user = order.user || {};
                       const statusInfo = getStatusBadge(order.status);
                       return (
@@ -379,11 +399,13 @@ export default function QuotationsHistory() {
               </div>
 
               {/* Pagination Info */}
-              <div className="flex items-center justify-between px-6 py-4 bg-[#F1F5F9]">
-                <p className="text-sm text-gray-600">
-                  Showing {filteredOrders.length} of {orders.length} orders
-                </p>
-              </div>
+              <TablePagination
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+                totalItems={filteredOrders.length}
+                itemLabel="orders"
+                pageSize={TABLE_PAGE_SIZE}
+              />
             </motion.div>
           )}
         </div>

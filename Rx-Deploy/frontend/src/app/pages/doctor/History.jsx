@@ -3,11 +3,14 @@ import { motion, AnimatePresence } from "motion/react";
 import { FileText, Calendar, User, Eye, Edit, CheckCircle, Clock, X, Download, Loader2, AlertCircle, Phone, Mail, MapPin, Hash } from "lucide-react";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
+import { TablePagination } from "../../components/TablePagination.jsx";
 import { Link, useNavigate } from "react-router";
 import { prescriptionAPI, orderAPI, authAPI, getStoredUser, getToken } from "@/services/api.js";
 import Swal from "sweetalert2";
 import { API_BASE_URL } from "@/config/api.js";
 import { formatReportId } from "@/app/utils/reportId.js";
+
+const TABLE_PAGE_SIZE = 10;
 
 export default function DoctorHistory() {
   const navigate = useNavigate();
@@ -17,6 +20,8 @@ export default function DoctorHistory() {
   const [generatedReports, setGeneratedReports] = useState([]);
   const [drafts, setDrafts] = useState([]);
   const [downloading, setDownloading] = useState(false);
+  const [generatedPage, setGeneratedPage] = useState(1);
+  const [draftsPage, setDraftsPage] = useState(1);
 
   useEffect(() => {
     // Profile check removed - doctors can access history after profile update
@@ -58,6 +63,38 @@ export default function DoctorHistory() {
       document.documentElement.style.overflow = previousHtmlOverflow;
     };
   }, [selectedReport]);
+
+  useEffect(() => {
+    setGeneratedPage(1);
+  }, [generatedReports.length]);
+
+  useEffect(() => {
+    setDraftsPage(1);
+  }, [drafts.length]);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(generatedReports.length / TABLE_PAGE_SIZE));
+    if (generatedPage > totalPages) {
+      setGeneratedPage(totalPages);
+    }
+  }, [generatedPage, generatedReports.length]);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(drafts.length / TABLE_PAGE_SIZE));
+    if (draftsPage > totalPages) {
+      setDraftsPage(totalPages);
+    }
+  }, [drafts.length, draftsPage]);
+
+  const paginatedGeneratedReports = generatedReports.slice(
+    (generatedPage - 1) * TABLE_PAGE_SIZE,
+    generatedPage * TABLE_PAGE_SIZE,
+  );
+
+  const paginatedDrafts = drafts.slice(
+    (draftsPage - 1) * TABLE_PAGE_SIZE,
+    draftsPage * TABLE_PAGE_SIZE,
+  );
 
   const normalizeApiData = (response) => {
     if (Array.isArray(response)) {
@@ -587,7 +624,7 @@ export default function DoctorHistory() {
                         </td>
                       </tr>
                     ) : (
-                      generatedReports.map((report, index) => (
+                      paginatedGeneratedReports.map((report, index) => (
                         <motion.tr
                           key={`report-${report.id}-${report.isOrder ? 'order' : 'prescription'}`}
                           initial={{ opacity: 0, x: -20 }}
@@ -666,11 +703,13 @@ export default function DoctorHistory() {
                 </table>
               </div>
 
-              <div className="flex items-center justify-between px-6 py-4 bg-[#F1F5F9]">
-                <p className="text-sm text-gray-600">
-                  Showing {generatedReports.length} generated reports
-                </p>
-              </div>
+              <TablePagination
+                currentPage={generatedPage}
+                onPageChange={setGeneratedPage}
+                totalItems={generatedReports.length}
+                itemLabel="generated reports"
+                pageSize={TABLE_PAGE_SIZE}
+              />
             </motion.div>
           )}
 
@@ -700,7 +739,7 @@ export default function DoctorHistory() {
                         </td>
                       </tr>
                     ) : (
-                      drafts.map((draft, index) => (
+                      paginatedDrafts.map((draft, index) => (
                         <motion.tr
                           key={`draft-${draft.id}-${draft.isLocalDraft ? 'local' : 'remote'}`}
                           initial={{ opacity: 0, x: -20 }}
@@ -777,11 +816,13 @@ export default function DoctorHistory() {
                 </table>
               </div>
 
-              <div className="flex items-center justify-between px-6 py-4 bg-[#F1F5F9]">
-                <p className="text-sm text-gray-600">
-                  Showing {drafts.length} saved drafts
-                </p>
-              </div>
+              <TablePagination
+                currentPage={draftsPage}
+                onPageChange={setDraftsPage}
+                totalItems={drafts.length}
+                itemLabel="saved drafts"
+                pageSize={TABLE_PAGE_SIZE}
+              />
             </motion.div>
           )}
         </div>

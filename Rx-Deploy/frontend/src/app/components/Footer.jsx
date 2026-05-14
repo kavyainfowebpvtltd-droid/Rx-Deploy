@@ -4,7 +4,6 @@ import {
   Phone,
   MapPin,
   Facebook,
-  Twitter,
   Instagram,
   Linkedin,
 } from "lucide-react";
@@ -162,7 +161,14 @@ export function Footer() {
                 aria-label="Open RxIncredible on X"
                 className="text-blue-100 hover:text-white transition-colors"
               >
-                <Twitter className="w-5 h-5" />
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className="w-5 h-5"
+                  fill="currentColor"
+                >
+                  <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.847h-7.406l-5.8-7.584-6.637 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932zM17.61 20.645h2.039L6.486 3.24H4.298z" />
+                </svg>
               </a>
               <a
                 href="https://www.instagram.com/rxincredible/"
@@ -189,11 +195,17 @@ export function Footer() {
         <div className="border-t border-blue-400 mt-8 pt-8 text-center text-blue-100 flex flex-col items-center justify-between gap-4 md:flex-row md:text-left">
           <p className="min-w-0">
             {" "}
-            Copyright &copy; 2026 RxIncredible. All rights reserved. | Privacy
-            Policy |{" "}
+            Copyright &copy; 2026 RxIncredible. All rights reserved. |{" "}
+            <Link
+              to="/privacy-policy"
+              className="text-blue-100 hover:text-white transition-colors cursor-pointer"
+            >
+              Privacy Policy
+            </Link>{" "}
+            |{" "}
             <Link
               to="/terms-and-conditions"
-              className="text-blue-100 hover:text-white transition-colors underline cursor-pointer"
+              className="text-blue-100 hover:text-white transition-colors cursor-pointer"
             >
               Terms and Conditions
             </Link>
@@ -214,4 +226,3 @@ export function Footer() {
     </footer>
   );
 }
-

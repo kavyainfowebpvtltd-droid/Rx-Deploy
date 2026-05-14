@@ -19,7 +19,9 @@ import Swal from "sweetalert2";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { CustomSelect } from "../../components/CustomSelect";
+import { TablePagination } from "../../components/TablePagination.jsx";
 import { userService } from "@/services/api.js";
+import { buildApiUrl, buildBackendFileUrl } from "@/config/api.js";
 import {
   getPasswordRequirements,
   validateEmail,
@@ -52,6 +54,31 @@ const INITIAL_ADD_USER_ERRORS = {
 };
 
 const ALLOWED_GENDERS = ["Male", "Female", "Other", "NotSpecified"];
+const TABLE_PAGE_SIZE = 10;
+
+const getUserAvatarUrl = (user) => {
+  const rawValue = user?.profilePicture || user?.avatar || "";
+
+  if (!rawValue || typeof rawValue !== "string") {
+    return "";
+  }
+
+  if (rawValue.includes(",")) {
+    return rawValue;
+  }
+
+  if (/^https?:\/\//i.test(rawValue)) {
+    return rawValue;
+  }
+
+  if (rawValue.startsWith("/uploads/")) {
+    return user?.id
+      ? buildApiUrl(`/users/${user.id}/profile-picture`)
+      : buildBackendFileUrl(rawValue);
+  }
+
+  return `data:image/jpeg;base64,${rawValue}`;
+};
 
 const sanitizeFullNameInput = (value = "") =>
   value.replace(/[^A-Za-z\s.'-]/g, "").replace(/\s{2,}/g, " ");
@@ -186,6 +213,7 @@ export default function AdminUsers() {
   const [formErrors, setFormErrors] = useState(INITIAL_ADD_USER_ERRORS);
   const [isSubmittingAddUser, setIsSubmittingAddUser] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const passwordRequirements = getPasswordRequirements(formData.password);
 
   const buildUsersList = (registeredUsers, pendingUsers = []) => {
@@ -296,6 +324,22 @@ export default function AdminUsers() {
     return roleMatch && searchMatch;
   });
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, roleFilter]);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(filteredUsers.length / TABLE_PAGE_SIZE));
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, filteredUsers.length]);
+
+  const paginatedUsers = filteredUsers.slice(
+    (currentPage - 1) * TABLE_PAGE_SIZE,
+    currentPage * TABLE_PAGE_SIZE,
+  );
+
   // Validate name: only letters, spaces, apostrophes, hyphens, and periods allowed
   const validateName = (name) => {
     return sanitizeFullNameInput(name);
@@ -403,6 +447,42 @@ export default function AdminUsers() {
       age: user.age || "",
     });
     setShowEditModal(true);
+  };
+
+  const handleDeleteUser = async (user) => {
+    try {
+      if (user.isPending) {
+        await userAPI.deletePending(user.id);
+      } else {
+        await userAPI.delete(user.id);
+      }
+
+      setUsers((currentUsers) =>
+        currentUsers.filter((currentUser) => {
+          const matchesPendingState =
+            Boolean(currentUser.isPending) === Boolean(user.isPending);
+          return !(currentUser.id === user.id && matchesPendingState);
+        }),
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: `"${user.fullName}" has been permanently deleted from the database.`,
+        confirmButtonColor: "#16A34A",
+      });
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Delete Failed",
+        text:
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          "Failed to delete user. Please try again.",
+        confirmButtonColor: "#2563EB",
+      });
+    }
   };
 
   const handleEditInputChange = (e) => {
@@ -632,7 +712,7 @@ export default function AdminUsers() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredUsers.map((user, index) => (
+                  {paginatedUsers.map((user, index) => (
                     <motion.tr
                       key={
                         user.isPending
@@ -646,9 +726,17 @@ export default function AdminUsers() {
                     >
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-[#1E3A8A] to-[#2563EB] rounded-full flex items-center justify-center text-white">
-                            {user.fullName?.charAt(0)}
-                          </div>
+                          {getUserAvatarUrl(user) ? (
+                            <img
+                              src={getUserAvatarUrl(user)}
+                              alt={user.fullName || "User"}
+                              className="w-10 h-10 rounded-full object-cover border border-blue-100 bg-white"
+                            />
+                          ) : (
+                            <div className="w-10 h-10 bg-gradient-to-br from-[#1E3A8A] to-[#2563EB] rounded-full flex items-center justify-center text-white">
+                              {user.fullName?.charAt(0)}
+                            </div>
+                          )}
                           <span className="text-gray-700">{user.fullName}</span>
                         </div>
                       </td>
@@ -711,16 +799,18 @@ export default function AdminUsers() {
                             onClick={() => {
                               Swal.fire({
                                 title: "Are you sure?",
-                                text: `You want to ${user.isActive ? "deactivate" : "activate"} user "${user.fullName}".`,
+                                text: user.isPending
+                                  ? `Pending user "${user.fullName}" will be permanently deleted from the database.`
+                                  : `User "${user.fullName}" will be permanently deleted from the database.`,
                                 icon: "warning",
                                 showCancelButton: true,
                                 confirmButtonColor: "#EF4444",
                                 cancelButtonColor: "#6B7280",
-                                confirmButtonText: "Yes, do it!",
+                                confirmButtonText: "Yes, delete",
                                 cancelButtonText: "Cancel",
                               }).then((result) => {
                                 if (result.isConfirmed) {
-                                  handleToggleUserStatus(user);
+                                  handleDeleteUser(user);
                                 }
                               });
                             }}
@@ -737,11 +827,13 @@ export default function AdminUsers() {
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between px-6 py-4 bg-[#F1F5F9]">
-              <p className="text-sm text-gray-600">
-                Showing {filteredUsers.length} of {users.length} users
-              </p>
-            </div>
+            <TablePagination
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+              totalItems={filteredUsers.length}
+              itemLabel="users"
+              pageSize={TABLE_PAGE_SIZE}
+            />
           </motion.div>
         </div>
       </main>

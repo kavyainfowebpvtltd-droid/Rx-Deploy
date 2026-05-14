@@ -26,6 +26,7 @@ import {
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { CustomSelect } from "../../components/CustomSelect";
+import { TablePagination } from "../../components/TablePagination.jsx";
 import Swal from "sweetalert2";
 import {
   orderAPI,
@@ -38,6 +39,7 @@ import {
 import { API_BASE_URL } from "@/config/api.js";
 
 const SEARCH_ALLOWED_CHARACTERS = /^[a-zA-Z0-9\s-]*$/;
+const TABLE_PAGE_SIZE = 10;
 
 const sanitizeSearchValue = (value) => value.replace(/[^a-zA-Z0-9\s-]/g, "");
 
@@ -105,6 +107,7 @@ export default function AdminOrders() {
   const [selectedPriority, setSelectedPriority] = useState("MEDIUM");
   const [assigningDoctorId, setAssigningDoctorId] = useState(null);
   const [assigningAnalystId, setAssigningAnalystId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Download Bill PDF - from documents
   const handleDownloadBillFromDocuments = async (orderId) => {
@@ -198,7 +201,7 @@ export default function AdminOrders() {
   };
   const openPdfBlob = (blob, fileName) => {
     const url = window.URL.createObjectURL(blob);
-    const newWindow = window.open("about:blank", "_blank");
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (!newWindow) {
       const link = document.createElement("a");
       link.href = url;
@@ -209,8 +212,7 @@ export default function AdminOrders() {
       link.click();
       document.body.removeChild(link);
     } else {
-      newWindow.opener = null;
-      newWindow.location.replace(url);
+      newWindow.focus();
     }
     window.setTimeout(() => window.URL.revokeObjectURL(url), 60000);
   };
@@ -454,7 +456,7 @@ export default function AdminOrders() {
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/pdf")) {
           const blob = await response.blob();
-          openPdfBlob(blob, `medical_report_${orderId}.pdf`);
+          openPdfBlob(blob, `prescription_${orderId}.pdf`);
         } else {
           const data = await response.json();
           Swal.fire({
@@ -657,6 +659,22 @@ export default function AdminOrders() {
       );
     })
     .sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, filterStatus, filterService, filterPaymentStatus]);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(filteredOrders.length / TABLE_PAGE_SIZE));
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, filteredOrders.length]);
+
+  const paginatedOrders = filteredOrders.slice(
+    (currentPage - 1) * TABLE_PAGE_SIZE,
+    currentPage * TABLE_PAGE_SIZE,
+  );
 
   const getStatusBadge = (status) => {
     const styles = {
@@ -1190,7 +1208,7 @@ export default function AdminOrders() {
                 value={searchTerm}
                 onChange={handleSearchChange}
                 aria-invalid={Boolean(searchError)}
-                className={`w-full pl-12 pr-4 py-4 bg-white border rounded-xl focus:ring-2 focus:border-transparent shadow-sm ${
+                className={`h-14 w-full rounded-xl border bg-white py-0 pl-12 pr-4 text-sm shadow-sm focus:border-transparent focus:ring-2 sm:h-[58px] sm:text-base ${
                   searchError
                     ? "border-red-300 focus:ring-red-500"
                     : "border-gray-300 focus:ring-[#2563EB]"
@@ -1203,30 +1221,44 @@ export default function AdminOrders() {
                 </p>
               )}
             </div>
-            <CustomSelect
-              value={filterStatus}
-              onChange={setFilterStatus}
-              buttonClassName="px-6 py-4 lg:min-w-[200px]"
-              options={[
-                { value: "all", label: "All Status" },
-
-                { value: "PROCESSING", label: "Processing" },
-                { value: "COMPLETED", label: "Completed" },
-                { value: "REJECTED", label: "Rejected" },
-                { value: "CANCELLED", label: "Cancelled" },
-              ]}
-            />
-            <CustomSelect
-              value={filterPaymentStatus}
-              onChange={setFilterPaymentStatus}
-              buttonClassName="px-6 py-4 lg:min-w-[200px]"
-              options={[
-                { value: "all", label: "All Payments" },
-                { value: "PENDING", label: "Pending" },
-                { value: "PAID", label: "Paid" },
-                { value: "FAILED", label: "Failed" },
-              ]}
-            />
+            <div className="min-w-0">
+              <label className="mb-1.5 block text-xs font-medium text-gray-600 lg:sr-only">
+                Status
+              </label>
+              <CustomSelect
+                value={filterStatus}
+                onChange={setFilterStatus}
+                placeholder="Select status"
+                buttonClassName="h-14 flex-nowrap px-4 py-0 text-sm sm:h-[58px] sm:px-6 sm:text-base lg:min-w-[200px]"
+                textClassName="font-medium text-gray-800"
+                options={[
+                  { value: "all", label: "All Status" },
+                  { value: "PENDING", label: "Pending" },
+                  { value: "PROCESSING", label: "Processing" },
+                  { value: "COMPLETED", label: "Completed" },
+                  { value: "REJECTED", label: "Rejected" },
+                  { value: "CANCELLED", label: "Cancelled" },
+                ]}
+              />
+            </div>
+            <div className="min-w-0">
+              <label className="mb-1.5 block text-xs font-medium text-gray-600 lg:sr-only">
+                Payment
+              </label>
+              <CustomSelect
+                value={filterPaymentStatus}
+                onChange={setFilterPaymentStatus}
+                placeholder="Select payment"
+                buttonClassName="h-14 flex-nowrap px-4 py-0 text-sm sm:h-[58px] sm:px-6 sm:text-base lg:min-w-[200px]"
+                textClassName="font-medium text-gray-800"
+                options={[
+                  { value: "all", label: "All Payments" },
+                  { value: "PENDING", label: "Pending" },
+                  { value: "PAID", label: "Paid" },
+                  { value: "FAILED", label: "Failed" },
+                ]}
+              />
+            </div>
           </motion.div>
 
           {/* Orders */}
@@ -1281,7 +1313,7 @@ export default function AdminOrders() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredOrders.map((order, index) => (
+                  {paginatedOrders.map((order, index) => (
                     <motion.tr
                       key={order.id}
                       initial={{ opacity: 0, x: -20 }}
@@ -1383,7 +1415,7 @@ export default function AdminOrders() {
             </div>
 
             <div className="divide-y divide-gray-200 md:hidden">
-              {filteredOrders.map((order, index) => (
+              {paginatedOrders.map((order, index) => (
                 <motion.article
                   key={order.id}
                   initial={{ opacity: 0, y: 12 }}
@@ -1497,11 +1529,13 @@ export default function AdminOrders() {
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between bg-[#F1F5F9] px-4 py-4 sm:px-6">
-              <p className="text-sm text-gray-600">
-                Showing {filteredOrders.length} of {orders.length} orders
-              </p>
-            </div>
+            <TablePagination
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+              totalItems={filteredOrders.length}
+              itemLabel="orders"
+              pageSize={TABLE_PAGE_SIZE}
+            />
           </motion.div>
         </div>
       </main>

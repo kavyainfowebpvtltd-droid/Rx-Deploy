@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface QuotationRepository extends JpaRepository<Quotation, Long> {
     
     List<Quotation> findByUserId(Long userId);
+
+    List<Quotation> findByCreatedById(Long createdById);
     
     Optional<Quotation> findByQuotationNumber(String quotationNumber);
     

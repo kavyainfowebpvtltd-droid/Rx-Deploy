@@ -1,16 +1,11 @@
-import {
-  Scale,
-  Shield,
-  AlertCircle,
-  CheckCircle,
-} from "lucide-react";
+import { Scale, Shield, AlertCircle, CheckCircle } from "lucide-react";
 import { Navbar } from "../components/Navbar.jsx";
 import { Footer } from "../components/Footer.jsx";
 
 export default function TermsAndConditions() {
   return (
     <>
-      <Navbar hideAuth={true} />
+      <Navbar hideAuth={true} hideMobileMenuButton={true} />
 
       <main className="flex-1 bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
         {/* Hero Section */}

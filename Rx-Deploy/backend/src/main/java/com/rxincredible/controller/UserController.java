@@ -337,6 +337,18 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUserStatus(id, status));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/pending/{id}")
+    public ResponseEntity<Void> deletePendingUser(@PathVariable Long id) {
+        userService.deletePendingUserById(id);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}/deactivate")
     public ResponseEntity<Void> deactivateUser(@PathVariable Long id) {
         userService.deactivateUser(id);

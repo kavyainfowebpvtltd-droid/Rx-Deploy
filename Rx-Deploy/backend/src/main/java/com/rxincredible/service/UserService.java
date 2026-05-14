@@ -1,8 +1,18 @@
 package com.rxincredible.service;
 
 import com.rxincredible.entity.PendingUser;
+import com.rxincredible.entity.Document;
+import com.rxincredible.entity.Order;
+import com.rxincredible.entity.Payment;
+import com.rxincredible.entity.Prescription;
+import com.rxincredible.entity.Quotation;
 import com.rxincredible.entity.User;
+import com.rxincredible.repository.DocumentRepository;
+import com.rxincredible.repository.OrderRepository;
+import com.rxincredible.repository.PaymentRepository;
 import com.rxincredible.repository.PendingUserRepository;
+import com.rxincredible.repository.PrescriptionRepository;
+import com.rxincredible.repository.QuotationRepository;
 import com.rxincredible.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +34,11 @@ public class UserService {
     
     private final UserRepository userRepository;
     private final PendingUserRepository pendingUserRepository;
+    private final OrderRepository orderRepository;
+    private final PrescriptionRepository prescriptionRepository;
+    private final PaymentRepository paymentRepository;
+    private final QuotationRepository quotationRepository;
+    private final DocumentRepository documentRepository;
     private final PasswordEncoder passwordEncoder;
     private final OtpService otpService;
     private final EmailService emailService;
@@ -31,9 +46,24 @@ public class UserService {
     @Value("${app.upload.directory:uploads}")
     private String uploadDirectory;
     
-    public UserService(UserRepository userRepository, PendingUserRepository pendingUserRepository, PasswordEncoder passwordEncoder, OtpService otpService, EmailService emailService) {
+    public UserService(
+            UserRepository userRepository,
+            PendingUserRepository pendingUserRepository,
+            OrderRepository orderRepository,
+            PrescriptionRepository prescriptionRepository,
+            PaymentRepository paymentRepository,
+            QuotationRepository quotationRepository,
+            DocumentRepository documentRepository,
+            PasswordEncoder passwordEncoder,
+            OtpService otpService,
+            EmailService emailService) {
         this.userRepository = userRepository;
         this.pendingUserRepository = pendingUserRepository;
+        this.orderRepository = orderRepository;
+        this.prescriptionRepository = prescriptionRepository;
+        this.paymentRepository = paymentRepository;
+        this.quotationRepository = quotationRepository;
+        this.documentRepository = documentRepository;
         this.passwordEncoder = passwordEncoder;
         this.otpService = otpService;
         this.emailService = emailService;
@@ -827,6 +857,25 @@ public class UserService {
     }
 
     @Transactional
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        detachUserReferences(user);
+        deleteOwnedRecords(user);
+        deleteDoctorAssetFiles(user);
+        pendingUserRepository.deleteByEmail(normalizeEmail(user.getEmail()));
+        userRepository.delete(user);
+    }
+
+    @Transactional
+    public void deletePendingUserById(Long id) {
+        PendingUser pendingUser = pendingUserRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pending user not found"));
+        pendingUserRepository.delete(pendingUser);
+    }
+
+    @Transactional
     public User updateUserStatus(Long id, String status) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -873,6 +922,105 @@ public class UserService {
         // Note: The user should use their Google Authenticator app to get the code
         // This method is kept for API compatibility but doesn't actually change anything
         // since the OTP is time-based and changes automatically every 30 seconds
+    }
+
+    private void detachUserReferences(User user) {
+        Long userId = user.getId();
+
+        List<User> assignedPatients = userRepository.findByAssignedDoctorId(userId);
+        if (!assignedPatients.isEmpty()) {
+            assignedPatients.forEach(patient -> patient.setAssignedDoctor(null));
+            userRepository.saveAll(assignedPatients);
+        }
+
+        List<Order> assignedDoctorOrders = orderRepository.findByAssignedDoctorId(userId);
+        if (!assignedDoctorOrders.isEmpty()) {
+            assignedDoctorOrders.forEach(order -> order.setAssignedDoctor(null));
+            orderRepository.saveAll(assignedDoctorOrders);
+        }
+
+        List<Order> assignedAnalystOrders = orderRepository.findByAssignedAnalystId(userId);
+        if (!assignedAnalystOrders.isEmpty()) {
+            assignedAnalystOrders.forEach(order -> order.setAssignedAnalyst(null));
+            orderRepository.saveAll(assignedAnalystOrders);
+        }
+
+        List<Prescription> doctorPrescriptions = prescriptionRepository.findByDoctorId(userId);
+        if (!doctorPrescriptions.isEmpty()) {
+            doctorPrescriptions.forEach(prescription -> prescription.setDoctor(null));
+            prescriptionRepository.saveAll(doctorPrescriptions);
+        }
+
+        List<Prescription> analystPrescriptions = prescriptionRepository.findByAnalystId(userId);
+        if (!analystPrescriptions.isEmpty()) {
+            analystPrescriptions.forEach(prescription -> prescription.setAnalyst(null));
+            prescriptionRepository.saveAll(analystPrescriptions);
+        }
+
+        List<Quotation> createdQuotations = quotationRepository.findByCreatedById(userId);
+        if (!createdQuotations.isEmpty()) {
+            createdQuotations.forEach(quotation -> quotation.setCreatedBy(null));
+            quotationRepository.saveAll(createdQuotations);
+        }
+    }
+
+    private void deleteOwnedRecords(User user) {
+        Long userId = user.getId();
+
+        List<Order> ownedOrders = orderRepository.findByUserId(userId);
+
+        deleteDocuments(documentRepository.findByUserId(userId));
+
+        List<Payment> userPayments = paymentRepository.findByUserId(userId);
+        if (!userPayments.isEmpty()) {
+            paymentRepository.deleteAll(userPayments);
+        }
+
+        List<Quotation> userQuotations = quotationRepository.findByUserId(userId);
+        if (!userQuotations.isEmpty()) {
+            quotationRepository.deleteAll(userQuotations);
+        }
+
+        if (!ownedOrders.isEmpty()) {
+            orderRepository.deleteAll(ownedOrders);
+        }
+
+        List<Prescription> userPrescriptions = prescriptionRepository.findByUserId(userId);
+        if (!userPrescriptions.isEmpty()) {
+            prescriptionRepository.deleteAll(userPrescriptions);
+        }
+    }
+
+    private void deleteDocuments(List<Document> documents) {
+        if (documents == null || documents.isEmpty()) {
+            return;
+        }
+
+        documents.forEach(document -> deleteStoredFile(document.getFilePath()));
+        documentRepository.deleteAll(documents);
+    }
+
+    private void deleteDoctorAssetFiles(User user) {
+        deleteStoredFile(user.getAadharCard());
+        deleteStoredFile(user.getPanCard());
+        deleteStoredFile(user.getMedicalCouncilRegistration());
+        deleteStoredFile(user.getUgCertificate());
+        deleteStoredFile(user.getPgCertificate());
+        deleteStoredFile(user.getProfilePicture());
+    }
+
+    private void deleteStoredFile(String storedPath) {
+        if (storedPath == null || storedPath.isBlank() || !storedPath.startsWith("/uploads/")) {
+            return;
+        }
+
+        try {
+            String relativePath = storedPath.replaceFirst("^/uploads/documents/", "");
+            Path fullPath = resolveDocumentUploadDirectory().resolve(relativePath).normalize();
+            Files.deleteIfExists(fullPath);
+        } catch (IOException e) {
+            System.err.println("Failed to delete file: " + e.getMessage());
+        }
     }
     
     // Patient Assignment Methods

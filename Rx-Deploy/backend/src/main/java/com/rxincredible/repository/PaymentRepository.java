@@ -19,6 +19,8 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     
     Optional<Payment> findByTransactionReference(String transactionReference);
     
+    void deleteByOrderId(Long orderId);
+    
     List<Payment> findByStatus(String status);
     
     @Query("SELECT p FROM Payment p WHERE p.user.id = :userId ORDER BY p.paymentDate DESC")

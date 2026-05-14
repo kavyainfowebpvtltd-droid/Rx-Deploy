@@ -20,8 +20,13 @@ import {
 import Swal from "sweetalert2";
 import { Navbar } from "../../components/Navbar.jsx";
 import { Footer } from "../../components/Footer.jsx";
+import { CustomSelect } from "../../components/CustomSelect.jsx";
 import { authAPI, userAPI } from "@/services/api.js";
 import { buildApiUrl, buildBackendFileUrl } from "@/config/api.js";
+import {
+  DOCTOR_SPECIALIZATION_OPTIONS,
+  GENDER_OPTIONS,
+} from "@/app/constants/selectOptions.js";
 import {
   parseStoredPhoneNumber,
   sanitizePhoneInput,
@@ -875,20 +880,16 @@ export default function DoctorProfile() {
                   {/* Gender */}
                   <div>
                     <label className="block text-gray-700 mb-2">Gender</label>
-                    <select
-                      name="gender"
+                    <CustomSelect
                       value={formData.gender}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all duration-200 ${
-                        errors.gender ? "border-red-500" : "border-gray-300"
-                      }`}
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="MALE">Male</option>
-                      <option value="FEMALE">Female</option>
-                      <option value="OTHER">Other</option>
-                    </select>
+                      onChange={(value) =>
+                        handleChange({ target: { name: "gender", value } })
+                      }
+                      onBlur={() => handleBlur({ target: { name: "gender" } })}
+                      options={GENDER_OPTIONS}
+                      placeholder="Select Gender"
+                      buttonClassName={errors.gender ? "!border-red-500" : ""}
+                    />
                     {errors.gender && (
                       <p className="mt-1 text-sm text-red-600">{errors.gender}</p>
                     )}
@@ -909,79 +910,22 @@ export default function DoctorProfile() {
                     <label className="block text-gray-700 mb-2">
                       Specialization
                     </label>
-                    <select
-                      name="specialization"
+                    <CustomSelect
                       value={formData.specialization}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all duration-200 ${
-                        errors.specialization ? "border-red-500" : "border-gray-300"
-                      }`}
-                    >
-                      <option value="">Select Specialization</option>
-                      <option value="General Medicine">General Medicine</option>
-                      <option value="General Physician">
-                        General Physician
-                      </option>
-                      <option value="Cardiology">Cardiology</option>
-                      <option value="Neurology">Neurology</option>
-                      <option value="Orthopedics">Orthopedics</option>
-                      <option value="Pediatrics">Pediatrics</option>
-                      <option value="Dermatology">Dermatology</option>
-                      <option value="Ophthalmology">Ophthalmology</option>
-                      <option value="ENT">ENT (Ear, Nose, Throat)</option>
-                      <option value="Gastroenterology">Gastroenterology</option>
-                      <option value="Pulmonology">Pulmonology</option>
-                      <option value="Endocrinology">Endocrinology</option>
-                      <option value="Nephrology">Nephrology</option>
-                      <option value="Urology">Urology</option>
-                      <option value="Gynecology">Gynecology</option>
-                      <option value="Psychiatry">Psychiatry</option>
-                      <option value="Oncology">Oncology</option>
-                      <option value="Radiology">Radiology</option>
-                      <option value="Anesthesiology">Anesthesiology</option>
-                      <option value="Pathology">Pathology</option>
-                      <option value="Emergency Medicine">
-                        Emergency Medicine
-                      </option>
-                      <option value="Sports Medicine">Sports Medicine</option>
-                      <option value="Rheumatology">Rheumatology</option>
-                      <option value="Geriatrics">Geriatrics</option>
-                      <option value="Family Medicine">Family Medicine</option>
-                      <option value="Cosmetic Surgery">Cosmetic Surgery</option>
-                      <option value="Plastic Surgery">Plastic Surgery</option>
-                      <option value="Vascular Surgery">Vascular Surgery</option>
-                      <option value="Cardiac Surgery">Cardiac Surgery</option>
-                      <option value="Neuro Surgery">Neuro Surgery</option>
-                      <option value="Pediatric Surgery">
-                        Pediatric Surgery
-                      </option>
-                      <option value="Gastrointestinal Surgery">
-                        Gastrointestinal Surgery
-                      </option>
-                      <option value="Obstetrics">Obstetrics</option>
-                      <option value="Neonatology">Neonatology</option>
-                      <option value="Immunology">Immunology</option>
-                      <option value="Infectious Disease">
-                        Infectious Disease
-                      </option>
-                      <option value="Internal Medicine">
-                        Internal Medicine
-                      </option>
-                      <option value="Ayurveda">Ayurveda</option>
-                      <option value="Homeopathy">Homeopathy</option>
-                      <option value="Unani">Unani</option>
-                      <option value="Yoga">Yoga</option>
-                      <option value="Physiotherapy">Physiotherapy</option>
-                      <option value="Dentistry">Dentistry</option>
-                      <option value="Dental Surgery">Dental Surgery</option>
-                      <option value="Orthodontics">Orthodontics</option>
-                      <option value="Oral Surgery">Oral Surgery</option>
-                      <option value="Periodontics">Periodontics</option>
-                      <option value="Endodontics">Endodontics</option>
-                      <option value="Prosthodontics">Prosthodontics</option>
-                      <option value="Other">Other</option>
-                    </select>
+                      onChange={(value) =>
+                        handleChange({
+                          target: { name: "specialization", value },
+                        })
+                      }
+                      onBlur={() =>
+                        handleBlur({ target: { name: "specialization" } })
+                      }
+                      options={DOCTOR_SPECIALIZATION_OPTIONS}
+                      placeholder="Select Specialization"
+                      buttonClassName={
+                        errors.specialization ? "!border-red-500" : ""
+                      }
+                    />
                     {errors.specialization && (
                       <p className="mt-1 text-sm text-red-600">{errors.specialization}</p>
                     )}

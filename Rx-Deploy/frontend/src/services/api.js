@@ -219,6 +219,8 @@ export const userAPI = {
   getActive: () => api.get('/users/active'),
   getPending: () => api.get('/users/pending'),
   update: (id, userData) => api.put(`/users/${id}`, userData),
+  delete: (id) => api.delete(`/users/${id}`),
+  deletePending: (id) => api.delete(`/users/pending/${id}`),
   updateStatus: (id, status) => api.put(`/users/${id}/status?status=${status}`),
   deactivate: (id) => api.put(`/users/${id}/status?status=Inactive`),
   activate: (id) => api.put(`/users/${id}/status?status=Active`),

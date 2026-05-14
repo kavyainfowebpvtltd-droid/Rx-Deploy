@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ArrowLeft, Calendar, Download, Eye, FileText, FolderOpen, IndianRupee, Plus, Receipt, Send, Trash2, User, X } from "lucide-react";
+import { Calendar, Download, Eye, FileText, FolderOpen, IndianRupee, Plus, Receipt, Send, Trash2, User, X } from "lucide-react";
 import { formatReportId } from "@/app/utils/reportId.js";
 
 export function DocumentsModal({ isOpen, selectedUser, documents, onClose, onView, onDownload }) {
@@ -74,7 +74,7 @@ export function DocumentsModal({ isOpen, selectedUser, documents, onClose, onVie
   );
 }
 
-export function Header({ showAllUsers, onBack, onCreateNew, orderData, isNewQuotation, isViewOnly, documentsCount, onOpenDocuments }) {
+export function Header({ showAllUsers, onCreateNew, orderData, isNewQuotation, isViewOnly, documentsCount, onOpenDocuments }) {
   if (showAllUsers) {
     return (
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-8 flex justify-between items-center">
@@ -91,9 +91,6 @@ export function Header({ showAllUsers, onBack, onCreateNew, orderData, isNewQuot
 
   return (
     <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-8">
-      <button onClick={onBack} className="mb-4 flex items-center gap-2 text-[#2563EB] hover:text-[#1E3A8A]">
-        <ArrowLeft className="h-4 w-4" /> Back to All Users
-      </button>
       <div className="flex items-start justify-between">
         <div>
           <h1 className="mb-2 text-3xl sm:text-4xl text-[#1E3A8A]">{isNewQuotation ? "New Quotation" : isViewOnly ? "View Quotation" : "Generate Quotation"}</h1>

@@ -14,9 +14,11 @@ import {
 import Swal from "sweetalert2";
 import { Navbar } from "../../components/Navbar.jsx";
 import { Footer } from "../../components/Footer.jsx";
+import { CustomSelect } from "../../components/CustomSelect.jsx";
 import { PhoneCountryPicker } from "../../components/PhoneCountryPicker.jsx";
 import { CountryPicker } from "../../components/CountryPicker.jsx";
 import { authAPI, userAPI } from "@/services/api.js";
+import { GENDER_OPTIONS } from "@/app/constants/selectOptions.js";
 import {
   formatPhoneForStorage,
   PHONE_COUNTRIES,
@@ -305,7 +307,7 @@ export default function UserProfile() {
     e.preventDefault();
 
     const nextErrors = {
-      fullName: validateFullName(formData.fullName),
+      fullName: "",
       phone: validatePhone(formData.phone),
       countryCode: validateCountry(formData.countryCode),
       address: validateAddress(formData.address),
@@ -403,7 +405,7 @@ export default function UserProfile() {
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-4">
                 <button
-                  onClick={() => navigate("/user/status")}
+                  onClick={() => navigate("/user/services")}
                   className="p-2 rounded-lg bg-[#E0E7FF] text-[#1E3A8A] hover:bg-[#C7D2FE] transition-all duration-200"
                 >
                   <ArrowLeft className="w-5 h-5" />
@@ -439,19 +441,14 @@ export default function UserProfile() {
                         type="text"
                         name="fullName"
                         value={formData.fullName}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
                         placeholder="Enter your full name"
-                        maxLength={80}
-                        className={`w-full pl-12 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all duration-200 ${errors.fullName ? "border-red-500" : "border-gray-300"}`}
-                        required
+                        className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-not-allowed"
+                        readOnly
                       />
                     </div>
-                    {errors.fullName && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {errors.fullName}
-                      </p>
-                    )}
+                    <p className="text-xs text-gray-500 mt-1">
+                      Full name cannot be changed
+                    </p>
                   </div>
 
                   {/* Email (read-only) */}
@@ -580,18 +577,16 @@ export default function UserProfile() {
                   {/* Gender */}
                   <div>
                     <label className="block text-gray-700 mb-2">Gender</label>
-                    <select
-                      name="gender"
+                    <CustomSelect
                       value={formData.gender}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all duration-200 ${errors.gender ? "border-red-500" : "border-gray-300"}`}
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="MALE">Male</option>
-                      <option value="FEMALE">Female</option>
-                      <option value="OTHER">Other</option>
-                    </select>
+                      onChange={(value) =>
+                        handleChange({ target: { name: "gender", value } })
+                      }
+                      onBlur={() => handleBlur({ target: { name: "gender" } })}
+                      options={GENDER_OPTIONS}
+                      placeholder="Select Gender"
+                      buttonClassName={errors.gender ? "!border-red-500" : ""}
+                    />
                     {errors.gender && (
                       <p className="mt-1 text-sm text-red-500">{errors.gender}</p>
                     )}
@@ -733,7 +728,7 @@ export default function UserProfile() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="button"
-                  onClick={() => navigate("/user/status")}
+                  onClick={() => navigate("/user/services")}
                   className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-all duration-200"
                 >
                   Cancel

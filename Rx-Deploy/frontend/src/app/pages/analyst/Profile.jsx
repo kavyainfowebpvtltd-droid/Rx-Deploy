@@ -14,6 +14,8 @@ import Swal from "sweetalert2";
 import { Navbar } from "../../components/Navbar.jsx";
 import { Footer } from "../../components/Footer.jsx";
 import { authAPI, userAPI } from "@/services/api.js";
+import { CustomSelect } from "../../components/CustomSelect.jsx";
+import { GENDER_OPTIONS } from "@/app/constants/selectOptions.js";
 
 export default function AnalystProfile() {
   const navigate = useNavigate();
@@ -235,17 +237,14 @@ export default function AnalystProfile() {
                   {/* Gender */}
                   <div>
                     <label className="block text-gray-700 mb-2">Gender</label>
-                    <select
-                      name="gender"
+                    <CustomSelect
                       value={formData.gender}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all duration-200"
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="MALE">Male</option>
-                      <option value="FEMALE">Female</option>
-                      <option value="OTHER">Other</option>
-                    </select>
+                      onChange={(value) =>
+                        handleChange({ target: { name: "gender", value } })
+                      }
+                      options={GENDER_OPTIONS}
+                      placeholder="Select Gender"
+                    />
                   </div>
                 </div>
               </div>

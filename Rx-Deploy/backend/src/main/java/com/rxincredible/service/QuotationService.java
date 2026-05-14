@@ -23,8 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -174,7 +174,8 @@ public class QuotationService {
             throw new RuntimeException("No order associated with this quotation");
         try {
             if (quotation.getTotalAmount() != null
-                    && (order.getTotalAmount() == null || order.getTotalAmount().compareTo(quotation.getTotalAmount()) != 0)) {
+                    && (order.getTotalAmount() == null
+                            || order.getTotalAmount().compareTo(quotation.getTotalAmount()) != 0)) {
                 order.setTotalAmount(quotation.getTotalAmount());
                 order = orderRepository.save(order);
             }
@@ -271,7 +272,7 @@ public class QuotationService {
         rect(cs, M, headerBottom, 8f, 88f, PRIMARY, true);
 
         drawLogo(document, cs, M + 14f, top - 74f, 78f, 62f,
-                "backend\\src\\main\\java\\com\\rxincredible\\service\\asset\\logo1.png");
+                "/com/rxincredible/service/asset/logo1.png");
 
         float x = M + 98f;
         text(cs, "Bhagyawati Drugs & Chemicals Pvt. Ltd", x, top - 18f, PDType1Font.HELVETICA_BOLD, 17, PRIMARY_DARK);
@@ -420,7 +421,8 @@ public class QuotationService {
         float totalBarW = summaryInnerW + 8f;
         rect(cs, totalBarX, summaryY + 12f, totalBarW, 28f, ACCENT, true);
         rect(cs, totalBarX, summaryY + 12f, totalBarW, 28f, BORDER, false, 0.6f);
-        summary(cs, summaryInnerX + 6f, summaryY + 22f, summaryInnerW - 12f, "Grand Total", money(total, country), true);
+        summary(cs, summaryInnerX + 6f, summaryY + 22f, summaryInnerW - 12f, "Grand Total", money(total, country),
+                true);
     }
 
     private void drawFooter(PDDocument document, PDPageContentStream cs, String generatedAt) throws IOException {
@@ -432,7 +434,7 @@ public class QuotationService {
 
         float footerLogoY = footerY + 6f;
         drawLogo(document, cs, M + 10f, footerLogoY, 88f, 48f,
-                "backend\\src\\main\\java\\com\\rxincredible\\service\\asset\\logo2.png");
+                "/com/rxincredible/service/asset/logo2.png");
 
         float textX = M + 112f;
         float footerTextY = footerY + 38f;
@@ -488,14 +490,14 @@ public class QuotationService {
     }
 
     private void drawLogo(PDDocument document, PDPageContentStream cs, float x, float y, float maxW, float maxH,
-            String path) {
-        try {
-            File file = new File(path);
-            if (!file.exists()) {
-                logger.warn("Logo file not found: {}", path);
+            String resourcePath) {
+        try (InputStream logoStream = getClass().getResourceAsStream(resourcePath)) {
+            if (logoStream == null) {
+                logger.warn("Quotation logo resource not found: {}", resourcePath);
                 return;
             }
-            PDImageXObject image = PDImageXObject.createFromFile(file.getAbsolutePath(), document);
+            PDImageXObject image = PDImageXObject.createFromByteArray(document, logoStream.readAllBytes(),
+                    resourcePath);
             float scale = Math.min(maxW / image.getWidth(), maxH / image.getHeight());
             float drawW = image.getWidth() * scale;
             float drawH = image.getHeight() * scale;
@@ -503,7 +505,7 @@ public class QuotationService {
             float drawY = y + ((maxH - drawH) / 2f);
             cs.drawImage(image, drawX, drawY, drawW, drawH);
         } catch (Exception e) {
-            logger.debug("Unable to load quotation logo from {}: {}", path, e.getMessage());
+            logger.debug("Unable to load quotation logo from {}: {}", resourcePath, e.getMessage());
         }
     }
 

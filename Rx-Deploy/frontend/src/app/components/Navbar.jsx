@@ -188,6 +188,12 @@ export function Navbar({ role, hideAuth = false, hideMobileMenuButton = false })
     admin: "/admin/dashboard",
     analyst: "/analyst/reports",
   };
+  const profileLinkByRole = {
+    user: "/user/profile",
+    doctor: "/doctor/profile",
+    analyst: "/analyst/profile",
+  };
+  const mobileProfileLink = profileLinkByRole[role];
 
   return (
     <motion.nav
@@ -552,13 +558,18 @@ export function Navbar({ role, hideAuth = false, hideMobileMenuButton = false })
               </Link>
             ))}
 
-            {/* Profile Link - For analyst in mobile */}
-            {role === "analyst" && (
+            {/* Profile Link - For mobile authenticated profile roles */}
+            {mobileProfileLink && (
               <Link
-                to="/analyst/profile"
+                to={mobileProfileLink}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-4 py-3 rounded-lg text-[#1E3A8A] hover:bg-[#E0E7FF] transition-all duration-200"
+                className={`flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-200 ${
+                  location.pathname === mobileProfileLink
+                    ? "bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] text-white"
+                    : "text-[#1E3A8A] hover:bg-[#E0E7FF]"
+                }`}
               >
+                <User className="w-4 h-4" />
                 Profile
               </Link>
             )}

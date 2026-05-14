@@ -146,10 +146,10 @@ public class DataInitializer {
             List<MedicalService> services = List.of(
                     createService("Prescription Analysis",
                             "Upload your prescription and get detailed analysis from expert doctors",
-                            new BigDecimal("1.00"), "prescription"),
+                            new BigDecimal("500.00"), "prescription"),
                     createService("Second Opinion",
                             "Get a second medical opinion from certified healthcare professionals",
-                            new BigDecimal("1.00"), "consultation"),
+                            new BigDecimal("5000.00"), "consultation"),
                     createService("Online Pharmacy", "Order medicines online with instant quotations",
                             new BigDecimal("0.00"), "pharmacy"));
             serviceRepository.saveAll(services);
@@ -188,27 +188,36 @@ public class DataInitializer {
                 if (order.getTotalAmount() != null) {
                     BigDecimal currentAmount = order.getTotalAmount();
 
-                    // Fix Prescription Analysis orders (was 25, should be 500)
-                    if (currentAmount.compareTo(new BigDecimal("25.00")) == 0 ||
-                            currentAmount.compareTo(new BigDecimal("25")) == 0) {
-                        order.setTotalAmount(new BigDecimal("1.00"));
+                    boolean isPrescriptionAnalysis = "PRESCRIPTION_ANALYSIS".equals(order.getServiceType());
+                    boolean isSecondOpinion = "SECOND_OPINION".equals(order.getServiceType());
+
+                    // Fix Prescription Analysis orders (was 25/1, should be 500 base + GST)
+                    if (isPrescriptionAnalysis &&
+                            (currentAmount.compareTo(new BigDecimal("25.00")) == 0 ||
+                            currentAmount.compareTo(new BigDecimal("25")) == 0 ||
+                            currentAmount.compareTo(new BigDecimal("1.00")) == 0 ||
+                                    currentAmount.compareTo(new BigDecimal("1")) == 0)) {
+                        order.setTotalAmount(new BigDecimal("590.00"));
                         System.out.println("=== Fixed order " + order.getOrderNumber() + ": amount " + currentAmount
-                                + " -> 500.00 ===");
+                                + " -> 590.00 ===");
                         orderFixed = true;
                     }
-                    // Fix Second Opinion orders (was 50/500, should be 5000)
-                    else if (currentAmount.compareTo(new BigDecimal("50.00")) == 0 ||
-                            currentAmount.compareTo(new BigDecimal("50")) == 0) {
-                        order.setTotalAmount(new BigDecimal("5000.00"));
+                    // Fix Second Opinion orders (was 50/500/1, should be 5000 base + GST)
+                    else if (isSecondOpinion &&
+                            (currentAmount.compareTo(new BigDecimal("50.00")) == 0 ||
+                            currentAmount.compareTo(new BigDecimal("50")) == 0 ||
+                                    currentAmount.compareTo(new BigDecimal("1.00")) == 0 ||
+                                    currentAmount.compareTo(new BigDecimal("1")) == 0)) {
+                        order.setTotalAmount(new BigDecimal("5900.00"));
                         System.out.println("=== Fixed order " + order.getOrderNumber() + ": amount " + currentAmount
-                                + " -> 5000.00 ===");
+                                + " -> 5900.00 ===");
                         orderFixed = true;
-                    } else if ("SECOND_OPINION".equals(order.getServiceType()) &&
+                    } else if (isSecondOpinion &&
                             (currentAmount.compareTo(new BigDecimal("500.00")) == 0
                                     || currentAmount.compareTo(new BigDecimal("500")) == 0)) {
-                        order.setTotalAmount(new BigDecimal("5000.00"));
+                        order.setTotalAmount(new BigDecimal("5900.00"));
                         System.out.println("=== Fixed second opinion order " + order.getOrderNumber() + ": amount "
-                                + currentAmount + " -> 5000.00 ===");
+                                + currentAmount + " -> 5900.00 ===");
                         orderFixed = true;
                     }
                 }
