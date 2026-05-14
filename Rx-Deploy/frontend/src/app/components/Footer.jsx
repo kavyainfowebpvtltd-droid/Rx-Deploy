@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
   Mail,
   Phone,
@@ -12,6 +12,10 @@ import { getStoredUser, getToken } from "@/services/api.js";
 
 export function Footer() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = `${location.pathname}${location.search}${location.hash}`;
+  const privacyPath = `/privacy-policy?from=${encodeURIComponent(currentPath)}`;
+  const termsPath = `/terms-and-conditions?from=${encodeURIComponent(currentPath)}`;
 
   const handleServiceNavigation = (e) => {
     e.preventDefault();
@@ -197,14 +201,16 @@ export function Footer() {
             {" "}
             Copyright &copy; 2026 RxIncredible. All rights reserved. |{" "}
             <Link
-              to="/privacy-policy"
+              to={privacyPath}
+              state={{ from: currentPath }}
               className="text-blue-100 hover:text-white transition-colors cursor-pointer"
             >
               Privacy Policy
             </Link>{" "}
             |{" "}
             <Link
-              to="/terms-and-conditions"
+              to={termsPath}
+              state={{ from: currentPath }}
               className="text-blue-100 hover:text-white transition-colors cursor-pointer"
             >
               Terms and Conditions

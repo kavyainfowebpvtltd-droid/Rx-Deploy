@@ -1,8 +1,28 @@
-import { Scale, Shield, AlertCircle, CheckCircle } from "lucide-react";
+import { ArrowLeft, Scale, Shield, AlertCircle, CheckCircle } from "lucide-react";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { Navbar } from "../components/Navbar.jsx";
 import { Footer } from "../components/Footer.jsx";
 
 export default function TermsAndConditions() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  const handleBack = () => {
+    const from = searchParams.get("from") || location.state?.from;
+    if (from?.startsWith("/")) {
+      navigate(from);
+      return;
+    }
+
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+
+    navigate("/");
+  };
+
   return (
     <>
       <Navbar hideAuth={true} hideMobileMenuButton={true} />
@@ -11,6 +31,14 @@ export default function TermsAndConditions() {
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-[#1E3A8A] via-[#2563EB] to-[#60A5FA] text-white py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <button
+              type="button"
+              onClick={handleBack}
+              className="inline-flex items-center gap-2 rounded-lg border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/70 mb-8"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </button>
             <div className="flex items-start gap-4 mb-6">
               <Scale className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 mt-1" />
               <h1 className="min-w-0 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">

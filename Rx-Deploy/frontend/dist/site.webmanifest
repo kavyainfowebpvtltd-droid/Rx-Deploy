@@ -1,0 +1,14 @@
+{
+  "name": "RxIncredible",
+  "short_name": "RxIncredible",
+  "icons": [
+    {
+      "src": "/minipluslogo.png",
+      "sizes": "235x245",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
