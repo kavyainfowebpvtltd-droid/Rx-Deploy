@@ -184,7 +184,7 @@ export function Footer() {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://www.linkedin.com/company/rxincredible/"
+                href="https://www.linkedin.com/company/rxincredible/about/?viewAsMember=true"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open RxIncredible on LinkedIn"
