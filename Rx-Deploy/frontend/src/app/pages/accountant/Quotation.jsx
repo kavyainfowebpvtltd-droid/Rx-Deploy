@@ -1,14 +1,30 @@
-
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { motion } from "motion/react";
-import { Plus, Trash2, Send, Download, IndianRupee, FileText, Calendar, User, Eye, FolderOpen, Receipt } from "lucide-react";
+import {
+  Plus,
+  Trash2,
+  Send,
+  Download,
+  IndianRupee,
+  FileText,
+  Calendar,
+  User,
+  Eye,
+  FolderOpen,
+  Receipt,
+} from "lucide-react";
 import { Navbar } from "../../components/Navbar.jsx";
 import { Footer } from "../../components/Footer.jsx";
 import { CustomSelect } from "../../components/CustomSelect.jsx";
 import { TablePagination } from "../../components/TablePagination.jsx";
 import Swal from "sweetalert2";
-import { orderAPI, quotationAPI, documentAPI, getStoredUser } from "@/services/api.js";
+import {
+  orderAPI,
+  quotationAPI,
+  documentAPI,
+  getStoredUser,
+} from "@/services/api.js";
 import { DocumentsModal, Header } from "./QuotationComponents.jsx";
 import {
   buildOrderData,
@@ -37,9 +53,7 @@ const ensureMinimumMedicines = (items = [], minimum = 2) => {
         ...createEmptyMedicine(),
         ...item,
         quantity:
-          item?.quantity === 0 || item?.quantity
-            ? String(item.quantity)
-            : "",
+          item?.quantity === 0 || item?.quantity ? String(item.quantity) : "",
         pricePerUnit:
           item?.pricePerUnit === 0 || item?.pricePerUnit
             ? String(item.pricePerUnit)
@@ -137,12 +151,18 @@ const validateMedicine = (medicine) => {
 
   if (!name) {
     errors.name = "Active molecule is required.";
-  } else if (name.length < 2 || name.length > 100 || !MEDICINE_TEXT_PATTERN.test(name)) {
-    errors.name = "Enter a valid active molecule name using letters, numbers, spaces, and standard medicine symbols.";
+  } else if (
+    name.length < 2 ||
+    name.length > 100 ||
+    !MEDICINE_TEXT_PATTERN.test(name)
+  ) {
+    errors.name =
+      "Enter a valid active molecule name using letters, numbers, spaces, and standard medicine symbols.";
   }
 
   if (brand && (brand.length > 100 || !MEDICINE_TEXT_PATTERN.test(brand))) {
-    errors.brand = "Enter a valid medicine brand using letters, numbers, spaces, and standard medicine symbols.";
+    errors.brand =
+      "Enter a valid medicine brand using letters, numbers, spaces, and standard medicine symbols.";
   }
 
   if (!dosage) {
@@ -164,8 +184,14 @@ const validateMedicine = (medicine) => {
     errors.pricePerUnit = "Price per unit is required.";
   } else {
     const price = Number.parseFloat(priceValue);
-    if (!/^\d+(\.\d{1,2})?$/.test(priceValue) || Number.isNaN(price) || price <= 0 || price > 1000000) {
-      errors.pricePerUnit = "Price per unit must be greater than 0 and can include up to 2 decimal places.";
+    if (
+      !/^\d+(\.\d{1,2})?$/.test(priceValue) ||
+      Number.isNaN(price) ||
+      price <= 0 ||
+      price > 1000000
+    ) {
+      errors.pricePerUnit =
+        "Price per unit must be greater than 0 and can include up to 2 decimal places.";
     }
   }
 
@@ -208,14 +234,20 @@ export default function AccountantQuotation() {
   }, [allDocuments.length]);
 
   useEffect(() => {
-    const totalPages = Math.max(1, Math.ceil(allOrders.length / TABLE_PAGE_SIZE));
+    const totalPages = Math.max(
+      1,
+      Math.ceil(allOrders.length / TABLE_PAGE_SIZE),
+    );
     if (ordersPage > totalPages) {
       setOrdersPage(totalPages);
     }
   }, [allOrders.length, ordersPage]);
 
   useEffect(() => {
-    const totalPages = Math.max(1, Math.ceil(allDocuments.length / TABLE_PAGE_SIZE));
+    const totalPages = Math.max(
+      1,
+      Math.ceil(allDocuments.length / TABLE_PAGE_SIZE),
+    );
     if (documentsPage > totalPages) {
       setDocumentsPage(totalPages);
     }
@@ -249,6 +281,26 @@ export default function AccountantQuotation() {
       timerProgressBar: true,
     });
 
+  const showDocumentPreview = (options) => {
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    return Swal.fire({
+      ...options,
+      scrollbarPadding: false,
+      didOpen: (...args) => {
+        document.body.style.overflow = "hidden";
+        document.documentElement.style.overflow = "hidden";
+        options.didOpen?.(...args);
+      },
+      didClose: (...args) => {
+        document.body.style.overflow = previousBodyOverflow;
+        document.documentElement.style.overflow = previousHtmlOverflow;
+        options.didClose?.(...args);
+      },
+    });
+  };
+
   const openDocumentsModal = (user, docs) => {
     setSelectedUser(user);
     setSelectedUserDocuments(docs);
@@ -256,10 +308,10 @@ export default function AccountantQuotation() {
   };
 
   useEffect(() => {
-    if (prescriptionId && prescriptionId !== 'new') {
+    if (prescriptionId && prescriptionId !== "new") {
       fetchQuotationOrOrder();
       setShowAllUsers(false);
-    } else if (prescriptionId === 'new') {
+    } else if (prescriptionId === "new") {
       setShowAllUsers(false);
       setLoading(false);
     } else {
@@ -273,7 +325,9 @@ export default function AccountantQuotation() {
       return false;
     }
 
-    const quotationStatus = String(quotationResponse.status || "").toUpperCase();
+    const quotationStatus = String(
+      quotationResponse.status || "",
+    ).toUpperCase();
     setIsViewOnly(LOCKED_QUOTATION_STATUSES.has(quotationStatus));
     setIsEmailSent(Boolean(quotationResponse.emailSent));
     setQuotationId(quotationResponse.id);
@@ -303,7 +357,9 @@ export default function AccountantQuotation() {
 
     if (quotationResponse.orderId) {
       try {
-        const orderResp = await orderAPI.getOrderById(quotationResponse.orderId);
+        const orderResp = await orderAPI.getOrderById(
+          quotationResponse.orderId,
+        );
         const loadedOrder = orderResp.data || orderResp;
         if (loadedOrder) {
           setOrder(loadedOrder);
@@ -321,19 +377,22 @@ export default function AccountantQuotation() {
   const fetchQuotationOrOrder = async () => {
     setLoading(true);
     try {
-      if (!prescriptionId || prescriptionId === 'new') {
+      if (!prescriptionId || prescriptionId === "new") {
         await fetchOrder();
         setLoading(false);
         return;
       }
-      
+
       const orderId = parseInt(prescriptionId, 10);
-      
+
       let quotationResponse = null;
       try {
-        quotationResponse = !isNaN(orderId) && orderId > 0
-          ? unwrapApiResponse(await quotationAPI.getQuotationByOrderId(orderId))
-          : null;
+        quotationResponse =
+          !isNaN(orderId) && orderId > 0
+            ? unwrapApiResponse(
+                await quotationAPI.getQuotationByOrderId(orderId),
+              )
+            : null;
       } catch (e) {
         quotationResponse = null;
       }
@@ -344,9 +403,10 @@ export default function AccountantQuotation() {
       }
 
       try {
-        const quotationByIdResponse = !isNaN(orderId) && orderId > 0
-          ? unwrapApiResponse(await quotationAPI.getQuotationById(orderId))
-          : null;
+        const quotationByIdResponse =
+          !isNaN(orderId) && orderId > 0
+            ? unwrapApiResponse(await quotationAPI.getQuotationById(orderId))
+            : null;
 
         if (await applyQuotationResponse(quotationByIdResponse)) {
           setLoading(false);
@@ -355,7 +415,7 @@ export default function AccountantQuotation() {
       } catch (e) {
         console.log("Could not fetch quotation by id:", e.message);
       }
-      
+
       if (!isNaN(orderId) && orderId > 0) {
         try {
           const loadedOrder = await fetchOrder();
@@ -370,7 +430,7 @@ export default function AccountantQuotation() {
           console.error("Error fetching order:", orderError);
         }
       }
-      
+
       setLoading(false);
     } catch (error) {
       console.error("Error in fetchQuotationOrOrder:", error);
@@ -380,7 +440,7 @@ export default function AccountantQuotation() {
 
   const fetchDocumentsForOrder = async (orderId, providedOrder = null) => {
     if (!orderId) return;
-    
+
     try {
       let currentOrder = providedOrder || order;
       if (!currentOrder) {
@@ -392,7 +452,9 @@ export default function AccountantQuotation() {
         }
       }
 
-      const orderResponse = await documentAPI.getDocumentsByOrder(orderId).catch(() => []);
+      const orderResponse = await documentAPI
+        .getDocumentsByOrder(orderId)
+        .catch(() => []);
       const docs = orderResponse?.data || orderResponse || [];
       setDocuments(mergeOrderDocuments(docs, currentOrder));
     } catch (error) {
@@ -403,7 +465,7 @@ export default function AccountantQuotation() {
 
   const fetchOrderBill = async (orderId) => {
     if (!orderId) return;
-    
+
     try {
       const response = await orderAPI.getBillPath(orderId);
       const billData = response.data || response;
@@ -420,30 +482,45 @@ export default function AccountantQuotation() {
 
   const viewOrderBill = async () => {
     if (!order?.id || !orderBill?.filePath) return;
-    
+
     try {
       const response = await orderAPI.downloadBill(order.id);
       const billData = response.data || response;
-      
+
       if (billData.filePath) {
-        window.open(`/api/orders/${order.id}/bill/view`, '_blank');
+        window.open(`/api/orders/${order.id}/bill/view`, "_blank");
       } else {
-        Swal.fire({ icon: "info", title: "No Bill", text: "No bill found for this order", confirmButtonColor: "#2563EB" });
+        Swal.fire({
+          icon: "info",
+          title: "No Bill",
+          text: "No bill found for this order",
+          confirmButtonColor: "#2563EB",
+        });
       }
     } catch (error) {
       console.error("Error viewing bill:", error);
-      Swal.fire({ icon: "error", title: "Error", text: "Failed to view bill", confirmButtonColor: "#2563EB" });
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to view bill",
+        confirmButtonColor: "#2563EB",
+      });
     }
   };
 
   const downloadOrderBill = async () => {
     if (!order?.id || !orderBill?.filePath) return;
-    
+
     try {
-      window.open(`/api/orders/${order.id}/bill/download`, '_blank');
+      window.open(`/api/orders/${order.id}/bill/download`, "_blank");
     } catch (error) {
       console.error("Error downloading bill:", error);
-      Swal.fire({ icon: "error", title: "Error", text: "Failed to download bill", confirmButtonColor: "#2563EB" });
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to download bill",
+        confirmButtonColor: "#2563EB",
+      });
     }
   };
 
@@ -452,9 +529,9 @@ export default function AccountantQuotation() {
     try {
       const response = await orderAPI.getAllOrders();
       const orders = response.data || response || [];
-      const pendingOrders = orders.filter(order => {
+      const pendingOrders = orders.filter((order) => {
         const status = order.status?.toUpperCase();
-        return status !== 'SENT' && status !== 'COMPLETED';
+        return status !== "SENT" && status !== "COMPLETED";
       });
       setAllOrders(pendingOrders);
     } catch (error) {
@@ -476,7 +553,7 @@ export default function AccountantQuotation() {
       setLoading(false);
     }
   };
-  
+
   const fetchOrder = async () => {
     setLoading(true);
     try {
@@ -504,15 +581,15 @@ export default function AccountantQuotation() {
 
   const viewDocument = async (doc) => {
     let documentData = doc;
-    
+
     Swal.fire({
-      title: 'Loading...',
+      title: "Loading...",
       html: '<div class="w-12 h-12 border-4 border-[#2563EB] border-t-transparent rounded-full animate-spin mx-auto"></div>',
       showCancelButton: false,
       showConfirmButton: false,
-      allowOutsideClick: false
+      allowOutsideClick: false,
     });
-    
+
     if (!doc.fileData && doc.id) {
       try {
         const response = await documentAPI.getDocumentWithData(doc.id);
@@ -525,55 +602,79 @@ export default function AccountantQuotation() {
       } catch (error) {
         console.error("Error fetching document:", error);
         Swal.close();
-        Swal.fire({ icon: "error", title: "Error", text: "Failed to load document", confirmButtonColor: "#2563EB" });
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to load document",
+          confirmButtonColor: "#2563EB",
+        });
         return;
       }
     }
-    
+
     Swal.close();
-    
+
     if (!documentData.fileData) {
-      Swal.fire({ icon: "info", title: "No Preview", text: "File content is not available for preview", confirmButtonColor: "#2563EB" });
+      Swal.fire({
+        icon: "info",
+        title: "No Preview",
+        text: "File content is not available for preview",
+        confirmButtonColor: "#2563EB",
+      });
       return;
     }
-    
-    const isImage = documentData.mimeType?.startsWith('image/') || documentData.originalFileName?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-    const isPdf = documentData.mimeType === 'application/pdf' || documentData.originalFileName?.toLowerCase().endsWith('.pdf');
-    
+
+    const isImage =
+      documentData.mimeType?.startsWith("image/") ||
+      documentData.originalFileName?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+    const isPdf =
+      documentData.mimeType === "application/pdf" ||
+      documentData.originalFileName?.toLowerCase().endsWith(".pdf");
+
     if (isImage) {
-      Swal.fire({
-        title: 'Document Preview',
-        html: `<img src="data:${documentData.mimeType || 'image/jpeg'};base64,${documentData.fileData}" style="max-width:100%; max-height:500px;" />`,
-        width: '600px',
+      showDocumentPreview({
+        title: "Document Preview",
+        html: `<img src="data:${documentData.mimeType || "image/jpeg"};base64,${documentData.fileData}" style="max-width:100%; max-height:500px;" />`,
+        width: "600px",
         confirmButtonColor: "#2563EB",
-        confirmButtonText: "Close"
+        confirmButtonText: "Close",
       });
     } else if (isPdf) {
       try {
-        const pdfData = base64ToBlob(documentData.fileData, documentData.mimeType || 'application/pdf');
+        const pdfData = base64ToBlob(
+          documentData.fileData,
+          documentData.mimeType || "application/pdf",
+        );
         const pdfUrl = URL.createObjectURL(pdfData);
-        Swal.fire({
-          title: 'Document Preview',
+        showDocumentPreview({
+          title: "Document Preview",
           html: `<iframe src="${pdfUrl}" style="width:100%; height:500px; border:none;"></iframe>`,
-          width: '800px',
+          width: "800px",
           confirmButtonColor: "#2563EB",
           confirmButtonText: "Close",
-          didClose: () => { URL.revokeObjectURL(pdfUrl); }
+          didClose: () => {
+            URL.revokeObjectURL(pdfUrl);
+          },
         });
       } catch (e) {
         console.error("Error displaying PDF:", e);
-        Swal.fire({ icon: "info", title: "PDF Download", text: "PDF cannot be previewed. Please download instead.", confirmButtonColor: "#2563EB" });
+        Swal.fire({
+          icon: "info",
+          title: "PDF Download",
+          text: "PDF cannot be previewed. Please download instead.",
+          confirmButtonColor: "#2563EB",
+        });
       }
     } else {
-      Swal.fire({
-        title: 'Document Details',
-        html: `<div class="text-left"><p><strong>File Name:</strong> ${documentData.originalFileName || 'N/A'}</p><p><strong>Category:</strong> ${documentData.category || 'N/A'}</p><p><strong>Type:</strong> ${documentData.mimeType || 'Unknown'}</p><p><strong>Size:</strong> ${(documentData.fileSize / 1024).toFixed(1)} KB</p></div>`,
+      showDocumentPreview({
+        title: "Document Details",
+        html: `<div class="text-left"><p><strong>File Name:</strong> ${documentData.originalFileName || "N/A"}</p><p><strong>Category:</strong> ${documentData.category || "N/A"}</p><p><strong>Type:</strong> ${documentData.mimeType || "Unknown"}</p><p><strong>Size:</strong> ${(documentData.fileSize / 1024).toFixed(1)} KB</p></div>`,
         confirmButtonColor: "#2563EB",
-        confirmButtonText: "Close"
+        confirmButtonText: "Close",
       });
     }
   };
-  
+
   const base64ToBlob = (base64, mimeType) => {
     const byteCharacters = atob(base64);
     const byteNumbers = new Array(byteCharacters.length);
@@ -586,16 +687,16 @@ export default function AccountantQuotation() {
 
   const downloadDocument = async (doc) => {
     let documentData = doc;
-    
+
     Swal.fire({
-      title: 'Loading...',
+      title: "Loading...",
       html: '<div class="w-8 h-8 border-4 border-[#2563EB] border-t-transparent rounded-full animate-spin mx-auto"></div>',
       showCancelButton: false,
       showConfirmButton: false,
       allowOutsideClick: false,
-      timer: 5000
+      timer: 5000,
     });
-    
+
     if (!doc.fileData && doc.id) {
       try {
         const response = await documentAPI.getDocumentWithData(doc.id);
@@ -608,26 +709,41 @@ export default function AccountantQuotation() {
       } catch (error) {
         console.error("Error fetching document:", error);
         Swal.close();
-        Swal.fire({ icon: "error", title: "Error", text: "Failed to download document", confirmButtonColor: "#2563EB" });
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to download document",
+          confirmButtonColor: "#2563EB",
+        });
         return;
       }
     }
-    
+
     Swal.close();
-    
+
     if (!documentData.fileData) {
-      Swal.fire({ icon: "info", title: "No Download", text: "File content is not available for download", confirmButtonColor: "#2563EB" });
+      Swal.fire({
+        icon: "info",
+        title: "No Download",
+        text: "File content is not available for download",
+        confirmButtonColor: "#2563EB",
+      });
       return;
     }
-    
-    const link = document.createElement('a');
-    link.href = `data:${documentData.mimeType || 'application/octet-stream'};base64,${documentData.fileData}`;
-    link.download = documentData.originalFileName || 'document';
+
+    const link = document.createElement("a");
+    link.href = `data:${documentData.mimeType || "application/octet-stream"};base64,${documentData.fileData}`;
+    link.download = documentData.originalFileName || "document";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
-    Swal.fire({ icon: "success", title: "Download Started", text: `Downloading ${documentData.originalFileName}...`, confirmButtonColor: "#2563EB" });
+
+    Swal.fire({
+      icon: "success",
+      title: "Download Started",
+      text: `Downloading ${documentData.originalFileName}...`,
+      confirmButtonColor: "#2563EB",
+    });
   };
 
   const userRole = useMemo(() => getUserRole(), []);
@@ -654,13 +770,18 @@ export default function AccountantQuotation() {
       setDraftServiceType(serviceTypeOptions[0].value);
     }
   }, [draftServiceType, serviceTypeOptions]);
-  const orderData = useMemo(() => buildOrderData(order, documents), [documents, order]);
+  const orderData = useMemo(
+    () => buildOrderData(order, documents),
+    [documents, order],
+  );
   const summary = useMemo(() => {
     const country = orderData?.deliveryCountry || "India";
     const applyGst = shouldApplyIndiaGst(country);
     const subtotal = medicines.reduce(
       (sum, med) =>
-        sum + (Number.parseFloat(med.quantity) || 0) * (Number.parseFloat(med.pricePerUnit) || 0),
+        sum +
+        (Number.parseFloat(med.quantity) || 0) *
+          (Number.parseFloat(med.pricePerUnit) || 0),
       0,
     );
     const deliveryGst = applyGst ? deliveryCharge * DELIVERY_GST_RATE : 0;
@@ -700,8 +821,12 @@ export default function AccountantQuotation() {
   };
 
   const removeMedicine = (index) => {
-    setMedicines(ensureMinimumMedicines(medicines.filter((_, i) => i !== index)));
-    setMedicineErrors((prev) => ensureMinimumMedicines(prev.filter((_, i) => i !== index)));
+    setMedicines(
+      ensureMinimumMedicines(medicines.filter((_, i) => i !== index)),
+    );
+    setMedicineErrors((prev) =>
+      ensureMinimumMedicines(prev.filter((_, i) => i !== index)),
+    );
   };
 
   const updateMedicine = (index, field, value) => {
@@ -735,7 +860,9 @@ export default function AccountantQuotation() {
   const calculateTotal = () => {
     return medicines.reduce(
       (sum, med) =>
-        sum + (Number.parseFloat(med.quantity) || 0) * (Number.parseFloat(med.pricePerUnit) || 0),
+        sum +
+        (Number.parseFloat(med.quantity) || 0) *
+          (Number.parseFloat(med.pricePerUnit) || 0),
       0,
     );
   };
@@ -752,11 +879,14 @@ export default function AccountantQuotation() {
     return withTimeout(
       quotationAPI.sendEmail(quotationId),
       EMAIL_REQUEST_TIMEOUT_MS,
-      "Email request timed out."
+      "Email request timed out.",
     )
       .then(() => ({ success: true }))
       .catch((emailError) => {
-        console.error("Quotation email could not be completed in background:", emailError);
+        console.error(
+          "Quotation email could not be completed in background:",
+          emailError,
+        );
         return {
           success: false,
           message:
@@ -779,21 +909,31 @@ export default function AccountantQuotation() {
     }
 
     try {
-      const quotationById = unwrapApiResponse(await quotationAPI.getQuotationById(parsedId));
+      const quotationById = unwrapApiResponse(
+        await quotationAPI.getQuotationById(parsedId),
+      );
       if (await applyQuotationResponse(quotationById)) {
         return quotationById.id;
       }
     } catch (error) {
-      console.log("Could not resolve quotation by id for email:", error?.message);
+      console.log(
+        "Could not resolve quotation by id for email:",
+        error?.message,
+      );
     }
 
     try {
-      const quotationByOrderId = unwrapApiResponse(await quotationAPI.getQuotationByOrderId(parsedId));
+      const quotationByOrderId = unwrapApiResponse(
+        await quotationAPI.getQuotationByOrderId(parsedId),
+      );
       if (await applyQuotationResponse(quotationByOrderId)) {
         return quotationByOrderId.id;
       }
     } catch (error) {
-      console.log("Could not resolve quotation by order id for email:", error?.message);
+      console.log(
+        "Could not resolve quotation by order id for email:",
+        error?.message,
+      );
     }
 
     return null;
@@ -801,7 +941,11 @@ export default function AccountantQuotation() {
 
   const handleSendEmail = async () => {
     if (isEmailSent) {
-      showToast("info", "Email already sent", "This quotation email has already been sent.");
+      showToast(
+        "info",
+        "Email already sent",
+        "This quotation email has already been sent.",
+      );
       return;
     }
 
@@ -819,12 +963,16 @@ export default function AccountantQuotation() {
 
       if (emailStatus?.success) {
         setIsEmailSent(true);
-        showToast("success", "Email sent", "Quotation email with PDF attachment was sent successfully.");
+        showToast(
+          "success",
+          "Email sent",
+          "Quotation email with PDF attachment was sent successfully.",
+        );
       } else {
         showToast(
           "error",
           "Email failed",
-          emailStatus?.message || "Quotation email could not be sent."
+          emailStatus?.message || "Quotation email could not be sent.",
         );
       }
     } finally {
@@ -850,7 +998,7 @@ export default function AccountantQuotation() {
 
       const blob = await response.blob();
       const objectUrl = window.URL.createObjectURL(blob);
-      const fileName = `Quotation_${orderData?.orderNumber || prescriptionId || Date.now()}_${new Date().toISOString().split('T')[0]}.pdf`;
+      const fileName = `Quotation_${orderData?.orderNumber || prescriptionId || Date.now()}_${new Date().toISOString().split("T")[0]}.pdf`;
       const link = document.createElement("a");
       link.href = objectUrl;
       link.download = fileName;
@@ -859,9 +1007,12 @@ export default function AccountantQuotation() {
       document.body.removeChild(link);
       window.setTimeout(() => window.URL.revokeObjectURL(objectUrl), 1000);
 
-      showSuccess("The quotation has been downloaded successfully.", "PDF Downloaded!");
+      showSuccess(
+        "The quotation has been downloaded successfully.",
+        "PDF Downloaded!",
+      );
     } catch (error) {
-      console.error('Error generating PDF:', error);
+      console.error("Error generating PDF:", error);
       showError("Failed to generate PDF. Please try again.");
     } finally {
       setLoading(false);
@@ -871,11 +1022,11 @@ export default function AccountantQuotation() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (isViewOnly) {
       return;
     }
-    
+
     const normalizedErrors = medicines.map((medicine) =>
       isMedicineRowEmpty(medicine) ? {} : validateMedicine(medicine),
     );
@@ -896,7 +1047,12 @@ export default function AccountantQuotation() {
     setMedicineErrors(normalizedErrors);
 
     if (!isViewOnly && validMedicines.length === 0) {
-      Swal.fire({ icon: "warning", title: "No Medicines Added", text: "Please add at least one medicine before generating the bill.", confirmButtonColor: "#2563EB" });
+      Swal.fire({
+        icon: "warning",
+        title: "No Medicines Added",
+        text: "Please add at least one medicine before generating the bill.",
+        confirmButtonColor: "#2563EB",
+      });
       return;
     }
 
@@ -909,16 +1065,18 @@ export default function AccountantQuotation() {
       });
       return;
     }
-    
+
     setSubmitting(true);
-    
+
     try {
       const subtotal = calculateTotal();
-      const applyGst = shouldApplyIndiaGst(orderData?.deliveryCountry || "India");
+      const applyGst = shouldApplyIndiaGst(
+        orderData?.deliveryCountry || "India",
+      );
       const deliveryGst = applyGst ? deliveryCharge * DELIVERY_GST_RATE : 0;
       const deliveryChargeWithGst = deliveryCharge + deliveryGst;
       const totalAmount = subtotal + deliveryChargeWithGst;
-      
+
       const quotationData = {
         items: JSON.stringify(validMedicines),
         subtotal: subtotal,
@@ -929,9 +1087,9 @@ export default function AccountantQuotation() {
         deliveryGst: deliveryGst,
         totalAmount: totalAmount,
         status: "SENT",
-        orderId: order?.id
+        orderId: order?.id,
       };
-      
+
       const userId = order?.user?.id;
       const createdById = getCurrentUserId();
 
@@ -940,44 +1098,51 @@ export default function AccountantQuotation() {
       }
 
       if (!createdById) {
-        throw new Error("Logged in accountant details not found. Please login again.");
+        throw new Error(
+          "Logged in accountant details not found. Please login again.",
+        );
       }
-      
+
       const orderUpdatePromises = [];
       if (order?.id) {
         const totalAmountNum = parseFloat(totalAmount);
         const userEmail = order?.user?.email;
-        
+
         orderUpdatePromises.push(
-          orderAPI.updateTotalAmount(order.id, totalAmountNum).catch(err => {
+          orderAPI.updateTotalAmount(order.id, totalAmountNum).catch((err) => {
             console.error("Error updating total amount:", err);
             return null;
           }),
-          orderAPI.updateOrderStatus(order.id, "SENT").catch(err => {
+          orderAPI.updateOrderStatus(order.id, "SENT").catch((err) => {
             console.error("Error updating order status:", err);
             return null;
-          })
+          }),
         );
-        
+
         if (userEmail) {
           orderUpdatePromises.push(
-            orderAPI.updateUserEmail(order.id, userEmail).catch(err => {
+            orderAPI.updateUserEmail(order.id, userEmail).catch((err) => {
               console.error("Error updating user email:", err);
               return null;
-            })
+            }),
           );
         }
       }
-      
+
       await withTimeout(
         Promise.all(orderUpdatePromises),
         SUBMISSION_REQUEST_TIMEOUT_MS,
-        "Order update request timed out. Please try again."
+        "Order update request timed out. Please try again.",
       );
       const savedQuotation = await withTimeout(
-        quotationAPI.createQuotation(quotationData, userId, createdById, order?.id),
+        quotationAPI.createQuotation(
+          quotationData,
+          userId,
+          createdById,
+          order?.id,
+        ),
         SUBMISSION_REQUEST_TIMEOUT_MS,
-        "Quotation save request timed out. Please try again."
+        "Quotation save request timed out. Please try again.",
       );
       const savedQuotationData = unwrapApiResponse(savedQuotation);
       setQuotationId(savedQuotationData?.id || null);
@@ -996,7 +1161,7 @@ export default function AccountantQuotation() {
         title: "Premium Bill Generated!",
         text: "The premium bill has been saved successfully.",
         confirmButtonColor: "#2563EB",
-        confirmButtonText: "OK"
+        confirmButtonText: "OK",
       });
     } catch (error) {
       console.error("Error saving quotation:", error);
@@ -1006,14 +1171,16 @@ export default function AccountantQuotation() {
         error?.message ||
         "Failed to save bill. Please try again.";
 
-      Swal.fire({ icon: "error", title: "Error", text: errorMessage, confirmButtonColor: "#2563EB" });
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: errorMessage,
+        confirmButtonColor: "#2563EB",
+      });
     } finally {
       setSubmitting(false);
     }
   };
-
-
-
 
   if (loading) {
     return (
@@ -1036,78 +1203,160 @@ export default function AccountantQuotation() {
         <Navbar role="accountant" />
         <main className="flex-1 py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
           <div className="max-w-7xl mx-auto">
-            <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+            >
               <div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-[#1E3A8A] mb-2">Prescription Bills</h1>
-                <p className="text-lg text-gray-600">View and manage patient prescription bills</p>
+                <h1 className="text-3xl sm:text-4xl font-bold text-[#1E3A8A] mb-2">
+                  Prescription Bills
+                </h1>
+                <p className="text-lg text-gray-600">
+                  View and manage patient prescription bills
+                </p>
               </div>
-              <button onClick={() => { setShowAllUsers(false); setOrder(null); setDocuments([]); navigate('/accountant/quotation/new'); }} className="flex items-center gap-2 px-5 sm:px-8 py-3.5 bg-gradient-to-r from-[#16A34A] to-[#15803D] text-white rounded-xl hover:from-[#15803D] hover:to-[#166534] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+              <button
+                onClick={() => {
+                  setShowAllUsers(false);
+                  setOrder(null);
+                  setDocuments([]);
+                  navigate("/accountant/quotation/new");
+                }}
+                className="flex items-center gap-2 px-5 sm:px-8 py-3.5 bg-gradient-to-r from-[#16A34A] to-[#15803D] text-white rounded-xl hover:from-[#15803D] hover:to-[#166534] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              >
                 <Plus className="w-5 h-5" /> Create New Bill
               </button>
             </motion.div>
 
             {allOrders.length === 0 && allDocuments.length === 0 ? (
-              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white rounded-3xl shadow-xl p-16 text-center border border-gray-100">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-white rounded-3xl shadow-xl p-16 text-center border border-gray-100"
+              >
                 <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <FolderOpen className="w-12 h-12 text-[#2563EB]" />
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-700 mb-3">No Prescriptions Found</h3>
-                <p className="text-gray-500 text-lg">No prescriptions have been submitted yet.</p>
+                <h3 className="text-2xl font-semibold text-gray-700 mb-3">
+                  No Prescriptions Found
+                </h3>
+                <p className="text-gray-500 text-lg">
+                  No prescriptions have been submitted yet.
+                </p>
               </motion.div>
             ) : (
               <>
                 {allOrders.length > 0 && (
-                  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8"
+                  >
                     <div className="bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] px-6 py-4">
-                      <h2 className="text-xl text-white font-semibold">Orders / Bills</h2>
+                      <h2 className="text-xl text-white font-semibold">
+                        Orders / Bills
+                      </h2>
                     </div>
                     <div className="overflow-x-auto">
                       <table className="w-full">
                         <thead className="bg-gray-50 text-gray-700">
                           <tr>
-                            <th className="px-6 py-3 text-left font-semibold">Report ID</th>
-                            <th className="px-6 py-3 text-left font-semibold">Patient Name</th>
-                            <th className="px-6 py-3 text-left font-semibold">Email</th>
-                            <th className="px-6 py-3 text-left font-semibold">Service Type</th>
-                            <th className="px-6 py-3 text-left font-semibold">Amount</th>
-                            <th className="px-6 py-3 text-center font-semibold">Status</th>
-                            <th className="px-6 py-3 text-center font-semibold">Actions</th>
+                            <th className="px-6 py-3 text-left font-semibold">
+                              Report ID
+                            </th>
+                            <th className="px-6 py-3 text-left font-semibold">
+                              Patient Name
+                            </th>
+                            <th className="px-6 py-3 text-left font-semibold">
+                              Email
+                            </th>
+                            <th className="px-6 py-3 text-left font-semibold">
+                              Service Type
+                            </th>
+                            <th className="px-6 py-3 text-left font-semibold">
+                              Amount
+                            </th>
+                            <th className="px-6 py-3 text-center font-semibold">
+                              Status
+                            </th>
+                            <th className="px-6 py-3 text-center font-semibold">
+                              Actions
+                            </th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
                           {paginatedOrders.map((order, index) => {
-                            let displayServiceType = order.serviceType || 'General';
+                            let displayServiceType =
+                              order.serviceType || "General";
                             try {
                               if (order.orderDetails) {
-                                const orderDetails = JSON.parse(order.orderDetails);
-                                displayServiceType = order.serviceType || orderDetails.serviceType || 'General';
+                                const orderDetails = JSON.parse(
+                                  order.orderDetails,
+                                );
+                                displayServiceType =
+                                  order.serviceType ||
+                                  orderDetails.serviceType ||
+                                  "General";
                               }
-                            } catch (e) { }
-                            
+                            } catch (e) {}
+
                             return (
-                              <tr key={order.id || index} className="hover:bg-gray-50 transition-colors">
+                              <tr
+                                key={order.id || index}
+                                className="hover:bg-gray-50 transition-colors"
+                              >
                                 <td className="px-6 py-4">
                                   <span className="font-medium text-gray-900">
-                                    {formatReportId(order.orderNumber || order.id)}
+                                    {formatReportId(
+                                      order.orderNumber || order.id,
+                                    )}
                                   </span>
                                 </td>
-                                <td className="px-6 py-4 text-gray-600">{order.user?.fullName || 'Unknown'}</td>
-                                <td className="px-6 py-4 text-gray-600">{order.user?.email || 'N/A'}</td>
-                                <td className="px-6 py-4 text-gray-600">{displayServiceType}</td>
-                                <td className="px-6 py-4 text-gray-700 font-semibold">{formatCurrency(order.totalAmount, order.deliveryCountry || order.user?.country || "India")}</td>
+                                <td className="px-6 py-4 text-gray-600">
+                                  {order.user?.fullName || "Unknown"}
+                                </td>
+                                <td className="px-6 py-4 text-gray-600">
+                                  {order.user?.email || "N/A"}
+                                </td>
+                                <td className="px-6 py-4 text-gray-600">
+                                  {displayServiceType}
+                                </td>
+                                <td className="px-6 py-4 text-gray-700 font-semibold">
+                                  {formatCurrency(
+                                    order.totalAmount,
+                                    order.deliveryCountry ||
+                                      order.user?.country ||
+                                      "India",
+                                  )}
+                                </td>
                                 <td className="px-6 py-4 text-center">
-                                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                                    order.status === 'COMPLETED' ? 'bg-green-100 text-green-700' :
-                                    order.status === 'PROCESSING' ? 'bg-blue-100 text-blue-700' :
-                                    order.status === 'CANCELLED' ? 'bg-red-100 text-red-700' :
-                                    'bg-yellow-100 text-yellow-700'
-                                  }`}>
-                                    {order.status || 'PENDING'}
+                                  <span
+                                    className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                                      order.status === "COMPLETED"
+                                        ? "bg-green-100 text-green-700"
+                                        : order.status === "PROCESSING"
+                                          ? "bg-blue-100 text-blue-700"
+                                          : order.status === "CANCELLED"
+                                            ? "bg-red-100 text-red-700"
+                                            : "bg-yellow-100 text-yellow-700"
+                                    }`}
+                                  >
+                                    {order.status || "PENDING"}
                                   </span>
                                 </td>
                                 <td className="px-6 py-4">
                                   <div className="flex items-center justify-center gap-2">
-                                    <button onClick={() => navigate(`/accountant/quotation/${order.id}`)} className="px-4 py-2 bg-[#2563EB] text-white rounded-lg hover:bg-[#1E40AF] flex items-center gap-2 transition-colors">
+                                    <button
+                                      onClick={() =>
+                                        navigate(
+                                          `/accountant/quotation/${order.id}`,
+                                        )
+                                      }
+                                      className="px-4 py-2 bg-[#2563EB] text-white rounded-lg hover:bg-[#1E40AF] flex items-center gap-2 transition-colors"
+                                    >
                                       <Eye className="w-4 h-4" />
                                       Preview
                                     </button>
@@ -1130,41 +1379,77 @@ export default function AccountantQuotation() {
                 )}
 
                 {allDocuments.length > 0 && (
-                  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="bg-white rounded-2xl shadow-lg overflow-hidden"
+                  >
                     <div className="bg-gradient-to-r from-purple-600 to-purple-800 px-6 py-4">
-                      <h2 className="text-xl text-white font-semibold">Uploaded Prescriptions / Documents</h2>
+                      <h2 className="text-xl text-white font-semibold">
+                        Uploaded Prescriptions / Documents
+                      </h2>
                     </div>
                     <div className="overflow-x-auto">
                       <table className="w-full">
                         <thead className="bg-gray-50 text-gray-700">
                           <tr>
-                            <th className="px-6 py-3 text-left font-semibold">Patient Name</th>
-                            <th className="px-6 py-3 text-left font-semibold">File Name</th>
-                            <th className="px-6 py-3 text-left font-semibold">Category</th>
-                            <th className="px-6 py-3 text-left font-semibold">Date</th>
-                            <th className="px-6 py-3 text-center font-semibold">Actions</th>
+                            <th className="px-6 py-3 text-left font-semibold">
+                              Patient Name
+                            </th>
+                            <th className="px-6 py-3 text-left font-semibold">
+                              File Name
+                            </th>
+                            <th className="px-6 py-3 text-left font-semibold">
+                              Category
+                            </th>
+                            <th className="px-6 py-3 text-left font-semibold">
+                              Date
+                            </th>
+                            <th className="px-6 py-3 text-center font-semibold">
+                              Actions
+                            </th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
                           {paginatedDocuments.map((doc, index) => (
-                            <tr key={doc.id || index} className="hover:bg-gray-50 transition-colors">
+                            <tr
+                              key={doc.id || index}
+                              className="hover:bg-gray-50 transition-colors"
+                            >
                               <td className="px-6 py-4">
                                 <div className="flex items-center gap-3">
                                   <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
                                     <User className="w-4 h-4 text-purple-600" />
                                   </div>
-                                  <span className="font-medium text-gray-900">{doc.user?.fullName || 'Unknown User'}</span>
+                                  <span className="font-medium text-gray-900">
+                                    {doc.user?.fullName || "Unknown User"}
+                                  </span>
                                 </div>
                               </td>
-                              <td className="px-6 py-4 text-gray-600">{doc.originalFileName || doc.fileName}</td>
-                              <td className="px-6 py-4 text-gray-600">{doc.category || 'Document'}</td>
-                              <td className="px-6 py-4 text-gray-600">{doc.createdAt ? new Date(doc.createdAt).toLocaleDateString() : 'N/A'}</td>
+                              <td className="px-6 py-4 text-gray-600">
+                                {doc.originalFileName || doc.fileName}
+                              </td>
+                              <td className="px-6 py-4 text-gray-600">
+                                {doc.category || "Document"}
+                              </td>
+                              <td className="px-6 py-4 text-gray-600">
+                                {doc.createdAt
+                                  ? new Date(doc.createdAt).toLocaleDateString()
+                                  : "N/A"}
+                              </td>
                               <td className="px-6 py-4">
                                 <div className="flex items-center justify-center gap-2">
-                                  <button onClick={() => viewDocument(doc)} className="px-3 py-2 bg-[#2563EB] text-white rounded-lg hover:bg-[#1E40AF] flex items-center gap-1 text-sm">
+                                  <button
+                                    onClick={() => viewDocument(doc)}
+                                    className="px-3 py-2 bg-[#2563EB] text-white rounded-lg hover:bg-[#1E40AF] flex items-center gap-1 text-sm"
+                                  >
                                     <Eye className="w-4 h-4" /> View
                                   </button>
-                                  <button onClick={() => downloadDocument(doc)} className="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-1 text-sm">
+                                  <button
+                                    onClick={() => downloadDocument(doc)}
+                                    className="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-1 text-sm"
+                                  >
                                     <Download className="w-4 h-4" /> Download
                                   </button>
                                 </div>
@@ -1188,13 +1473,11 @@ export default function AccountantQuotation() {
           </div>
         </main>
         <Footer />
-
-
       </>
     );
   }
 
-  const isNewQuotation = !order && prescriptionId === 'new';
+  const isNewQuotation = !order && prescriptionId === "new";
 
   return (
     <>
@@ -1207,21 +1490,64 @@ export default function AccountantQuotation() {
             isNewQuotation={isNewQuotation}
             isViewOnly={isViewOnly}
             documentsCount={documents.length}
-            onOpenDocuments={() => openDocumentsModal({ user: order?.user, documents }, documents)}
+            onOpenDocuments={() =>
+              openDocumentsModal({ user: order?.user, documents }, documents)
+            }
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-8">
-            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="lg:col-span-1">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="lg:col-span-1"
+            >
               <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24 border border-gray-100">
-                <h3 className="text-xl font-semibold text-[#1E3A8A] mb-4">{isNewQuotation ? 'Customer Details' : 'Patient & Order Details'}</h3>
+                <h3 className="text-xl font-semibold text-[#1E3A8A] mb-4">
+                  {isNewQuotation
+                    ? "Customer Details"
+                    : "Patient & Order Details"}
+                </h3>
                 <div className="space-y-3 text-gray-700">
                   {isNewQuotation ? (
                     <>
-                      <div className="flex items-start gap-2"><User className="w-4 h-4 mt-1 text-gray-400" /><div><p className="text-sm text-gray-500">Customer Name</p><input type="text" placeholder="Enter customer name" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB]" /></div></div>
-                      <div className="flex items-start gap-2"><FileText className="w-4 h-4 mt-1 text-gray-400" /><div><p className="text-sm text-gray-500">Email</p><input type="email" placeholder="Enter email" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB]" /></div></div>
-                      <div className="flex items-start gap-2"><Calendar className="w-4 h-4 mt-1 text-gray-400" /><div><p className="text-sm text-gray-500">Phone</p><input type="tel" placeholder="Enter phone" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB]" /></div></div>
+                      <div className="flex items-start gap-2">
+                        <User className="w-4 h-4 mt-1 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500">Customer Name</p>
+                          <input
+                            type="text"
+                            placeholder="Enter customer name"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB]"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <FileText className="w-4 h-4 mt-1 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500">Email</p>
+                          <input
+                            type="email"
+                            placeholder="Enter email"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB]"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <Calendar className="w-4 h-4 mt-1 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500">Phone</p>
+                          <input
+                            type="tel"
+                            placeholder="Enter phone"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB]"
+                          />
+                        </div>
+                      </div>
                       <div className="pt-3 border-t border-gray-200">
-                        <p className="text-sm text-gray-500 mb-1">Service Type</p>
+                        <p className="text-sm text-gray-500 mb-1">
+                          Service Type
+                        </p>
                         <CustomSelect
                           value={draftServiceType}
                           onChange={setDraftServiceType}
@@ -1232,25 +1558,76 @@ export default function AccountantQuotation() {
                     </>
                   ) : (
                     <>
-                      <div className="flex items-start gap-2"><User className="w-4 h-4 mt-1 text-gray-400" /><div><p className="text-sm text-gray-500">Patient</p><p>{orderData?.patientName}</p></div></div>
-                      <div className="flex items-start gap-2"><FileText className="w-4 h-4 mt-1 text-gray-400" /><div><p className="text-sm text-gray-500">Email</p><p>{orderData?.patientEmail}</p></div></div>
-                      <div className="flex items-start gap-2"><Calendar className="w-4 h-4 mt-1 text-gray-400" /><div><p className="text-sm text-gray-500">Date</p><p>{new Date(orderData?.uploadedDate).toLocaleDateString()}</p></div></div>
+                      <div className="flex items-start gap-2">
+                        <User className="w-4 h-4 mt-1 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500">Patient</p>
+                          <p>{orderData?.patientName}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <FileText className="w-4 h-4 mt-1 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500">Email</p>
+                          <p>{orderData?.patientEmail}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <Calendar className="w-4 h-4 mt-1 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500">Date</p>
+                          <p>
+                            {new Date(
+                              orderData?.uploadedDate,
+                            ).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
                       <div className="pt-3 border-t border-gray-200">
-                        <p className="text-sm text-gray-500 mb-1">Service Type</p>
+                        <p className="text-sm text-gray-500 mb-1">
+                          Service Type
+                        </p>
                         <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
-                          {userRole === 'ACCOUNTANT' ? 'Online Pharmacy' : orderData?.serviceType === 'PRESCRIPTION_ANALYSIS' ? 'Prescription Analysis' : orderData?.serviceType === 'SECOND_OPINION' ? 'Second Opinion' : orderData?.serviceType}
+                          {userRole === "ACCOUNTANT"
+                            ? "Online Pharmacy"
+                            : orderData?.serviceType === "PRESCRIPTION_ANALYSIS"
+                              ? "Prescription Analysis"
+                              : orderData?.serviceType === "SECOND_OPINION"
+                                ? "Second Opinion"
+                                : orderData?.serviceType}
                         </span>
                       </div>
                       {orderData?.deliveryAddress && (
                         <div className="pt-3 border-t border-gray-200">
-                          <p className="text-sm text-gray-500 mb-1">Delivery Address</p>
+                          <p className="text-sm text-gray-500 mb-1">
+                            Delivery Address
+                          </p>
                           <div className="text-sm text-gray-700 space-y-1">
-                            {orderData?.deliveryAddress && <p>{orderData.deliveryAddress}</p>}
-                            {orderData?.deliveryCity && <p>{orderData.deliveryCity}{orderData?.deliveryState || orderData?.deliveryPincode ? ', ' : ''}{orderData?.deliveryState}{orderData?.deliveryPincode ? ' - ' : ''}{orderData?.deliveryPincode}</p>}
-                            {orderData?.deliveryCountry && orderData.deliveryCountry !== 'India' && <p>{orderData.deliveryCountry}</p>}
-                            {orderData?.deliveryPhone && <p className="flex items-center gap-1 mt-2">
-                              <span className="text-xs">📞</span> {orderData.deliveryPhone}
-                            </p>}
+                            {orderData?.deliveryAddress && (
+                              <p>{orderData.deliveryAddress}</p>
+                            )}
+                            {orderData?.deliveryCity && (
+                              <p>
+                                {orderData.deliveryCity}
+                                {orderData?.deliveryState ||
+                                orderData?.deliveryPincode
+                                  ? ", "
+                                  : ""}
+                                {orderData?.deliveryState}
+                                {orderData?.deliveryPincode ? " - " : ""}
+                                {orderData?.deliveryPincode}
+                              </p>
+                            )}
+                            {orderData?.deliveryCountry &&
+                              orderData.deliveryCountry !== "India" && (
+                                <p>{orderData.deliveryCountry}</p>
+                              )}
+                            {orderData?.deliveryPhone && (
+                              <p className="flex items-center gap-1 mt-2">
+                                <span className="text-xs">📞</span>{" "}
+                                {orderData.deliveryPhone}
+                              </p>
+                            )}
                           </div>
                         </div>
                       )}
@@ -1260,68 +1637,95 @@ export default function AccountantQuotation() {
                           <p className="text-sm">{orderData.notes}</p>
                         </div>
                       )}
-                      {orderBill && (
-                        <div className="pt-3 border-t border-gray-200">
-                          <p className="text-sm text-gray-500 mb-2">OnLipharmacy Bill</p>
-                          <div className="flex items-center justify-between bg-green-50 rounded-lg p-3 border border-green-200">
-                            <div className="flex items-center gap-2">
-                                <Receipt className="w-5 h-5 text-green-600" />
-                                <div>
-                                  <p className="text-sm text-green-700 font-medium">Pharmacy Bill Available</p>
-                                  <p className="text-xs text-gray-500">Bill for Online Pharmacy order</p>
-                                </div>
-                            </div>
-                            <div className="flex gap-2">
-                              <button onClick={viewOrderBill} className="px-2 py-1 text-xs bg-green-600 text-white rounded-lg hover:bg-green-700">View</button>
-                              <button onClick={downloadOrderBill} className="px-2 py-1 text-xs bg-green-600 text-white rounded-lg hover:bg-green-700">Download</button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+
                       {documents.length > 0 && (
                         <div className="pt-3 border-t border-gray-200">
                           <div className="mb-2">
-                            <p className="text-sm text-gray-500">Uploaded Documents ({documents.length})</p>
+                            <p className="text-sm text-gray-500">
+                              Uploaded Documents ({documents.length})
+                            </p>
                           </div>
                           <div className="space-y-2">
                             {documents.slice(0, 3).map((doc, index) => (
-                              <div key={doc.id || index} className="flex items-center justify-between gap-3 bg-gray-50 rounded-lg p-3">
+                              <div
+                                key={doc.id || index}
+                                className="flex items-center justify-between gap-3 bg-gray-50 rounded-lg p-3"
+                              >
                                 <div className="flex min-w-0 flex-1 items-center gap-2">
                                   <FileText className="w-5 h-5 shrink-0 text-[#2563EB]" />
                                   <div className="min-w-0 flex-1">
-                                    <p className="break-all text-sm text-gray-700 font-medium">{doc.originalFileName || doc.fileName}</p>
-                                    <p className="text-xs text-gray-500">{doc.user?.fullName ? `By: ${doc.user.fullName} • ` : ''}{doc.category || 'Document'} • {(doc.fileSize / 1024).toFixed(1)} KB</p>
+                                    <p className="break-all text-sm text-gray-700 font-medium">
+                                      {doc.originalFileName || doc.fileName}
+                                    </p>
+                                    <p className="text-xs text-gray-500">
+                                      {doc.user?.fullName
+                                        ? `By: ${doc.user.fullName} • `
+                                        : ""}
+                                      {doc.category || "Document"} •{" "}
+                                      {(doc.fileSize / 1024).toFixed(1)} KB
+                                    </p>
                                   </div>
                                 </div>
                                 <div className="flex shrink-0 gap-2">
-                                  <button onClick={() => viewDocument(doc)} className="px-2 py-1 text-xs bg-[#2563EB] text-white rounded-lg hover:bg-[#1E40AF]">View</button>
-                                  <button onClick={() => downloadDocument(doc)} className="px-2 py-1 text-xs bg-green-600 text-white rounded-lg hover:bg-green-700">Download</button>
+                                  <button
+                                    onClick={() => viewDocument(doc)}
+                                    className="px-2 py-1 text-xs bg-[#2563EB] text-white rounded-lg hover:bg-[#1E40AF]"
+                                  >
+                                    View
+                                  </button>
+                                  <button
+                                    onClick={() => downloadDocument(doc)}
+                                    className="px-2 py-1 text-xs bg-green-600 text-white rounded-lg hover:bg-green-700"
+                                  >
+                                    Download
+                                  </button>
                                 </div>
                               </div>
                             ))}
                             {documents.length > 3 && (
-                              <p className="text-xs text-gray-500 text-center">+{documents.length - 3} more documents</p>
+                              <p className="text-xs text-gray-500 text-center">
+                                +{documents.length - 3} more documents
+                              </p>
                             )}
                           </div>
                         </div>
                       )}
                       {orderData?.files && orderData.files.length > 0 && (
                         <div className="pt-3 border-t border-gray-200">
-                          <p className="text-sm text-gray-500 mb-2">Uploaded Documents (Legacy)</p>
+                          <p className="text-sm text-gray-500 mb-2">
+                            Uploaded Documents (Legacy)
+                          </p>
                           <div className="space-y-2">
                             {orderData.files.map((file, index) => (
-                              <div key={index} className="flex items-center justify-between gap-3 bg-gray-50 rounded-lg p-3">
+                              <div
+                                key={index}
+                                className="flex items-center justify-between gap-3 bg-gray-50 rounded-lg p-3"
+                              >
                                 <div className="flex min-w-0 flex-1 items-center gap-2">
                                   <FileText className="w-5 h-5 shrink-0 text-[#2563EB]" />
                                   <div className="min-w-0 flex-1">
-                                    <p className="break-all text-sm text-gray-700 font-medium">{file.name || file.category}</p>
-                                    <p className="text-xs text-gray-500">{file.category}</p>
+                                    <p className="break-all text-sm text-gray-700 font-medium">
+                                      {file.name || file.category}
+                                    </p>
+                                    <p className="text-xs text-gray-500">
+                                      {file.category}
+                                    </p>
                                   </div>
                                 </div>
                                 <div className="flex shrink-0 gap-2">
-                                  <button onClick={() => viewLegacyFile(file)} className="px-2 py-1 text-xs bg-[#2563EB] text-white rounded-lg hover:bg-[#1E40AF]">View</button>
+                                  <button
+                                    onClick={() => viewLegacyFile(file)}
+                                    className="px-2 py-1 text-xs bg-[#2563EB] text-white rounded-lg hover:bg-[#1E40AF]"
+                                  >
+                                    View
+                                  </button>
                                   {file.content && (
-                                    <button onClick={() => downloadLegacyFile(file)} className="px-2 py-1 text-xs bg-green-600 text-white rounded-lg hover:bg-green-700">Download</button>
+                                    <button
+                                      onClick={() => downloadLegacyFile(file)}
+                                      className="px-2 py-1 text-xs bg-green-600 text-white rounded-lg hover:bg-green-700"
+                                    >
+                                      Download
+                                    </button>
                                   )}
                                 </div>
                               </div>
@@ -1333,23 +1737,60 @@ export default function AccountantQuotation() {
                   )}
                 </div>
                 <div className="mt-6 pt-6 border-t border-gray-200">
-                  <h4 className="text-gray-700 font-semibold mb-3">Total Summary</h4>
+                  <h4 className="text-gray-700 font-semibold mb-3">
+                    Total Summary
+                  </h4>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between text-gray-600"><span>Subtotal:</span><span>{formatCurrency(summary.subtotal, summary.country)}</span></div>
-                    <div className="flex justify-between text-gray-600"><span>{summary.applyGst ? "Delivery Charge (incl. GST):" : "Delivery Charge:"}</span><span>{formatCurrency(summary.deliveryChargeWithGst, summary.country)}</span></div>
-                    <div className="flex justify-between text-[#1E3A8A] pt-2 border-t border-gray-200 font-semibold"><span>Total:</span><span className="text-xl">{formatCurrency(summary.total, summary.country)}</span></div>
+                    <div className="flex justify-between text-gray-600">
+                      <span>Subtotal:</span>
+                      <span>
+                        {formatCurrency(summary.subtotal, summary.country)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-gray-600">
+                      <span>
+                        {summary.applyGst
+                          ? "Delivery Charge (incl. GST):"
+                          : "Delivery Charge:"}
+                      </span>
+                      <span>
+                        {formatCurrency(
+                          summary.deliveryChargeWithGst,
+                          summary.country,
+                        )}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-[#1E3A8A] pt-2 border-t border-gray-200 font-semibold">
+                      <span>Total:</span>
+                      <span className="text-xl">
+                        {formatCurrency(summary.total, summary.country)}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.3 }} className="lg:col-span-2">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="lg:col-span-2"
+            >
               <div className="bg-white rounded-2xl shadow-lg p-5 sm:p-8 border border-gray-100">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-xl font-semibold text-[#1E3A8A]">Medicine List</h3>
+                    <h3 className="text-xl font-semibold text-[#1E3A8A]">
+                      Medicine List
+                    </h3>
                     {!isViewOnly && (
-                      <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} type="button" onClick={() => addMedicine(null)} className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#16A34A] to-[#15803D] text-white rounded-xl hover:from-[#15803D] hover:to-[#166534] transition-all duration-300 shadow-md hover:shadow-lg">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        type="button"
+                        onClick={() => addMedicine(null)}
+                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#16A34A] to-[#15803D] text-white rounded-xl hover:from-[#15803D] hover:to-[#166534] transition-all duration-300 shadow-md hover:shadow-lg"
+                      >
                         <Plus className="w-4 h-4" /> Add Medicine
                       </motion.button>
                     )}
@@ -1359,56 +1800,226 @@ export default function AccountantQuotation() {
                       const errors = medicineErrors[index] || {};
                       const inputClass = (field) =>
                         `w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2563EB] focus:border-transparent ${
-                          errors[field] ? "border-red-300 bg-red-50" : "border-gray-300"
+                          errors[field]
+                            ? "border-red-300 bg-red-50"
+                            : "border-gray-300"
                         }`;
 
                       return (
-                      <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }} className="border border-gray-200 rounded-xl p-4 bg-gray-50/50">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                          <div><label className="block text-sm text-gray-700 mb-2">Active Molecule</label><input type="text" value={medicine.name} onChange={(e) => updateMedicine(index, "name", e.target.value)} className={inputClass("name")} maxLength={100} placeholder="e.g. Paracetamol" required disabled={isViewOnly} />{errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}</div>
-                          <div><label className="block text-sm text-gray-700 mb-2">Medicine Brand</label><input type="text" value={medicine.brand || ""} onChange={(e) => updateMedicine(index, "brand", e.target.value)} className={inputClass("brand")} maxLength={100} placeholder="e.g. Crocin" disabled={isViewOnly} />{errors.brand && <p className="mt-1 text-xs text-red-600">{errors.brand}</p>}</div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div><label className="block text-sm text-gray-700 mb-2">Dosage</label><input type="text" value={medicine.dosage} onChange={(e) => updateMedicine(index, "dosage", e.target.value)} className={inputClass("dosage")} maxLength={50} placeholder="e.g. 500 mg" required disabled={isViewOnly} />{errors.dosage && <p className="mt-1 text-xs text-red-600">{errors.dosage}</p>}</div>
-                          <div><label className="block text-sm text-gray-700 mb-2">Quantity</label><input type="text" inputMode="numeric" value={medicine.quantity} onChange={(e) => updateMedicine(index, "quantity", e.target.value)} className={inputClass("quantity")} required disabled={isViewOnly} placeholder="Enter quantity" />{errors.quantity && <p className="mt-1 text-xs text-red-600">{errors.quantity}</p>}</div>
-                          <div><label className="block text-sm text-gray-700 mb-2">Price/Unit ({summary.currencyLabel})</label><input type="text" inputMode="decimal" value={medicine.pricePerUnit} onChange={(e) => updateMedicine(index, "pricePerUnit", e.target.value)} className={inputClass("pricePerUnit")} required disabled={isViewOnly} placeholder="Enter price per unit" />{errors.pricePerUnit && <p className="mt-1 text-xs text-red-600">{errors.pricePerUnit}</p>}</div>
-                        </div>
-                        {!isViewOnly && (
-                          <button type="button" onClick={() => removeMedicine(index)} className="mt-2 text-red-500 hover:text-red-700 flex items-center gap-1"><Trash2 className="w-4 h-4" /> Remove</button>
-                        )}
-                      </motion.div>
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="border border-gray-200 rounded-xl p-4 bg-gray-50/50"
+                        >
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                              <label className="block text-sm text-gray-700 mb-2">
+                                Active Molecule
+                              </label>
+                              <input
+                                type="text"
+                                value={medicine.name}
+                                onChange={(e) =>
+                                  updateMedicine(index, "name", e.target.value)
+                                }
+                                className={inputClass("name")}
+                                maxLength={100}
+                                placeholder="e.g. Paracetamol"
+                                required
+                                disabled={isViewOnly}
+                              />
+                              {errors.name && (
+                                <p className="mt-1 text-xs text-red-600">
+                                  {errors.name}
+                                </p>
+                              )}
+                            </div>
+                            <div>
+                              <label className="block text-sm text-gray-700 mb-2">
+                                Medicine Brand
+                              </label>
+                              <input
+                                type="text"
+                                value={medicine.brand || ""}
+                                onChange={(e) =>
+                                  updateMedicine(index, "brand", e.target.value)
+                                }
+                                className={inputClass("brand")}
+                                maxLength={100}
+                                placeholder="e.g. Crocin"
+                                disabled={isViewOnly}
+                              />
+                              {errors.brand && (
+                                <p className="mt-1 text-xs text-red-600">
+                                  {errors.brand}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                              <label className="block text-sm text-gray-700 mb-2">
+                                Dosage
+                              </label>
+                              <input
+                                type="text"
+                                value={medicine.dosage}
+                                onChange={(e) =>
+                                  updateMedicine(
+                                    index,
+                                    "dosage",
+                                    e.target.value,
+                                  )
+                                }
+                                className={inputClass("dosage")}
+                                maxLength={50}
+                                placeholder="e.g. 500 mg"
+                                required
+                                disabled={isViewOnly}
+                              />
+                              {errors.dosage && (
+                                <p className="mt-1 text-xs text-red-600">
+                                  {errors.dosage}
+                                </p>
+                              )}
+                            </div>
+                            <div>
+                              <label className="block text-sm text-gray-700 mb-2">
+                                Quantity
+                              </label>
+                              <input
+                                type="text"
+                                inputMode="numeric"
+                                value={medicine.quantity}
+                                onChange={(e) =>
+                                  updateMedicine(
+                                    index,
+                                    "quantity",
+                                    e.target.value,
+                                  )
+                                }
+                                className={inputClass("quantity")}
+                                required
+                                disabled={isViewOnly}
+                                placeholder="Enter quantity"
+                              />
+                              {errors.quantity && (
+                                <p className="mt-1 text-xs text-red-600">
+                                  {errors.quantity}
+                                </p>
+                              )}
+                            </div>
+                            <div>
+                              <label className="block text-sm text-gray-700 mb-2">
+                                Price/Unit ({summary.currencyLabel})
+                              </label>
+                              <input
+                                type="text"
+                                inputMode="decimal"
+                                value={medicine.pricePerUnit}
+                                onChange={(e) =>
+                                  updateMedicine(
+                                    index,
+                                    "pricePerUnit",
+                                    e.target.value,
+                                  )
+                                }
+                                className={inputClass("pricePerUnit")}
+                                required
+                                disabled={isViewOnly}
+                                placeholder="Enter price per unit"
+                              />
+                              {errors.pricePerUnit && (
+                                <p className="mt-1 text-xs text-red-600">
+                                  {errors.pricePerUnit}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          {!isViewOnly && (
+                            <button
+                              type="button"
+                              onClick={() => removeMedicine(index)}
+                              className="mt-2 text-red-500 hover:text-red-700 flex items-center gap-1"
+                            >
+                              <Trash2 className="w-4 h-4" /> Remove
+                            </button>
+                          )}
+                        </motion.div>
                       );
                     })}
                   </div>
-                  
+
                   <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="w-5 text-center text-[#2563EB] font-semibold">{summary.currencyLabel}</span>
-                      <h4 className="text-gray-700 font-medium">Delivery Charge</h4>
+                      <span className="w-5 text-center text-[#2563EB] font-semibold">
+                        {summary.currencyLabel}
+                      </span>
+                      <h4 className="text-gray-700 font-medium">
+                        Delivery Charge
+                      </h4>
                     </div>
                     <div className="flex items-center gap-4">
                       <div className="flex-1">
-                        <label className="block text-sm text-gray-600 mb-1">{summary.applyGst ? "Enter Delivery Charge (GST 18% will be added)" : "Enter Delivery Charge"}</label>
-                        <input 
-                          type="number" 
-                          value={deliveryCharge === 0 ? "" : deliveryCharge} 
-                          onChange={(e) => setDeliveryCharge(parseFloat(e.target.value) || 0)} 
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB] focus:border-transparent" 
-                          min="0" 
+                        <label className="block text-sm text-gray-600 mb-1">
+                          {summary.applyGst
+                            ? "Enter Delivery Charge (GST 18% will be added)"
+                            : "Enter Delivery Charge"}
+                        </label>
+                        <input
+                          type="number"
+                          value={deliveryCharge === 0 ? "" : deliveryCharge}
+                          onChange={(e) =>
+                            setDeliveryCharge(parseFloat(e.target.value) || 0)
+                          }
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563EB] focus:border-transparent"
+                          min="0"
                           step="0.01"
                           disabled={isViewOnly}
                           placeholder="0.00"
                         />
                       </div>
                       <div className="text-sm text-gray-600 bg-white px-4 py-2 rounded-lg border border-gray-200">
-                        <span className="text-gray-500">{summary.applyGst ? "With GST (18%):" : "Total:"}</span>
-                        <span className="ml-1 font-semibold text-[#2563EB]">{formatCurrency(summary.deliveryChargeWithGst, summary.country)}</span>
+                        <span className="text-gray-500">
+                          {summary.applyGst ? "With GST (18%):" : "Total:"}
+                        </span>
+                        <span className="ml-1 font-semibold text-[#2563EB]">
+                          {formatCurrency(
+                            summary.deliveryChargeWithGst,
+                            summary.country,
+                          )}
+                        </span>
                       </div>
                     </div>
                   </div>
                   <div className="flex gap-4 pt-6">
-                    <motion.button whileHover={{ scale: isViewOnly ? 1 : 1.02 }} whileTap={{ scale: isViewOnly ? 1 : 0.98 }} type="submit" disabled={submitting || medicines.length === 0 || isViewOnly} className="flex-1 py-4 bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] text-white rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md">
-                      {submitting ? <><div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />Submitting...</> : isViewOnly ? <><Send className="w-5 h-5" />Submitted</> : <><Send className="w-5 h-5" />Submit</>}
+                    <motion.button
+                      whileHover={{ scale: isViewOnly ? 1 : 1.02 }}
+                      whileTap={{ scale: isViewOnly ? 1 : 0.98 }}
+                      type="submit"
+                      disabled={
+                        submitting || medicines.length === 0 || isViewOnly
+                      }
+                      className="flex-1 py-4 bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] text-white rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md"
+                    >
+                      {submitting ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          Submitting...
+                        </>
+                      ) : isViewOnly ? (
+                        <>
+                          <Send className="w-5 h-5" />
+                          Submitted
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-5 h-5" />
+                          Submit
+                        </>
+                      )}
                     </motion.button>
                     {order?.id && (
                       <motion.button
@@ -1419,7 +2030,22 @@ export default function AccountantQuotation() {
                         disabled={sendingEmail || isEmailSent}
                         className="px-6 py-4 bg-gradient-to-r from-[#0F766E] to-[#0D9488] text-white rounded-xl hover:from-[#0D9488] hover:to-[#0F766E] flex items-center gap-2 shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        {sendingEmail ? <><div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />Sending...</> : isEmailSent ? <><Send className="w-5 h-5" />Email Sent</> : <><Send className="w-5 h-5" />Send Email</>}
+                        {sendingEmail ? (
+                          <>
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            Sending...
+                          </>
+                        ) : isEmailSent ? (
+                          <>
+                            <Send className="w-5 h-5" />
+                            Email Sent
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-5 h-5" />
+                            Send Email
+                          </>
+                        )}
                       </motion.button>
                     )}
                   </div>
@@ -1441,4 +2067,3 @@ export default function AccountantQuotation() {
     </>
   );
 }
-

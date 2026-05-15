@@ -1,6 +1,18 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { FileText, Calendar, User, Eye, Download, CheckCircle, XCircle, Clock, IndianRupee, RefreshCw, Search } from "lucide-react";
+import {
+  FileText,
+  Calendar,
+  User,
+  Eye,
+  Download,
+  CheckCircle,
+  XCircle,
+  Clock,
+  IndianRupee,
+  RefreshCw,
+  Search,
+} from "lucide-react";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { CustomSelect } from "../../components/CustomSelect";
@@ -8,7 +20,7 @@ import { TablePagination } from "../../components/TablePagination.jsx";
 import { Link } from "react-router";
 import { orderAPI, quotationAPI } from "@/services/api.js";
 import Swal from "sweetalert2";
-import { formatCurrency } from "./quotationHelpers.js";
+import { formatCurrency, resolveOrderCountry } from "./quotationHelpers.js";
 import { formatReportId } from "@/app/utils/reportId.js";
 
 const TABLE_PAGE_SIZE = 10;
@@ -22,25 +34,25 @@ export default function QuotationsHistory() {
 
   useEffect(() => {
     fetchOrders();
-    
+
     // Refresh data when page becomes visible again (e.g., after navigating back from bill generation)
     const handleVisibilityChange = () => {
       if (!document.hidden) {
         fetchOrders();
       }
     };
-    
+
     // Also refresh when window gains focus
     const handleFocus = () => {
       fetchOrders();
     };
-    
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('focus', handleFocus);
-    
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("focus", handleFocus);
+
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('focus', handleFocus);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("focus", handleFocus);
     };
   }, []);
 
@@ -64,17 +76,25 @@ export default function QuotationsHistory() {
 
   // Filter orders based on status and search
   const filteredOrders = orders.filter((order) => {
-    if (filterStatus === "pending" && order.status !== "DRAFT" && order.status !== "SENT") return false;
-    if (filterStatus === "approved" && order.status !== "ACCEPTED") return false;
-    if (filterStatus === "rejected" && order.status !== "REJECTED") return false;
-    
+    if (
+      filterStatus === "pending" &&
+      order.status !== "DRAFT" &&
+      order.status !== "SENT"
+    )
+      return false;
+    if (filterStatus === "approved" && order.status !== "ACCEPTED")
+      return false;
+    if (filterStatus === "rejected" && order.status !== "REJECTED")
+      return false;
+
     if (searchTerm) {
       const search = searchTerm.toLowerCase();
       const user = order.user || {};
       return (
         (user.fullName && user.fullName.toLowerCase().includes(search)) ||
         (user.email && user.email.toLowerCase().includes(search)) ||
-        (order.quotationNumber && order.quotationNumber.toLowerCase().includes(search))
+        (order.quotationNumber &&
+          order.quotationNumber.toLowerCase().includes(search))
       );
     }
     return true;
@@ -85,7 +105,10 @@ export default function QuotationsHistory() {
   }, [searchTerm, filterStatus]);
 
   useEffect(() => {
-    const totalPages = Math.max(1, Math.ceil(filteredOrders.length / TABLE_PAGE_SIZE));
+    const totalPages = Math.max(
+      1,
+      Math.ceil(filteredOrders.length / TABLE_PAGE_SIZE),
+    );
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     }
@@ -98,10 +121,12 @@ export default function QuotationsHistory() {
 
   // Calculate stats
   const totalQuotations = orders.length;
-  const approvedCount = orders.filter(o => o.status === "ACCEPTED").length;
-  const pendingCount = orders.filter(o => o.status === "DRAFT" || o.status === "SENT").length;
+  const approvedCount = orders.filter((o) => o.status === "ACCEPTED").length;
+  const pendingCount = orders.filter(
+    (o) => o.status === "DRAFT" || o.status === "SENT",
+  ).length;
   const totalRevenue = orders
-    .filter(o => o.status === "ACCEPTED")
+    .filter((o) => o.status === "ACCEPTED")
     .reduce((sum, o) => sum + (parseFloat(o.totalAmount) || 0), 0);
 
   const getStatusBadge = (status) => {
@@ -144,10 +169,21 @@ export default function QuotationsHistory() {
 
   const getServiceTypeLabel = (order) => {
     const details = parseOrderDetails(order.orderDetails);
-    if (details.serviceType === 'prescription-analysis') return 'Prescription Analysis';
-    if (details.serviceType === 'online-pharmacy') return 'Online Pharmacy';
-    if (details.serviceType === 'second-opinion') return 'Second Opinion';
-    return 'General';
+    if (details.serviceType === "prescription-analysis")
+      return "Prescription Analysis";
+    if (details.serviceType === "online-pharmacy") return "Online Pharmacy";
+    if (details.serviceType === "second-opinion") return "Second Opinion";
+    return "General";
+  };
+
+  const getQuotationCountry = (quotation) => {
+    const orderData = quotation.order || quotation;
+    const details = parseOrderDetails(
+      orderData.orderDetails || quotation.orderDetails,
+    );
+    const user = quotation.user || orderData.user || {};
+
+    return resolveOrderCountry(orderData, details, user);
   };
 
   const refreshOrders = () => {
@@ -157,7 +193,7 @@ export default function QuotationsHistory() {
   return (
     <>
       <Navbar role="accountant" />
-      
+
       <main className="flex-1 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
@@ -169,8 +205,12 @@ export default function QuotationsHistory() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl sm:text-4xl text-[#1E3A8A] mb-2">Quotations History</h1>
-                <p className="text-xl text-gray-600">View all orders and their quotation status</p>
+                <h1 className="text-3xl sm:text-4xl text-[#1E3A8A] mb-2">
+                  Quotations History
+                </h1>
+                <p className="text-xl text-gray-600">
+                  View all orders and their quotation status
+                </p>
               </div>
               <button
                 onClick={refreshOrders}
@@ -244,7 +284,9 @@ export default function QuotationsHistory() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 mb-2">Total Revenue</p>
-                  <p className="text-3xl text-[#8B5CF6]">₹{totalRevenue.toLocaleString()}</p>
+                  <p className="text-3xl text-[#8B5CF6]">
+                    ₹{totalRevenue.toLocaleString()}
+                  </p>
                 </div>
                 <div className="w-14 h-14 bg-gradient-to-br from-[#8B5CF6] to-[#A78BFA] rounded-xl flex items-center justify-center">
                   <IndianRupee className="w-7 h-7 text-white" />
@@ -292,10 +334,12 @@ export default function QuotationsHistory() {
           ) : filteredOrders.length === 0 ? (
             <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
               <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl text-gray-600 mb-2">No quotations found</h3>
+              <h3 className="text-xl text-gray-600 mb-2">
+                No quotations found
+              </h3>
               <p className="text-gray-500">
-                {searchTerm || filterStatus !== "all" 
-                  ? "Try adjusting your search or filter criteria" 
+                {searchTerm || filterStatus !== "all"
+                  ? "Try adjusting your search or filter criteria"
                   : "Orders will appear here"}
               </p>
             </div>
@@ -347,11 +391,15 @@ export default function QuotationsHistory() {
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
                               <div className="w-10 h-10 bg-gradient-to-br from-[#1E3A8A] to-[#2563EB] rounded-full flex items-center justify-center text-white">
-                                {user.fullName ? user.fullName.charAt(0) : '?'}
+                                {user.fullName ? user.fullName.charAt(0) : "?"}
                               </div>
                               <div>
-                                <p className="text-gray-700 font-medium">{user.fullName || "Unknown"}</p>
-                                <p className="text-sm text-gray-500">{user.email || "No email"}</p>
+                                <p className="text-gray-700 font-medium">
+                                  {user.fullName || "Unknown"}
+                                </p>
+                                <p className="text-sm text-gray-500">
+                                  {user.email || "No email"}
+                                </p>
                               </div>
                             </div>
                           </td>
@@ -360,7 +408,12 @@ export default function QuotationsHistory() {
                           </td>
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-2 text-gray-700 font-semibold text-lg">
-                              <span>{formatCurrency(order.totalAmount, order.deliveryCountry || order.user?.country || "India")}</span>
+                              <span>
+                                {formatCurrency(
+                                  order.totalAmount,
+                                  getQuotationCountry(order),
+                                )}
+                              </span>
                             </div>
                           </td>
                           <td className="px-6 py-4 text-gray-600">
@@ -372,14 +425,18 @@ export default function QuotationsHistory() {
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-2">
                               {getStatusIcon(order.status)}
-                              <span className={`px-3 py-1 rounded-full text-sm ${statusInfo.class}`}>
+                              <span
+                                className={`px-3 py-1 rounded-full text-sm ${statusInfo.class}`}
+                              >
                                 {statusInfo.text}
                               </span>
                             </div>
                           </td>
                           <td className="px-6 py-4">
                             <div className="flex items-center justify-center gap-2">
-                              <Link to={`/accountant/quotation/${order.order?.id || order.orderId || order.id}`}>
+                              <Link
+                                to={`/accountant/quotation/${order.order?.id || order.orderId || order.id}`}
+                              >
                                 <motion.button
                                   whileHover={{ scale: 1.1 }}
                                   whileTap={{ scale: 0.9 }}

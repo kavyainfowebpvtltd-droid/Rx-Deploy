@@ -942,6 +942,9 @@ export default function AdminDoctors() {
     // Expose view function globally for SweetAlert
     window.viewDoc = viewDocument;
 
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
     Swal.fire({
       title: `<span class="text-[#1E3A8A]">${displayDoctor.fullName}</span>`,
       html: `
@@ -962,6 +965,20 @@ export default function AdminDoctors() {
       confirmButtonColor: "#2563EB",
       confirmButtonText: "Close",
       width: "500px",
+      didOpen: () => {
+        document.body.style.overflow = "hidden";
+        document.documentElement.style.overflow = "hidden";
+
+        const popup = Swal.getPopup();
+        if (popup) {
+          popup.style.maxHeight = "calc(100vh - 2rem)";
+          popup.style.overflowY = "auto";
+        }
+      },
+      willClose: () => {
+        document.body.style.overflow = previousBodyOverflow;
+        document.documentElement.style.overflow = previousHtmlOverflow;
+      },
     });
   };
 

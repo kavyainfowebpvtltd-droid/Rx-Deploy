@@ -329,7 +329,10 @@ export default function AdminUsers() {
   }, [searchTerm, roleFilter]);
 
   useEffect(() => {
-    const totalPages = Math.max(1, Math.ceil(filteredUsers.length / TABLE_PAGE_SIZE));
+    const totalPages = Math.max(
+      1,
+      Math.ceil(filteredUsers.length / TABLE_PAGE_SIZE),
+    );
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     }
@@ -642,7 +645,9 @@ export default function AdminUsers() {
             className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-12"
           >
             <div>
-              <h1 className="text-3xl sm:text-4xl text-[#1E3A8A] mb-2">Manage Users</h1>
+              <h1 className="text-3xl sm:text-4xl text-[#1E3A8A] mb-2">
+                Manage Users
+              </h1>
               <p className="text-xl text-gray-600">View all registered users</p>
             </div>
             <motion.button

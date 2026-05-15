@@ -61,6 +61,27 @@ const triggerBrowserDownload = (blob, fallbackFileName, response = null) => {
   }, 1000);
 };
 
+const showScrollLockedModal = (options) => {
+  const previousBodyOverflow = document.body.style.overflow;
+  const previousHtmlOverflow = document.documentElement.style.overflow;
+
+  return Swal.fire({
+    ...options,
+    heightAuto: false,
+    scrollbarPadding: false,
+    didOpen: (...args) => {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      options.didOpen?.(...args);
+    },
+    didClose: (...args) => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      options.didClose?.(...args);
+    },
+  });
+};
+
 export default function UserStatus() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -1175,7 +1196,7 @@ export default function UserStatus() {
       </div>`;
     }
 
-    Swal.fire({
+    showScrollLockedModal({
       title: "📦 Order Details",
       html: `
         <div class="text-left">
@@ -1293,7 +1314,7 @@ export default function UserStatus() {
       )
       .join("");
 
-    Swal.fire({
+    showScrollLockedModal({
       title: "📍 Delivery Tracking",
       html: `
         <div class="text-left">

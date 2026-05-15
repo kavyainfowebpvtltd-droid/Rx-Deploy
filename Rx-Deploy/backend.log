@@ -434,3 +434,215 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: User no
 2026-05-14T11:57:54.503+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Operating in TEST mode - using Razorpay test credentials
 2026-05-14T11:57:54.857+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Razorpay order created: order_Sp93ixlm5bmiNr
 2026-05-14T11:59:48.376+05:30  INFO 18216 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T11:12:16.486+05:30  INFO 1528 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 1528 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-15T11:12:16.491+05:30  INFO 1528 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-15T11:12:19.895+05:30  INFO 1528 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-15T11:12:19.896+05:30  INFO 1528 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-15T11:12:20.027+05:30  INFO 1528 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-15T11:12:20.940+05:30  INFO 1528 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-15T11:12:21.441+05:30  INFO 1528 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1d75f5da
+2026-05-15T11:12:21.445+05:30  INFO 1528 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-15T11:12:27.188+05:30  WARN 1528 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-15T11:12:28.351+05:30  INFO 1528 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 12.605 seconds (process running for 13.237)
+2026-05-15T11:12:28.357+05:30  INFO 1528 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default user initialization is disabled
+2026-05-15T11:12:28.373+05:30  INFO 1528 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-15T11:12:28.509+05:30  INFO 1528 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-15T11:24:51.981+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-15T11:24:52.127+05:30  WARN 1528 --- [http-nio-0.0.0.0-8081-exec-2] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/auth/login' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-05-15T11:24:52.288+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Login attempt for email: sh***@gmail.com
+2026-05-15T11:24:52.816+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Login successful for email: sh***@gmail.com
+2026-05-15T11:29:42.902+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T11:29:56.708+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : Login attempt for email: ac***@rxincredible.com
+2026-05-15T11:29:56.881+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : Login successful for email: ac***@rxincredible.com
+2026-05-15T11:31:52.062+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-8] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T11:32:56.201+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login attempt for email: sh***@gmail.com
+2026-05-15T11:32:56.396+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login successful for email: sh***@gmail.com
+2026-05-15T11:35:41.907+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T11:35:48.530+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-8] c.r.controller.AuthController            : Login attempt for email: ac***@rxincredible.com
+2026-05-15T11:35:48.756+05:30  INFO 1528 --- [http-nio-0.0.0.0-8081-exec-8] c.r.controller.AuthController            : Login successful for email: ac***@rxincredible.com
+2026-05-15T11:39:41.598+05:30  INFO 1528 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-15T11:39:41.630+05:30  INFO 1528 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-05-15T11:39:41.827+05:30  INFO 1528 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 1528 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-15T11:39:41.829+05:30  INFO 1528 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-15T11:39:42.696+05:30  INFO 1528 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-15T11:39:42.714+05:30  INFO 1528 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-15T11:39:42.769+05:30  INFO 1528 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-15T11:39:42.848+05:30  INFO 1528 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-05-15T11:39:42.870+05:30  INFO 1528 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7ab9909
+2026-05-15T11:39:42.876+05:30  INFO 1528 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-05-15T11:39:44.509+05:30  WARN 1528 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-15T11:39:44.855+05:30  INFO 1528 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 3.106 seconds (process running for 1649.741)
+2026-05-15T11:39:44.857+05:30  INFO 1528 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default user initialization is disabled
+2026-05-15T11:39:44.859+05:30  INFO 1528 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-15T11:39:44.874+05:30  INFO 1528 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-15T11:40:36.140+05:30  INFO 8916 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 8916 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-15T11:40:36.143+05:30  INFO 8916 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-15T11:40:41.062+05:30  INFO 8916 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-15T11:40:41.081+05:30  INFO 8916 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-15T11:40:41.265+05:30  INFO 8916 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-15T11:40:42.994+05:30  INFO 8916 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-15T11:40:43.329+05:30  INFO 8916 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4af17497
+2026-05-15T11:40:43.331+05:30  INFO 8916 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-15T11:40:54.097+05:30  WARN 8916 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-15T11:40:56.487+05:30  INFO 8916 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 21.502 seconds (process running for 22.705)
+2026-05-15T11:40:56.498+05:30  INFO 8916 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default user initialization is disabled
+2026-05-15T11:40:56.603+05:30  INFO 8916 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-15T11:40:56.924+05:30  INFO 8916 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-15T11:41:19.189+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-15T11:41:19.896+05:30  WARN 8916 --- [http-nio-0.0.0.0-8081-exec-6] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/orders/2/user-email' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-05-15T11:41:28.420+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : Jakarta Mail version 2.1.2
+2026-05-15T11:41:28.487+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : URL jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.providers
+2026-05-15T11:41:28.492+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : successfully loaded resource: jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.providers
+2026-05-15T11:41:28.509+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : successfully loaded resource: /META-INF/javamail.default.providers
+2026-05-15T11:41:28.525+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : Tables of loaded providers
+2026-05-15T11:41:28.540+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : Providers Listed By Class Name: {org.eclipse.angus.mail.imap.IMAPStore=jakarta.mail.Provider[STORE,imap,org.eclipse.angus.mail.imap.IMAPStore,Oracle], org.eclipse.angus.mail.smtp.SMTPTransport=jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle], org.eclipse.angus.mail.pop3.POP3Store=jakarta.mail.Provider[STORE,pop3,org.eclipse.angus.mail.pop3.POP3Store,Oracle], org.eclipse.angus.mail.pop3.POP3SSLStore=jakarta.mail.Provider[STORE,pop3s,org.eclipse.angus.mail.pop3.POP3SSLStore,Oracle], org.eclipse.angus.mail.smtp.SMTPSSLTransport=jakarta.mail.Provider[TRANSPORT,smtps,org.eclipse.angus.mail.smtp.SMTPSSLTransport,Oracle], org.eclipse.angus.mail.imap.IMAPSSLStore=jakarta.mail.Provider[STORE,imaps,org.eclipse.angus.mail.imap.IMAPSSLStore,Oracle]}
+2026-05-15T11:41:28.561+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : Providers Listed By Protocol: {imap=jakarta.mail.Provider[STORE,imap,org.eclipse.angus.mail.imap.IMAPStore,Oracle], smtp=jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle], pop3=jakarta.mail.Provider[STORE,pop3,org.eclipse.angus.mail.pop3.POP3Store,Oracle], imaps=jakarta.mail.Provider[STORE,imaps,org.eclipse.angus.mail.imap.IMAPSSLStore,Oracle], smtps=jakarta.mail.Provider[TRANSPORT,smtps,org.eclipse.angus.mail.smtp.SMTPSSLTransport,Oracle], pop3s=jakarta.mail.Provider[STORE,pop3s,org.eclipse.angus.mail.pop3.POP3SSLStore,Oracle]}
+2026-05-15T11:41:28.576+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : successfully loaded resource: /META-INF/javamail.default.address.map
+2026-05-15T11:41:28.580+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : URL jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.address.map
+2026-05-15T11:41:28.587+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : successfully loaded resource: jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.address.map
+2026-05-15T11:41:28.642+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] com.rxincredible.service.EmailService    : Quotation PDF attached successfully for order ORD-D294DA0A
+2026-05-15T11:41:28.646+05:30 DEBUG 8916 --- [http-nio-0.0.0.0-8081-exec-9] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-15T11:41:36.819+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] com.rxincredible.service.EmailService    : Quotation email sent to: shreyas.raut188@gmail.com
+2026-05-15T11:41:36.835+05:30  INFO 8916 --- [http-nio-0.0.0.0-8081-exec-9] c.rxincredible.service.QuotationService  : Quotation email sent for quotation QUO-1E84F4D0 and order ORD-D294DA0A
+2026-05-15T11:45:09.514+05:30  INFO 8916 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-15T11:45:09.619+05:30  INFO 8916 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-05-15T11:45:09.871+05:30  INFO 8916 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 8916 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-15T11:45:09.875+05:30  INFO 8916 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-15T11:45:11.455+05:30  INFO 8916 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-15T11:45:11.457+05:30  INFO 8916 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-15T11:45:11.572+05:30  INFO 8916 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-15T11:45:11.752+05:30  INFO 8916 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-05-15T11:45:11.767+05:30  INFO 8916 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@78082ceb
+2026-05-15T11:45:11.776+05:30  INFO 8916 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-05-15T11:45:15.189+05:30  WARN 8916 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-15T11:45:15.862+05:30  INFO 8916 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 6.071 seconds (process running for 282.079)
+2026-05-15T11:45:15.884+05:30  INFO 8916 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default user initialization is disabled
+2026-05-15T11:45:15.884+05:30  INFO 8916 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-15T11:45:15.929+05:30  INFO 8916 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-15T11:45:24.671+05:30  INFO 8916 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-05-15T11:45:24.682+05:30  INFO 8916 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-05-15T11:45:24.982+05:30  INFO 8916 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 8916 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-15T11:45:24.984+05:30  INFO 8916 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-15T11:45:25.655+05:30  INFO 8916 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-15T11:45:25.656+05:30  INFO 8916 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-15T11:45:25.739+05:30  INFO 8916 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-15T11:45:25.812+05:30  INFO 8916 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-05-15T11:45:25.833+05:30  INFO 8916 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4b3cc2b0
+2026-05-15T11:45:25.838+05:30  INFO 8916 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-05-15T11:45:27.463+05:30  WARN 8916 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-15T11:45:27.911+05:30  INFO 8916 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 2.999 seconds (process running for 294.128)
+2026-05-15T11:45:27.916+05:30  INFO 8916 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-15T11:45:27.927+05:30  INFO 8916 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-15T11:45:27.920+05:30  INFO 8916 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default user initialization is disabled
+2026-05-15T11:46:24.201+05:30  INFO 3152 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Starting RXIncredibleApplication using Java 21.0.7 with PID 3152 (D:\Rx-Deploy\Rx-Deploy\backend\target\classes started by Administrator in D:\Rx-Deploy\Rx-Deploy)
+2026-05-15T11:46:24.204+05:30  INFO 3152 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-15T11:46:27.970+05:30  INFO 3152 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-15T11:46:27.971+05:30  INFO 3152 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-05-15T11:46:28.155+05:30  INFO 3152 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-15T11:46:29.345+05:30  INFO 3152 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-15T11:46:29.748+05:30  INFO 3152 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5b5d4ef9
+2026-05-15T11:46:29.753+05:30  INFO 3152 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-15T11:46:37.956+05:30  WARN 3152 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-15T11:46:40.636+05:30  INFO 3152 --- [restartedMain] c.rxincredible.RXIncredibleApplication   : Started RXIncredibleApplication in 17.23 seconds (process running for 18.069)
+2026-05-15T11:46:40.647+05:30  INFO 3152 --- [restartedMain] c.rxincredible.config.DataInitializer    : Default user initialization is disabled
+2026-05-15T11:46:40.802+05:30  INFO 3152 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-15T11:46:40.967+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-15T11:46:41.427+05:30  INFO 3152 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-15T11:46:41.884+05:30  WARN 3152 --- [http-nio-0.0.0.0-8081-exec-3] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/auth/me' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-05-15T11:47:37.590+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-1] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T11:47:55.761+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.AuthController            : Login attempt for email: sh***@gmail.com
+2026-05-15T11:47:56.224+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.AuthController            : Login successful for email: sh***@gmail.com
+2026-05-15T11:49:04.803+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T11:49:14.548+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-10] c.r.controller.AuthController            : Login attempt for email: ac***@rxincredible.com
+2026-05-15T11:49:14.788+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-10] c.r.controller.AuthController            : Login successful for email: ac***@rxincredible.com
+2026-05-15T11:50:17.034+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : Jakarta Mail version 2.1.2
+2026-05-15T11:50:17.076+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : URL jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.providers
+2026-05-15T11:50:17.082+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : successfully loaded resource: jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.providers
+2026-05-15T11:50:17.091+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : successfully loaded resource: /META-INF/javamail.default.providers
+2026-05-15T11:50:17.100+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : Tables of loaded providers
+2026-05-15T11:50:17.117+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : Providers Listed By Class Name: {org.eclipse.angus.mail.imap.IMAPStore=jakarta.mail.Provider[STORE,imap,org.eclipse.angus.mail.imap.IMAPStore,Oracle], org.eclipse.angus.mail.smtp.SMTPTransport=jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle], org.eclipse.angus.mail.pop3.POP3Store=jakarta.mail.Provider[STORE,pop3,org.eclipse.angus.mail.pop3.POP3Store,Oracle], org.eclipse.angus.mail.pop3.POP3SSLStore=jakarta.mail.Provider[STORE,pop3s,org.eclipse.angus.mail.pop3.POP3SSLStore,Oracle], org.eclipse.angus.mail.smtp.SMTPSSLTransport=jakarta.mail.Provider[TRANSPORT,smtps,org.eclipse.angus.mail.smtp.SMTPSSLTransport,Oracle], org.eclipse.angus.mail.imap.IMAPSSLStore=jakarta.mail.Provider[STORE,imaps,org.eclipse.angus.mail.imap.IMAPSSLStore,Oracle]}
+2026-05-15T11:50:17.129+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : Providers Listed By Protocol: {imap=jakarta.mail.Provider[STORE,imap,org.eclipse.angus.mail.imap.IMAPStore,Oracle], smtp=jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle], pop3=jakarta.mail.Provider[STORE,pop3,org.eclipse.angus.mail.pop3.POP3Store,Oracle], imaps=jakarta.mail.Provider[STORE,imaps,org.eclipse.angus.mail.imap.IMAPSSLStore,Oracle], smtps=jakarta.mail.Provider[TRANSPORT,smtps,org.eclipse.angus.mail.smtp.SMTPSSLTransport,Oracle], pop3s=jakarta.mail.Provider[STORE,pop3s,org.eclipse.angus.mail.pop3.POP3SSLStore,Oracle]}
+2026-05-15T11:50:17.142+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : successfully loaded resource: /META-INF/javamail.default.address.map
+2026-05-15T11:50:17.147+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : URL jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.address.map
+2026-05-15T11:50:17.150+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : successfully loaded resource: jar:file:/C:/Users/Administrator/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.2/jakarta.mail-2.0.2.jar!/META-INF/javamail.address.map
+2026-05-15T11:50:17.230+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] com.rxincredible.service.EmailService    : Quotation PDF attached successfully for order ORD-0B1FC0B4
+2026-05-15T11:50:17.233+05:30 DEBUG 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-15T11:50:25.564+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] com.rxincredible.service.EmailService    : Quotation email sent to: shreyas.raut188@gmail.com
+2026-05-15T11:50:25.606+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] c.rxincredible.service.QuotationService  : Quotation email sent for quotation QUO-693285DD and order ORD-0B1FC0B4
+2026-05-15T11:51:07.984+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-8] c.r.controller.AuthController            : Login attempt for email: ac***@rxincredible.com
+2026-05-15T11:51:08.164+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-8] c.r.controller.AuthController            : Login successful for email: ac***@rxincredible.com
+2026-05-15T11:51:47.240+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.AuthController            : Login attempt for email: sh***@gmail.com
+2026-05-15T11:51:47.476+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.AuthController            : Login successful for email: sh***@gmail.com
+2026-05-15T11:51:51.484+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: INR 400
+2026-05-15T11:51:51.485+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Operating in TEST mode - using Razorpay test credentials
+2026-05-15T11:51:51.930+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Razorpay order created: order_SpXUQyYsanyPT6
+2026-05-15T11:52:19.916+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-6] c.rxincredible.service.RazorpayService   : Payment signature verification for order order_SpXUQyYsanyPT6: VALID
+2026-05-15T11:52:48.335+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-8] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T11:52:54.945+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : Login attempt for email: ac***@rxincredible.com
+2026-05-15T11:52:55.219+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : Login successful for email: ac***@rxincredible.com
+2026-05-15T12:19:01.131+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login attempt for email: ac***@rxincredible.com
+2026-05-15T12:19:01.244+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login successful for email: ac***@rxincredible.com
+2026-05-15T12:19:49.411+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : Login attempt for email: sh***@gmail.com
+2026-05-15T12:19:49.516+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : Login successful for email: sh***@gmail.com
+2026-05-15T12:21:28.335+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: INR 100
+2026-05-15T12:21:28.339+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.rxincredible.service.RazorpayService   : Operating in TEST mode - using Razorpay test credentials
+2026-05-15T12:21:28.980+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.rxincredible.service.RazorpayService   : Razorpay order created: order_SpXziiMWcwyZRQ
+2026-05-15T12:21:51.406+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-10] c.rxincredible.service.RazorpayService   : Payment signature verification for order order_SpXziiMWcwyZRQ: VALID
+2026-05-15T12:36:13.296+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T12:36:20.267+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.AuthController            : Login attempt for email: mr***@gmail.com
+2026-05-15T12:36:20.367+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.AuthController            : Login successful for email: mr***@gmail.com
+2026-05-15T12:36:20.560+05:30 DEBUG 3152 --- [http-nio-0.0.0.0-8081-exec-7] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-15T12:36:24.489+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] com.rxincredible.service.EmailService    : OTP email sent successfully to: mramteke80@gmail.com
+2026-05-15T12:36:24.489+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] com.rxincredible.service.EmailService    : OTP for testing: 765506
+2026-05-15T12:36:24.489+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.AuthController            : Admin OTP sent for email: mr***@gmail.com
+2026-05-15T12:36:42.207+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.AuthController            : Admin OTP verification attempt for email: mr***@gmail.com
+2026-05-15T12:41:28.510+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T12:42:39.253+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.UserController            : Registration request for email: ra***@gmail.com
+2026-05-15T12:42:39.413+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.UserController            : User saved to pending users table: ra***@gmail.com
+2026-05-15T12:42:39.418+05:30 DEBUG 3152 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-15T12:42:43.182+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] com.rxincredible.service.EmailService    : OTP email sent successfully to: rakeshkale375@gmail.com
+2026-05-15T12:42:43.182+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] com.rxincredible.service.EmailService    : OTP for testing: 729653
+2026-05-15T12:42:43.183+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.UserController            : Verification email sent: ra***@gmail.com
+2026-05-15T12:43:10.276+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.UserController            : OTP verification request for email: ra***@gmail.com
+2026-05-15T12:43:10.277+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.UserController            : OTP received: 729653
+2026-05-15T12:43:10.283+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.UserController            : Pending user found: true
+2026-05-15T12:43:10.283+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.UserController            : Found pending user, stored OTP: 729653
+2026-05-15T12:43:10.348+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.UserController            : Registration verified successfully for: ra***@gmail.com
+2026-05-15T12:43:10.350+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-6] c.r.controller.UserController            : Returning success response with user: rakeshkale375@gmail.com
+2026-05-15T12:43:17.012+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-8] c.r.controller.AuthController            : Login attempt for email: ra***@gmail.com
+2026-05-15T12:43:17.099+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-8] c.r.controller.AuthController            : Login successful for email: ra***@gmail.com
+2026-05-15T12:45:28.736+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-7] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T12:45:36.477+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login attempt for email: ac***@rxincredible.com
+2026-05-15T12:45:36.573+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login successful for email: ac***@rxincredible.com
+2026-05-15T12:46:22.118+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-2] com.rxincredible.service.EmailService    : Quotation PDF attached successfully for order ORD-FE51E92F
+2026-05-15T12:46:22.122+05:30 DEBUG 3152 --- [http-nio-0.0.0.0-8081-exec-2] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-15T12:46:27.038+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-2] com.rxincredible.service.EmailService    : Quotation email sent to: rakeshkale375@gmail.com
+2026-05-15T12:46:27.059+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-2] c.rxincredible.service.QuotationService  : Quotation email sent for quotation QUO-C6E004B6 and order ORD-FE51E92F
+2026-05-15T12:46:39.433+05:30  INFO 3152 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-15T12:46:39.440+05:30  INFO 3152 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-15T13:46:39.437+05:30  INFO 3152 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-15T13:46:39.455+05:30  INFO 3152 --- [MessageBroker-1] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-15T13:53:08.845+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-10] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T13:53:22.831+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login attempt for email: ad***@rxincredible.com
+2026-05-15T13:53:22.838+05:30  WARN 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login failed - user not found: ad***@rxincredible.com
+2026-05-15T13:53:30.624+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Login attempt for email: an***@rxincredible.com
+2026-05-15T13:53:30.711+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Login successful for email: an***@rxincredible.com
+2026-05-15T13:53:42.918+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-1] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T13:53:52.978+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : Login attempt for email: sh***@gmail.com
+2026-05-15T13:53:53.056+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : Login successful for email: sh***@gmail.com
+2026-05-15T13:56:51.535+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Creating Razorpay order with amount: USD 1000
+2026-05-15T13:56:51.536+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Operating in TEST mode - using Razorpay test credentials
+2026-05-15T13:56:51.738+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-4] c.rxincredible.service.RazorpayService   : Razorpay order created: order_SpZcUecFhj3z9o
+2026-05-15T13:57:45.117+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-10] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T13:57:53.144+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login attempt for email: mr***@gmail.com
+2026-05-15T13:57:53.226+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Login successful for email: mr***@gmail.com
+2026-05-15T13:57:53.253+05:30 DEBUG 3152 --- [http-nio-0.0.0.0-8081-exec-3] jakarta.mail                             : getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,org.eclipse.angus.mail.smtp.SMTPTransport,Oracle]
+2026-05-15T13:57:56.856+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] com.rxincredible.service.EmailService    : OTP email sent successfully to: mramteke80@gmail.com
+2026-05-15T13:57:56.856+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] com.rxincredible.service.EmailService    : OTP for testing: 852015
+2026-05-15T13:57:56.856+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-3] c.r.controller.AuthController            : Admin OTP sent for email: mr***@gmail.com
+2026-05-15T13:58:08.716+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-2] c.r.controller.AuthController            : Admin OTP verification attempt for email: mr***@gmail.com
+2026-05-15T14:46:39.443+05:30  INFO 3152 --- [MessageBroker-2] c.r.config.OrderExpirationScheduler      : Checking for expired online pharmacy orders...
+2026-05-15T14:46:39.460+05:30  INFO 3152 --- [MessageBroker-2] c.r.config.OrderExpirationScheduler      : No expired online pharmacy orders found
+2026-05-15T15:10:35.386+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-9] c.r.controller.AuthController            : User logged out successfully
+2026-05-15T15:10:42.527+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-5] c.r.controller.AuthController            : Login attempt for email: ac***@rxincredible.com
+2026-05-15T15:10:42.625+05:30  INFO 3152 --- [http-nio-0.0.0.0-8081-exec-5] c.r.controller.AuthController            : Login successful for email: ac***@rxincredible.com
